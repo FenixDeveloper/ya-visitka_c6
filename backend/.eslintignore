@@ -1,0 +1,5 @@
+!.*.js
+**/build/**
+**/dist/**
+**/coverage/**
+**/package-lock.json
