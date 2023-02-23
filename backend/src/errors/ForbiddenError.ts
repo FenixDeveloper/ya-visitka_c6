@@ -1,8 +1,8 @@
 import CustomError from './CustomError';
+import {HTTP_STATUS_FORBIDDEN, MSG_FORBIDDEN} from "../constants";
 
 export default class ForbiddenError extends CustomError {
   constructor() {
-    const errorText = 'Несоответствие роли и операции';
-    super(errorText, 403);
+    super(MSG_FORBIDDEN, HTTP_STATUS_FORBIDDEN);
   }
 }

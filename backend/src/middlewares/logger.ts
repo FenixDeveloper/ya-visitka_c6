@@ -7,7 +7,7 @@ expressWinston.responseWhitelist.push('body');
 export const requestLogger = expressWinston.logger({
   transports: [
     new winston.transports.File({
-      filename: 'LOGS/request.log',
+      filename: 'logs/request.log',
       maxsize: 100000,
     }),
   ],
@@ -17,7 +17,7 @@ export const requestLogger = expressWinston.logger({
 export const errorLogger = expressWinston.errorLogger({
   transports: [
     new winston.transports.File({
-      filename: 'LOGS/error.log',
+      filename: 'logs/error.log',
       maxsize: 100000,
     }),
   ],

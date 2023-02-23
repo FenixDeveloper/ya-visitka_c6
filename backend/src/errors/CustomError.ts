@@ -1,4 +1,4 @@
-import IErrors from './types';
+import IErrors from './index';
 
 export default class CustomError extends Error implements IErrors {
   statusCode: number;

@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import IErrors from '../errors/types';
+import IErrors from '../errors';
+import { HTTP_STATUS_SERVER_ERROR, MSG_SERVER_ERROR } from "../constants";
 
-// eslint-disable-next-line no-unused-vars
 const errorHandler = (
   error: IErrors,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const status = error.statusCode || 500;
+  const status = error.statusCode || HTTP_STATUS_SERVER_ERROR;
   const message =
-    status === 500 ? 'На сервере произошла ошибка' : error.message;
+    status === HTTP_STATUS_SERVER_ERROR ? MSG_SERVER_ERROR : error.message;
 
   res.status(status).send({ message });
 };
