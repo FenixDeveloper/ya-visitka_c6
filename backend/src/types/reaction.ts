@@ -6,7 +6,7 @@ export interface IReaction {
     _id: string;
     name: string;
     email: string;
-  },
+  };
   target: InfoBlockName | null;
 }
 

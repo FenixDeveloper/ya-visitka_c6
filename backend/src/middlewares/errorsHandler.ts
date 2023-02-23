@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import IErrors from '../errors';
-import { HTTP_STATUS_SERVER_ERROR, MSG_SERVER_ERROR } from "../constants";
+import { HTTP_STATUS_SERVER_ERROR, MSG_SERVER_ERROR } from '../constants';
 
 const errorHandler = (
   error: IErrors,
