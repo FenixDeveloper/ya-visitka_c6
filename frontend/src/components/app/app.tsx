@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
-import { LogIn } from "../log-in/log-in";
+import { LogIn } from "../log-in";
 
 import styles from "./app.module.css";
 
@@ -11,11 +11,11 @@ function App() {
     <BrowserRouter>
       <Header />
       <main className={styles.content}>
-        <Routes>
+        <Switch>
           <Route path='/login'>
-            {/* <LogIn /> */}
+            <LogIn />
           </Route>
-        </Routes>
+        </Switch>
       </main>
       <Footer />
     </BrowserRouter>
