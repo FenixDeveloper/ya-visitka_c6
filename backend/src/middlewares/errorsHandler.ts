@@ -8,11 +8,11 @@ const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  const status = error.statusCode || HTTP_STATUS_SERVER_ERROR;
-  const message =
-    status === HTTP_STATUS_SERVER_ERROR ? MSG_SERVER_ERROR : error.message;
-
-  res.status(status).send({ message });
+  const { statusCode = HTTP_STATUS_SERVER_ERROR, message } = error;
+  res.status(statusCode).send(
+    { message: statusCode === HTTP_STATUS_SERVER_ERROR ? MSG_SERVER_ERROR : message },
+  );
+  next();
 };
 
 export default errorHandler;

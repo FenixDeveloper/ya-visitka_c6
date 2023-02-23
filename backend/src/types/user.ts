@@ -1,3 +1,4 @@
+import { Document, Model } from 'mongoose';
 import { IProfile } from './profile';
 import { Info } from './info';
 import { ICommentReaction, IEmotionReaction } from './reaction';
@@ -11,4 +12,9 @@ export interface IUser {
   profile: IProfile;
   info: Info;
   reactions: Array<ICommentReaction | IEmotionReaction>;
+}
+
+export interface IUserModel extends Model<IUser> {
+  // eslint-disable-next-line no-unused-vars
+  findUserByEmailAndCohort: (email: string, cohort: string) => Promise<Document<IUser>>
 }
