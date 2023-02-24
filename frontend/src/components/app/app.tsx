@@ -8,9 +8,6 @@ import styles from './app.module.css';
 import { SwitchProfile } from '../switch-profile/switch-profile';
 import { AppContext } from '../../AppContext ';
 import { getUser } from '../../mockApi';
-import Tooltip from '../tooltip/tooltip';
-import CommentPost from '../comment-post/comment-post';
-import CommentButton from '../comment-button/comment-button';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<any>({});
@@ -46,8 +43,6 @@ function App() {
           <PrivateRoute path="/"></PrivateRoute>
         </Switch>
       </main>
-      <CommentButton commentCount={2} viewed={false} />
-      <Tooltip children={<CommentPost children={<button />} />} />
       <Footer />
     </>
   );

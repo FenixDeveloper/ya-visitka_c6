@@ -1,13 +1,9 @@
-import { ReactNode } from 'react';
+import styles from './comment-post.module.css';
 
-interface CommentPostProps {
-  children: ReactNode;
-}
+interface CommentPostProps {}
 
 function CommentPost(props: CommentPostProps) {
-  const { children } = props;
-
-  return <div>{children}</div>;
+  return <div className={styles.container}></div>;
 }
 
 export default CommentPost;

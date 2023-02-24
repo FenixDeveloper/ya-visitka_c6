@@ -6,13 +6,19 @@ const tooltipRoot = document.getElementById('tooltips') as HTMLElement;
 
 interface TooltipProps {
   children: ReactNode;
+  offset: { top: number; left: number };
 }
 
 function Tooltip(props: TooltipProps) {
-  const { children } = props;
+  const { children, offset } = props;
 
   return ReactDOM.createPortal(
-    <section className={styles.modal}>{children}</section>,
+    <section
+      className={styles.tooltip}
+      style={{ top: `${offset.top}px`, right: `${offset.left}px` }}
+    >
+      {children}
+    </section>,
     tooltipRoot,
   );
 }
