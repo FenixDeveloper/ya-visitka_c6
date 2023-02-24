@@ -1,5 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
+import { PrivateRoute } from "../private-route";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { LogIn } from "../log-in";
@@ -7,18 +13,29 @@ import { LogIn } from "../log-in";
 import styles from "./app.module.css";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState<any>({});
+  const history = useHistory();
+
+
+  useEffect(() => {
+    setCurrentUser({});
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Header />
-      <main className={styles.content}>
-        <Switch>
-          <Route path='/login'>
-            <LogIn />
-          </Route>
-        </Switch>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <>
+    <Header />
+        <main className={styles.content}>
+          <Switch>
+            <Route path='/login'>
+              <LogIn />
+            </Route>
+            <PrivateRoute path="/">
+           
+            </PrivateRoute>
+          </Switch>
+        </main>
+        <Footer />
+    </> 
   );
 }
 
