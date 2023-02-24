@@ -3,6 +3,7 @@ import { celebrate, Joi } from 'celebrate';
 import { isObjectIdOrHexString } from 'mongoose';
 import { CustomHelpers } from 'joi';
 import {
+  MSG_FIELD_REQUIRED,
   MSG_INCORRECT_DATE,
   MSG_INCORRECT_GEOCODE,
   MSG_INCORRECT_ID,
@@ -32,16 +33,33 @@ const methodValidateId = (id: string, helpers: CustomHelpers) => {
   return helpers.error('any.invalid');
 };
 
-export const isUserIdValid = celebrate({
+export const isPostUserValid = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email().messages({
+      'any.required': USER_ERR_EMAIL_EMPTY,
+      'string.email': USER_ERR_EMAIL,
+    }),
+    cohort: Joi.string().required().message(MSG_FIELD_REQUIRED),
+  }),
+});
+
+export const isPutUserValid = celebrate({
   params: Joi.object().keys({
     userId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
       'any.invalid': MSG_INCORRECT_ID,
       'any.required': MSG_PAR_REQUIRED,
     }),
   }),
+  body: Joi.object().keys({
+    email: Joi.string().required().email().messages({
+      'any.required': USER_ERR_EMAIL_EMPTY,
+      'string.email': USER_ERR_EMAIL,
+    }),
+    cohort: Joi.string().required().message(MSG_FIELD_REQUIRED),
+  }),
 });
 
-export const isCommentdIdValid = celebrate({
+export const isCommentIdValid = celebrate({
   params: Joi.object().keys({
     commentId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
       'any.invalid': MSG_INCORRECT_ID,
@@ -50,7 +68,22 @@ export const isCommentdIdValid = celebrate({
   }),
 });
 
-export const isUserBodyValid = celebrate({
+export const isProfileIdValid = celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
+      'any.invalid': MSG_INCORRECT_ID,
+      'any.required': MSG_PAR_REQUIRED,
+    }),
+  }),
+});
+
+export const isPatchProfileValid = celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
+      'any.invalid': MSG_INCORRECT_ID,
+      'any.required': MSG_PAR_REQUIRED,
+    }),
+  }),
   body: Joi.object().keys({
     profile: Joi.object({
       name: Joi.string(),
