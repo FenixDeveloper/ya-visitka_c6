@@ -19,7 +19,7 @@ const AppProvider: React.FC = ({ children }) => {
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       {children}
-    </AppContext.Provider >
+    </AppContext.Provider>
   );
 };
 

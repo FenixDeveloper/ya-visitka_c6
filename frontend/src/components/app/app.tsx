@@ -6,7 +6,7 @@ import { Footer } from "../footer/footer";
 import { LogIn } from "../log-in";
 import styles from "./app.module.css";
 import { SwitchProfile } from "../switch-profile/switch-profile";
-import { AppContext } from "../../AppContext ";
+import { AppContext } from "../../AppContext";
 import { getUser } from "../../mockApi";
 
 function App() {
