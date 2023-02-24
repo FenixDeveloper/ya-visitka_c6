@@ -21,6 +21,8 @@ export const MSG_FORBIDDEN = 'Вам не разрешена данная опе
 export const MSG_UNAUTHORIZED = 'Неверная почта или когорта';
 export const MSG_FIELD_REQUIRED = 'Это обязательное поле';
 export const MSG_INCORRECT_EMAIL = 'Некорректный e-mail';
+export const MSG_INCORRECT_ID = 'Некорректное значение id';
+export const MSG_PAR_REQUIRED = 'Это обязательный параметр';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';
