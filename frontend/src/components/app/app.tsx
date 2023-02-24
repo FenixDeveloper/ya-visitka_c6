@@ -8,6 +8,7 @@ import styles from "./app.module.css";
 import { SwitchProfile } from "../switch-profile/switch-profile";
 import { AppContext } from "../../AppContext ";
 import { getUser } from "../../mockApi";
+import Maps from '../maps/maps';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<any>({});
@@ -23,9 +24,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const userId = localStorage.getItem("user");
+    const userId = localStorage.getItem('user');
     if (userId) {
-      dispatch({ type: "success", results: getUser(Number.parseInt(userId)) });
+      dispatch({ type: 'success', results: getUser(Number.parseInt(userId)) });
     }
   }, [dispatch]);
 
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path='/switch-profile'>
             <SwitchProfile />
+          </Route>
+          <Route path='/maps'>
+            <Maps />
           </Route>
           <PrivateRoute path='/'></PrivateRoute>
         </Switch>

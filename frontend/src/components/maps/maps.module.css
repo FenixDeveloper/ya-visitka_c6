@@ -1,0 +1,53 @@
+.map {
+  width: 100%;
+  height: 955px;
+  max-height: 75vh;
+}
+.balloonContainer {
+  background-color: #fff;
+  border-radius: 6px;
+  min-width: 175px;
+  min-height: 54px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.balloonHeaderContainer{
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 6px 2px;
+  gap: 4px;
+}
+
+.balloonHeader {
+  white-space: nowrap;
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  color: #100c34;
+}
+.balloonPlace {
+  margin: 0 77px 4px 34px;
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #a3a3a3;
+}
+
+.balloonAva{
+  display: block;
+  width: 24px;
+  height: 24px;
+    border-radius: 50%;
+}
+
+[class*='balloon__tail']::after {
+  display: none;
+}
