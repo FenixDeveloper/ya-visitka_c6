@@ -1,6 +1,7 @@
 // App
 export const DEFAULT_PORT = 3001;
-export const DEFAULT_DB_URL = 'mongodb://localhost:27017/visitkadb';
+export const DEFAULT_DB_URL = 'mongodb://127.0.0.1:27017/visitkadb';
+export const DEFAULT_SESSION_SECRET = 'secret';
 
 // HTTP Statuses
 export const HTTP_STATUS_BAD_REQUEST = 400;
@@ -21,6 +22,7 @@ export const MSG_FORBIDDEN = 'Вам не разрешена данная опе
 export const MSG_UNAUTHORIZED = 'Неверная почта или когорта';
 export const MSG_FIELD_REQUIRED = 'Это обязательное поле';
 export const MSG_INCORRECT_EMAIL = 'Некорректный e-mail';
+export const MSG_USER_NOT_FOUND = 'Пользователь не найден';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';
@@ -29,3 +31,8 @@ export const USER_ERR_EMAIL = 'Не корректно задан e-mail';
 // Roles
 export const ROLE_CURATOR = 'CURATOR';
 export const ROLE_STUDENT = 'STUDENT';
+
+// Yandex OAuth
+export const OAUTH_URL = 'https://oauth.yandex.ru/authorize?response_type=code';
+export const TOKEN_URL = 'https://oauth.yandex.ru/token';
+export const PROFILE_URL = 'https://login.yandex.ru/info?format=jwt';
