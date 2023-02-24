@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useHistory } from "react-router-dom";
-import { AppContext } from '../../AppContext ';
+import { AppContext } from '../../AppContext';
 import { getUser, reset } from '../../mockApi';
 import styles from './switch-profile.module.css';
 
