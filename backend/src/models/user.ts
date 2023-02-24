@@ -19,8 +19,8 @@ const userSchema = new Schema<IUser>({
   },
 });
 
-userSchema.static('findUserByEmailAndCohort', function findUserByEmailAndCohort(email: string, cohort: string) {
-  return this.findOne({ email, cohort })
+userSchema.static('findUserByEmail', function findUserByEmail(email: string) {
+  return this.findOne({ email })
     .then((user: IUser | null) => {
       if (!user) {
         return Promise.reject(new UnauthorizedError());

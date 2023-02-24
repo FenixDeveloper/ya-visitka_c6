@@ -15,7 +15,7 @@ export const getUsers = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
-  const { email, cohort } = req.body;
+  const { email } = req.body;
   const { JWT_SECRET = TOKEN_SECRET, CURATORS } = process.env;
   const curators = CURATORS ? CURATORS.split(',') : [];
   if (curators.includes(email)) {
@@ -27,7 +27,7 @@ export const login = (req: Request, res: Response, next: NextFunction) => {
       ),
     });
   }
-  return User.findUserByEmailAndCohort(email, cohort)
+  return User.findUserByEmail(email)
     .then((user) => {
       res.send({
         token: jwt.sign(

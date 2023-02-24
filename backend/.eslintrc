@@ -30,6 +30,7 @@
     ]
   },
   "rules": {
+    "import/no-extraneous-dependencies": ["error", {"peerDependencies": true}],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "import/extensions": [
       "error",

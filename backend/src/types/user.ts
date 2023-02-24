@@ -16,5 +16,5 @@ export interface IUser {
 
 export interface IUserModel extends Model<IUser> {
   // eslint-disable-next-line no-unused-vars
-  findUserByEmailAndCohort: (email: string, cohort: string) => Promise<Document<IUser>>
+  findUserByEmail: (email: string) => Promise<Document<IUser>>
 }
