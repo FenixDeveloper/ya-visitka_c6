@@ -22,6 +22,11 @@ export const MSG_FORBIDDEN = 'Вам не разрешена данная опе
 export const MSG_UNAUTHORIZED = 'Неверная почта или когорта';
 export const MSG_FIELD_REQUIRED = 'Это обязательное поле';
 export const MSG_INCORRECT_EMAIL = 'Некорректный e-mail';
+export const MSG_INCORRECT_ID = 'Некорректное значение id';
+export const MSG_PAR_REQUIRED = 'Это обязательный параметр';
+export const MSG_INCORRECT_URL = 'Некорректная ссылка';
+export const MSG_INCORRECT_DATE = 'Дата должна быть в формате: год-месяц-день';
+export const MSG_INCORRECT_GEOCODE = 'Некорректные координаты';
 export const MSG_USER_NOT_FOUND = 'Пользователь не найден';
 
 // User messages
@@ -31,6 +36,9 @@ export const USER_ERR_EMAIL = 'Не корректно задан e-mail';
 // Roles
 export const ROLE_CURATOR = 'CURATOR';
 export const ROLE_STUDENT = 'STUDENT';
+
+// Regex
+export const regexUrl = /^https?:\/\/([\d\w.-]+)\.([\w.]{2,6})(\/?\S+)?$/;
 
 // Yandex OAuth
 export const OAUTH_URL = 'https://oauth.yandex.ru/authorize?response_type=code';
