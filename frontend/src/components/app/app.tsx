@@ -15,20 +15,7 @@ function App() {
   const { state, dispatch } = useContext(AppContext);
 
   const auth = (): any => {
-    console.log('auth');
     history.push('/switch-profile');
-    // return (
-    //   <Route
-    //     render={({ location }) => {
-    //       return <Redirect
-    //           to={{
-    //             pathname: "/switch-profile",
-    //             state: { from: location },
-    //           }}
-    //         />
-    //     }}
-    //   />
-    // );
   };
 
   useEffect(() => {
