@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { AppContext } from '../../utils/AppContext';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppContext } from '../../AppContext ';
 import { useResize } from '../../hooks/use-resize';
 import { comments, emojies, getUser, reset } from '../../mockApi';
 import CommentButton from '../comment-button/comment-button';
@@ -16,6 +16,7 @@ export const SwitchProfile = () => {
 
   const renderUserInfo = () => {
     if (state.data) {
+      console.log(state.data);
       const userInfo = state.data;
       return (
         <>
@@ -60,6 +61,12 @@ export const SwitchProfile = () => {
   }, [width]);
   // Конец блока CommentPost
 
+  const setUser = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    dispatch({ type: 'success', results: getUser(id) });
+    history.replace({ pathname: "/" });
+  }
+
   return (
     <div className={styles.section}>
       {/* Начало блока CommentPost */}
@@ -76,22 +83,10 @@ export const SwitchProfile = () => {
         />
       )}
       {/* Конец блока CommentPost */}
-
-      <button
-        onClick={(_) => dispatch({ type: 'success', results: getUser(0) })}
-      >
-        Студент №1
-      </button>
-      <button
-        onClick={(_) => dispatch({ type: 'success', results: getUser(1) })}
-      >
-        Студент №2
-      </button>
-      <button
-        onClick={(_) => dispatch({ type: 'success', results: getUser(2) })}
-      >
-        Куратор
-      </button>
+      
+      <button onClick={(e) => setUser(e, 0)}>Студент  №1</button>
+      <button onClick={(e) => setUser(e, 1)}>Студент  №2</button>
+      <button onClick={(e) => setUser(e, 2)}>Куратор</button>
       <button onClick={resetHandler}>reset</button>
       {renderUserInfo()}
     </div>

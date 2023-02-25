@@ -1,23 +1,28 @@
 import { useContext } from "react";
-import { Route, Redirect, useLocation } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
+import { State } from '../../reducer';
 
-import { CurrentUserContext } from "../../utils/CurrentUserContext";
+import { AppContext } from "../../utils/AppContext";
 
 export const PrivateRoute = ({ children, ...rest }: any) => {
-  // const [user]: any = useContext(CurrentUserContext);
+  const { state } = useContext(AppContext);
+  console.log(state.data);
   // const isAuth = !!user;
-  let location = useLocation();
+
 
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        return <Redirect
+        return state.data ? (
+          children
+        ) : (<Redirect
             to={{
               pathname: "/login",
               state: { from: location },
             }}
           />
+        );
 
         // return isAuth ? (
         //   children
