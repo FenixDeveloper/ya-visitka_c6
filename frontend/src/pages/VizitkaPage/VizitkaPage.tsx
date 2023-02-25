@@ -25,7 +25,7 @@ const vizitkaData =
 export const VizitkaPage = (props1: any) => {
 
   return (
-    <section className={styles.main}>
+    <section className={styles.vizitka}>
       <Vizitka 
         name = {vizitkaData.name}
         image = {vizitkaData.image}

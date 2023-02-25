@@ -3,6 +3,7 @@ import styles from "./Vizitka.module.css";
 import { IVizitka } from "../../utils/types";
 import telegram_logo from './telegram.svg';
 import github_logo from './GitHub.svg';
+import quotes_img from './quotes.svg';
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
@@ -22,10 +23,11 @@ const Vizitka: FC<IVizitka> = (props) => {
           </div>
         </li>
         <li className={styles.block}>
-        <img src={props.image} alt='Фотоп персоны' />
+        <img src={props.image} alt='Фотоп персоны' className={styles.image}/>
         </li>
-        <li className={styles.block}>
-        <p>
+        <li className={styles.quotesBlock}>
+        <img src={quotes_img} alt='Лого GitHun' className={styles.quotesImg} />
+        <p className={styles.quotes}>
             {props.quotes}
           </p>
         </li>

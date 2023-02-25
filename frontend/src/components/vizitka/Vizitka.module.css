@@ -15,7 +15,7 @@
   display: grid;
   row-gap: 56px;
   column-gap: 70px;
-  grid-template-columns: repeat(3, 440px);
+  grid-template-columns: 440px 440px 325px;
   margin-bottom: 72px;
 }
 
@@ -31,6 +31,11 @@
 
 .city {
   margin: 97px 0 25px;
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .logoBlock {
@@ -87,11 +92,51 @@
   height: 130px;
 }
 
+.quotes {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #100c34;
+  margin: 8px 0 0 0;
+  width: 233px;
+}
+
+.quotesBlock {
+  list-style: none;
+  padding-left: 18px;
+}
+
+.image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 @media screen and (max-width: 1088px) {
   .blocks {
     grid-template-columns: repeat(2, 342px);
     row-gap: 32px;
     column-gap: 20px;
+  }
+
+  .mainBlocks {
+    row-gap: 32px;
+    column-gap: 67px;
+    grid-template-columns: 295px 342px;
+    margin-bottom: 32px;
+  }
+
+  .name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .quotesBlock {
+    padding: 0;
+    grid-row: 2;
+    grid-column: 2;
   }
 }
 
@@ -99,5 +144,26 @@
   .blocks {
     grid-template-columns: repeat(1, 272px);
     justify-content: center;
+  }
+
+  .mainBlocks {
+    row-gap: 35px;
+    grid-template-columns: 272px;
+    justify-content: center;
+  }
+
+  .quotesBlock {
+    padding: 0;
+    grid-row: 3;
+    grid-column: 1;
+  }
+
+  .name {
+    font-size: 32px;
+    font-family: 'IBM Plex Sans';
+  }
+
+  .city {
+    margin: 24px 0 27px;
   }
 }
