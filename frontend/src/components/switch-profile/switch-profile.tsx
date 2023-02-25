@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
-import { AppContext } from '../../AppContext';
+import { AppContext } from '../../utils/AppContext';
 import { getUser, reset } from '../../mockApi';
 import styles from './switch-profile.module.css';
 
@@ -11,6 +11,7 @@ export const SwitchProfile = () => {
 
   const renderUserInfo = () => {
     if (state.data) {
+      console.log(state.data);
       const userInfo = state.data;
       return (<>
         <p>{userInfo.name}</p>
@@ -28,12 +29,17 @@ export const SwitchProfile = () => {
     history.push('/login');
   }
 
-  console.log(state)
+  const setUser = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    dispatch({ type: 'success', results: getUser(id) });
+    history.replace({ pathname: "/" });
+  }
+
   return (
     <div className={styles.section}>
-      <button onClick={_ => dispatch({ type: 'success', results: getUser(0) })}>Студент  №1</button>
-      <button onClick={_ => dispatch({ type: 'success', results: getUser(1) })}>Студент  №2</button>
-      <button onClick={_ => dispatch({ type: 'success', results: getUser(2) })}>Куратор</button>
+      <button onClick={(e) => setUser(e, 0)}>Студент  №1</button>
+      <button onClick={(e) => setUser(e, 1)}>Студент  №2</button>
+      <button onClick={(e) => setUser(e, 2)}>Куратор</button>
       <button onClick={resetHandler}>reset</button>
       {renderUserInfo()}
     </div >
