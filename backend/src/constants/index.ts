@@ -39,7 +39,7 @@ export const ROLE_CURATOR = 'CURATOR';
 export const ROLE_STUDENT = 'STUDENT';
 
 // Regex
-export const regexUrl = /^https?:\/\/([\d\w.-]+)\.([\w.]{2,6})(\/?\S+)?$/;
+export const regexUrl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:?#[\]@!$&'()*+,;=.]+$/;
 
 // Yandex OAuth
 export const OAUTH_URL = 'https://oauth.yandex.ru/authorize?response_type=code';
