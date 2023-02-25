@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../../AppContext ';
-import { getUser, reset } from '../../mockApi';
+import { comments, emojies, getUser, reset } from '../../mockApi';
 import CommentButton from '../comment-button/comment-button';
 import CommentPost from '../comment-post/comment-post';
 import Tooltip from '../tooltip/tooltip';
@@ -56,14 +56,14 @@ export const SwitchProfile = () => {
     <div className={styles.section}>
       {/* Начало блока CommentPost */}
       <CommentButton
-        commentCount={2}
+        commentCount={200}
         viewed={false}
         handleOpenComment={handleOpenComment}
         commentBtnRef={commentBtnRef}
       />
       {commentVisible && (
         <Tooltip
-          children={<CommentPost />}
+          children={<CommentPost comments={comments} emojies={emojies} />}
           offset={{ top: tooptipTop, left: tooptipLeft }}
         />
       )}

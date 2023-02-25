@@ -24,7 +24,7 @@ function CommentButton(props: CommentButtonProps) {
     >
       {commentCount > 0 && (
         <p className={styles.count} style={countStyle}>
-          {commentCount}
+          {commentCount > 99 ? '99+' : commentCount}
         </p>
       )}
     </button>
