@@ -8,6 +8,48 @@
   grid-template-columns: repeat(2, 440px);
 }
 
+.mainBlocks {
+  align-self: center;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  row-gap: 56px;
+  column-gap: 70px;
+  grid-template-columns: repeat(3, 440px);
+  margin-bottom: 72px;
+}
+
+.name {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 60px;
+  color: #100c34;
+  margin: 0;
+}
+
+.city {
+  margin: 97px 0 25px;
+}
+
+.logoBlock {
+  display: flex;
+}
+
+.logo {
+  width: 27px;
+  height: 27px;
+  margin-right: 25px;
+}
+
+.nameBlock {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .aboutBlock {
   display: flex;
   flex-direction: column;

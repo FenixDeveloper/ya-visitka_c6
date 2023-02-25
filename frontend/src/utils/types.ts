@@ -13,7 +13,7 @@ export interface IDropdownList {
 export interface IVizitka {
   name:string;
   image: string;
-  motto: string;
+  quotes: string;
   city: string;
   contacts: {
     telegram: string;

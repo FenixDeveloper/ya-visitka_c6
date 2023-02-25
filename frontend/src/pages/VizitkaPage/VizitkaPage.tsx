@@ -8,7 +8,7 @@ const vizitkaData =
 {
   name: 'Виктория Листвиновская',
   image: person_img,
-  motto: 'Делай, что должно и будь, что будет.',
+  quotes: 'Делай, что должно и будь, что будет.',
   city: 'Калуга',
   contacts: {
     telegram: 'https://t.me/person',
@@ -29,7 +29,7 @@ export const VizitkaPage = (props1: any) => {
       <Vizitka 
         name = {vizitkaData.name}
         image = {vizitkaData.image}
-        motto = {vizitkaData.motto}
+        quotes = {vizitkaData.quotes}
         city = {vizitkaData.city}
         contacts = {vizitkaData.contacts}
         hobby = {vizitkaData.hobby}

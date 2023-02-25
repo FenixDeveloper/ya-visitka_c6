@@ -1,11 +1,35 @@
 import { FC } from "react";
 import styles from "./Vizitka.module.css";
 import { IVizitka } from "../../utils/types";
+import telegram_logo from './telegram.svg';
+import github_logo from './GitHub.svg';
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   return (
     <section>
+      <ul className={styles.mainBlocks}>
+        <li className={styles.nameBlock}>
+          <p className={styles.name}>
+            {props.name}
+          </p>
+          <p className={styles.city}>
+            {props.city}
+          </p>
+          <div className={styles.logoBlock}>
+          <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
+          <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+          </div>
+        </li>
+        <li className={styles.block}>
+        <img src={props.image} alt='Фотоп персоны' />
+        </li>
+        <li className={styles.block}>
+        <p>
+            {props.quotes}
+          </p>
+        </li>
+      </ul>
        <ul className={styles.blocks}>
         {blocksTitle.map((item, index) => (
           <li className={styles.block}>
