@@ -34,8 +34,6 @@ export const SwitchProfile = () => {
     history.push('/login');
   };
 
-  console.log(state);
-
   // Начало блока CommentPost
   // Переменные для всплывающего окна с комментариями
   const commentBtnRef = useRef(null);
@@ -60,10 +58,16 @@ export const SwitchProfile = () => {
   }, [width]);
   // Конец блока CommentPost
 
-  const setUser = (e: React.MouseEvent, id: number) => {
+  const setUser = async (e: React.MouseEvent, id: number) => {
     e.preventDefault();
-    dispatch({ type: 'success', results: getUser(id) });
-    history.replace({ pathname: "/" });
+    const user = await getUser(id);
+    dispatch({ type: 'success', results: user });
+    if (user.role === 'student') {
+      history.replace({ pathname: "/" });
+    } else if (user.role === 'curator') {
+      history.replace({ pathname: "/curator" });
+    }
+    
   }
 
   return (
