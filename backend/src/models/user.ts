@@ -9,7 +9,8 @@ import {
 import DataNotFoundError from '../errors/NotFoundError';
 import UnauthorizedError from '../errors/UnauthorizedError';
 import { IUser, IUserModel } from '../types/user';
-import { isEmail, isUrl } from '../validators/user';
+import { isEmail } from '../validators/user';
+import { isUrl } from '../validators/profile';
 
 const infoBlockSchema = new Schema<IInfoBlock>({
   text: {
