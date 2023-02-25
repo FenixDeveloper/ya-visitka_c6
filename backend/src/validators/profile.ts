@@ -30,13 +30,17 @@ export const isPatchProfileValid = celebrate({
   }),
   body: Joi.object().keys({
     profile: Joi.object({
-      name: Joi.string().required().message(MSG_FIELD_REQUIRED),
-      photo: Joi.string().uri().allow(null)
-        .message(MSG_INCORRECT_URL),
+      name: Joi.string().required().messages({
+        'any.required': MSG_FIELD_REQUIRED,
+      }),
+      photo: Joi.string().uri().allow(null).messages({
+        'string.uri': MSG_INCORRECT_URL,
+      }),
       city: Joi.object({
         name: Joi.string(),
-        geocode: Joi.array().items(Joi.number()).length(2)
-          .message(MSG_INCORRECT_GEOCODE),
+        geocode: Joi.array().items(Joi.number()).length(2).messages({
+          'any.invalid': MSG_INCORRECT_GEOCODE,
+        }),
       }).allow(null),
       birthday: Joi.date().iso().allow(null).messages({
         'date.format': MSG_INCORRECT_DATE,

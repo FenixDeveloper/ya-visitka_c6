@@ -16,8 +16,12 @@ export const isPostReactionTextValid = celebrate({
     }),
   }),
   body: Joi.object().keys({
-    target: Joi.string().valid(...TARGET_ARR).allow(null).message(MSG_INCORRECT_TARGET),
-    text: Joi.string().required().message(MSG_FIELD_REQUIRED),
+    target: Joi.string().valid(...TARGET_ARR).allow(null).messages({
+      'any.invalid': MSG_INCORRECT_TARGET,
+    }),
+    text: Joi.string().required().messages({
+      'any.required': MSG_FIELD_REQUIRED,
+    }),
   }),
 });
 
@@ -29,7 +33,11 @@ export const isPostReactionEmotionValid = celebrate({
     }),
   }),
   body: Joi.object().keys({
-    target: Joi.string().valid(...TARGET_ARR).allow(null).message(MSG_INCORRECT_TARGET),
-    emotion: Joi.string().required().message(MSG_FIELD_REQUIRED),
+    target: Joi.string().valid(...TARGET_ARR).allow(null).messages({
+      'any.invalid': MSG_INCORRECT_TARGET,
+    }),
+    emotion: Joi.string().required().messages({
+      'any.required': MSG_FIELD_REQUIRED,
+    }),
   }),
 });
