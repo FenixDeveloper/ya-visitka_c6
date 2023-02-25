@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  mongodb:
+    image: mongo:5.0.15
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./DB:/data/db
+    env_file:
+      - ./backend/.env
