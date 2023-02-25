@@ -39,7 +39,9 @@ export const isPostUserValid = celebrate({
       'any.required': USER_ERR_EMAIL_EMPTY,
       'string.email': USER_ERR_EMAIL,
     }),
-    cohort: Joi.string().required().message(MSG_FIELD_REQUIRED),
+    cohort: Joi.string().required().messages({
+      'any.required': MSG_FIELD_REQUIRED,
+    }),
   }),
 });
 
@@ -55,7 +57,9 @@ export const isPutUserValid = celebrate({
       'any.required': USER_ERR_EMAIL_EMPTY,
       'string.email': USER_ERR_EMAIL,
     }),
-    cohort: Joi.string().required().message(MSG_FIELD_REQUIRED),
+    cohort: Joi.string().required().messages({
+      'any.required': MSG_FIELD_REQUIRED,
+    }),
   }),
 });
 
@@ -94,8 +98,9 @@ export const isPatchProfileValid = celebrate({
         geocode: Joi.array().items(Joi.number()).length(2)
           .message(MSG_INCORRECT_GEOCODE),
       }).allow(null),
-      birthday: Joi.date().iso().allow(null)
-        .message(MSG_INCORRECT_DATE),
+      birthday: Joi.date().iso().allow(null).messages({
+        'string.isoDate': MSG_INCORRECT_DATE,
+      }),
       quote: Joi.string().allow(''),
       telegram: Joi.string().allow(null),
       github: Joi.string().allow(null),
@@ -104,23 +109,27 @@ export const isPatchProfileValid = celebrate({
     info: Joi.object({
       hobby: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null)
-          .message(MSG_INCORRECT_URL),
+        image: Joi.string().uri().default(null).allow(null).messages({
+          'string.uri': MSG_INCORRECT_URL,
+        }),
       }),
       status: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null)
-          .message(MSG_INCORRECT_URL),
+        image: Joi.string().uri().default(null).allow(null).messages({
+          'string.uri': MSG_INCORRECT_URL,
+        }),
       }),
       job: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null)
-          .message(MSG_INCORRECT_URL),
+        image: Joi.string().uri().default(null).allow(null).messages({
+          'string.uri': MSG_INCORRECT_URL,
+        }),
       }),
       edu: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null)
-          .message(MSG_INCORRECT_URL),
+        image: Joi.string().uri().default(null).allow(null).messages({
+          'string.uri': MSG_INCORRECT_URL,
+        }),
       }),
     }),
   }),
