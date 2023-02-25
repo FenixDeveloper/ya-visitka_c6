@@ -2,11 +2,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 
-import {
-  MSG_SERVER_ERROR,
-  PROFILE_URL,
-  TOKEN_URL,
-} from '../constants';
+import { MSG_SERVER_ERROR, PROFILE_URL, TOKEN_URL } from '../constants';
 import InternalServerError from '../errors/InternalServerError';
 
 dotenv.config();
@@ -19,16 +15,16 @@ const yandexAuthMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    const { code } = req.query;
+    const { code, client_id } = req.body;
 
-    if (code && typeof code === 'string') {
+    if (code && client_id) {
       const response = await fetch(TOKEN_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
           grant_type: 'authorization_code',
           code,
-          client_id: CLIENT_ID,
+          client_id: client_id || CLIENT_ID,
           client_secret: CLIENT_SECRET,
         }),
       });

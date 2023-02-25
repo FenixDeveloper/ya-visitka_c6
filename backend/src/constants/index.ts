@@ -29,8 +29,8 @@ export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';
 export const USER_ERR_EMAIL = 'Не корректно задан e-mail';
 
 // Roles
-export const ROLE_CURATOR = 'CURATOR';
-export const ROLE_STUDENT = 'STUDENT';
+export const ROLE_CURATOR = 'curator';
+export const ROLE_STUDENT = 'student';
 
 // Yandex OAuth
 export const OAUTH_URL = 'https://oauth.yandex.ru/authorize?response_type=code';
