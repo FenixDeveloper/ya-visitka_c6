@@ -5,9 +5,9 @@ import icon from "../../images/icons/comment.svg";
 
 const ProfileCard: FC<IProfileCard> = (props) => {
   return (
-    <li className={styles.card} key={props.key}>
+    <li className={styles.card}>
       <img src={props.image} className={styles.image} alt="Фото человека" />
-      {props.comments_number != 0 && (
+      {props.comments_number !== 0 && (
         <div className={styles.comments_number}>{props.comments_number}</div>
       )}
       <img src={icon} className={styles.icon} alt="Иконка комментариев" />

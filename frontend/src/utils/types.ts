@@ -3,7 +3,6 @@ export interface IProfileCard {
   city: string;
   name:string;
   comments_number: number;
-  key?:number;
 }
 
 export interface IDropdownList {
