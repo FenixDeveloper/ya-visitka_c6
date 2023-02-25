@@ -1,26 +1,19 @@
-import React, { useState, useEffect, useContext, FC } from "react";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { PrivateRoute } from "../private-route";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { LogIn } from "../log-in";
 import styles from "./app.module.css";
 import { SwitchProfile } from "../switch-profile/switch-profile";
-import { AppContext } from "../../AppContext ";
+import { AppContext } from "../../utils/AppContext";
 import { getUser } from "../../mockApi";
+import MainPage from "../../pages/MainPage/MainPage";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<any>({});
+  // const [currentUser, setCurrentUser] = useState<any>({});
   const history = useHistory();
   const { state, dispatch } = useContext(AppContext);
-
-  const auth = (): any => {
-    history.push('/switch-profile');
-  };
-
-  useEffect(() => {
-    setCurrentUser({});
-  }, []);
 
   useEffect(() => {
     const userId = localStorage.getItem("user");
@@ -35,12 +28,14 @@ function App() {
       <main className={styles.content}>
         <Switch>
           <Route path='/login'>
-            <LogIn auth={auth} />
+            <LogIn/>
           </Route>
           <Route path='/switch-profile'>
             <SwitchProfile />
           </Route>
-          <PrivateRoute path='/'></PrivateRoute>
+          <PrivateRoute path='/'>
+            <MainPage />
+          </PrivateRoute>
         </Switch>
       </main>
       <Footer />
