@@ -46,6 +46,7 @@
   width: 27px;
   height: 27px;
   margin-right: 25px;
+  cursor: pointer;
 }
 
 .nameBlock {
@@ -55,14 +56,36 @@
   justify-content: flex-end;
 }
 
+.flexWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .aboutBlock {
   display: flex;
   flex-direction: column;
   border-top: solid rgba(16, 12, 52, 1) 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.hobbyBlock {
+  display: flex;
+  flex-direction: column;
+  border-top: solid rgba(16, 12, 52, 1) 3px;
+  cursor: pointer;
+  position: relative;
 }
 
 .block {
   list-style: none;
+}
+
+.imageBlock {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
 }
 
 .aboutBlockTitle {
@@ -106,6 +129,14 @@
 .quotesBlock {
   list-style: none;
   padding-left: 18px;
+  position: relative;
+  cursor: pointer;
+  align-self: center;
+}
+
+.quotes_comments_block {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .image {
@@ -114,7 +145,120 @@
   object-fit: cover;
 }
 
+.comments_number {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  background: #100c34;
+  border-radius: 40px;
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  z-index: 3;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  transition: opacity 0.2s linear;
+}
+
+.comments_number_block {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  background: #100c34;
+  border-radius: 40px;
+  z-index: 200;
+  margin-right: -33px;
+  margin-top: -8px;
+  z-index: 3;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  transition: opacity 0.2s linear;
+}
+
+.icon {
+  opacity: 0;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 27px;
+  height: 27px;
+  transition: opacity 0.2s linear;
+}
+
+.icon_block {
+  opacity: 0;
+  /* position: absolute;
+  top: 18px; */
+  right: 18px;
+  width: 27px;
+  height: 27px;
+  transition: opacity 0.2s linear;
+}
+
+.imageBlock:hover .icon {
+  opacity: 1;
+}
+
+.imageBlock:hover .comments_number {
+  opacity: 1;
+}
+
+.imageBlock:hover .image {
+  box-shadow: 0px 0px 0px 2px #ff00a8;
+  box-sizing: border-box;
+}
+
+.quotesBlock:hover .icon_block {
+  opacity: 1;
+}
+
+.quotesBlock:hover .comments_number_block {
+  opacity: 1;
+}
+
+.hobbyBlock:hover .icon_block {
+  opacity: 1;
+}
+
+.hobbyBlock:hover .comments_number_block {
+  opacity: 1;
+}
+
+.quotesBlock:hover .quotes {
+  color: #ff00a8;
+}
+
+.quotesBlock:hover .quotesImg {
+  color: #ff00a8;
+}
+
 @media screen and (max-width: 1088px) {
+  .imageBlock .icon {
+    opacity: 1;
+  }
+
+  .imageBlock .comments_number {
+    opacity: 1;
+  }
+
+  .quotesBlock .icon_block {
+    opacity: 1;
+  }
+
+  .quotesBlock .comments_number_block {
+    opacity: 1;
+  }
+
   .blocks {
     grid-template-columns: repeat(2, 342px);
     row-gap: 32px;

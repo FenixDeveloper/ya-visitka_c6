@@ -1,3 +1,5 @@
+import { StringMappingType } from "typescript";
+
 export interface IProfileCard {
   image: string;
   city: string;
@@ -25,4 +27,17 @@ export interface IVizitka {
   family_img: string;
   activity: string;
   studies: string;
+  photo_comments_number: number;
+  quotes_comments_number: number;
+  hobby_comments_number: number;
+  family_comments_number: number;
+  activity_comments_number: number;
+  studies_comments_number: number;
+}
+
+export interface IVizitkaAboutBlock {
+  title: string;
+  comments_number: number;
+  img?: string;
+  description: string;
 }

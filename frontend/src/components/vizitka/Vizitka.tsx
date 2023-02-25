@@ -4,6 +4,8 @@ import { IVizitka } from "../../utils/types";
 import telegram_logo from './telegram.svg';
 import github_logo from './GitHub.svg';
 import quotes_img from './quotes.svg';
+import icon from "../../images/icons/comment.svg";
+import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
@@ -18,16 +20,26 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
-          <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
-          <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+            <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
+            <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
           </div>
         </li>
-        <li className={styles.block}>
-        <img src={props.image} alt='Фотоп персоны' className={styles.image}/>
+        <li className={styles.imageBlock}>
+          {props.photo_comments_number !== 0 && (
+            <div className={styles.comments_number}>{props.photo_comments_number}</div>
+          )}
+          <img src={icon} className={styles.icon} alt="Иконка комментариев" />
+          <img src={props.image} alt='Фото персоны' className={styles.image}/>
         </li>
         <li className={styles.quotesBlock}>
-        <img src={quotes_img} alt='Лого GitHun' className={styles.quotesImg} />
-        <p className={styles.quotes}>
+          <div className={styles.quotes_comments_block}>
+            {props.quotes_comments_number !== 0 && (
+              <div className={styles.comments_number_block}>{props.photo_comments_number}</div>
+            )}
+            <img src={icon} className={styles.icon_block} alt="Иконка комментариев" />
+          </div>
+          <img src={quotes_img} alt='Изображение кавычек' className={styles.quotesImg} />
+          <p className={styles.quotes}>
             {props.quotes}
           </p>
         </li>
@@ -36,27 +48,35 @@ const Vizitka: FC<IVizitka> = (props) => {
         {blocksTitle.map((item, index) => (
           <li className={styles.block}>
             {item === 'Увлечения' ? 
-            <div className={styles.aboutBlock}>
-              <p className={styles.aboutBlockTitle}>{item}</p>
-              <img className = {styles.img} src={props.hobby_img} alt='Фото хобби' />
-              <p className={styles.aboutBlockText}>{props.hobby}</p>
-            </div> : ''}
+            <VizitkaAboutBlock 
+            title = {'Увлечения'}
+            comments_number = {props.hobby_comments_number}
+            img={props.hobby_img}
+            description={props.hobby}
+            />
+            : ''}
             {item === 'Семья' ? 
-            <div className={styles.aboutBlock}>
-              <p className={styles.aboutBlockTitle}>{item}</p>
-              <img className = {styles.img} src={props.family_img} alt='Фото семьи' />
-              <p className={styles.aboutBlockText}>{props.family}</p>
-            </div> : ''}
+            <VizitkaAboutBlock 
+            title = {'Семья'}
+            comments_number = {props.family_comments_number}
+            img={props.family_img}
+            description={props.family}
+            />
+            : ''}
             {item === 'Cфера' ? 
-            <div className={styles.aboutBlock}>
-              <p className={styles.aboutBlockTitle}>{item}</p>
-              <p className={styles.aboutBlockText}>{props.activity}</p>
-            </div> : ''}
+            <VizitkaAboutBlock 
+            title = {'Cфера'}
+            comments_number = {props.activity_comments_number}
+            description={props.activity}
+            />
+            : ''}
             {item === 'Yчеба' ? 
-            <div className={styles.aboutBlock}>
-              <p className={styles.aboutBlockTitle}>{item}</p>
-              <p className={styles.aboutBlockText}>{props.studies}</p>
-            </div> : ''}
+            <VizitkaAboutBlock 
+              title = {'Yчеба'}
+              comments_number = {props.studies_comments_number}
+              description={props.studies}
+            />
+            : ''}
           </li> 
         ))}
       </ul>
