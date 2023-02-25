@@ -28,6 +28,7 @@ export const MSG_INCORRECT_URL = 'Некорректная ссылка';
 export const MSG_INCORRECT_DATE = 'Дата должна быть в формате: год-месяц-день';
 export const MSG_INCORRECT_GEOCODE = 'Некорректные координаты';
 export const MSG_USER_NOT_FOUND = 'Пользователь не найден';
+export const MSG_INCORRECT_TARGET = 'Некорректный ключ';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';
@@ -44,3 +45,6 @@ export const regexUrl = /^https?:\/\/([\d\w.-]+)\.([\w.]{2,6})(\/?\S+)?$/;
 export const OAUTH_URL = 'https://oauth.yandex.ru/authorize?response_type=code';
 export const TOKEN_URL = 'https://oauth.yandex.ru/token';
 export const PROFILE_URL = 'https://login.yandex.ru/info?format=jwt';
+
+// Target
+export const TARGET_ARR = ['hobby', 'status', 'job', 'edu'];

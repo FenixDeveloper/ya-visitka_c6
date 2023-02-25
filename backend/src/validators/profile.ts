@@ -1,6 +1,7 @@
 import { celebrate, Joi } from 'celebrate';
 import methodValidateId from './index';
 import {
+  MSG_FIELD_REQUIRED,
   MSG_INCORRECT_DATE,
   MSG_INCORRECT_GEOCODE,
   MSG_INCORRECT_ID,
@@ -29,7 +30,7 @@ export const isPatchProfileValid = celebrate({
   }),
   body: Joi.object().keys({
     profile: Joi.object({
-      name: Joi.string(),
+      name: Joi.string().required().message(MSG_FIELD_REQUIRED),
       photo: Joi.string().uri().allow(null)
         .message(MSG_INCORRECT_URL),
       city: Joi.object({
@@ -38,12 +39,12 @@ export const isPatchProfileValid = celebrate({
           .message(MSG_INCORRECT_GEOCODE),
       }).allow(null),
       birthday: Joi.date().iso().allow(null).messages({
-        'string.isoDate': MSG_INCORRECT_DATE,
+        'date.format': MSG_INCORRECT_DATE,
       }),
-      quote: Joi.string().allow(''),
-      telegram: Joi.string().allow(null),
-      github: Joi.string().allow(null),
-      template: Joi.string().allow(null),
+      quote: Joi.string().allow('').optional(),
+      telegram: Joi.string().allow(null).optional(),
+      github: Joi.string().allow(null).optional(),
+      template: Joi.string().allow(null).optional(),
     }),
     info: Joi.object({
       hobby: Joi.object({
