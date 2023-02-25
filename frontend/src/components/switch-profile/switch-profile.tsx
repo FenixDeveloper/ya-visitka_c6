@@ -1,6 +1,7 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../../AppContext ';
+import { useResize } from '../../hooks/use-resize';
 import { comments, emojies, getUser, reset } from '../../mockApi';
 import CommentButton from '../comment-button/comment-button';
 import CommentPost from '../comment-post/comment-post';
@@ -39,6 +40,7 @@ export const SwitchProfile = () => {
   const [tooptipTop, setTooptipTop] = useState(0);
   const [tooptipLeft, setTooptipLeft] = useState(0);
   const [commentVisible, setCommentVisible] = useState(false);
+  const { width } = useResize();
 
   // Функция открытия окна с комментариями
   const handleOpenComment = () => {
@@ -50,6 +52,10 @@ export const SwitchProfile = () => {
       setCommentVisible(!commentVisible);
     }
   };
+
+  useEffect(() => {
+    setCommentVisible(false);
+  }, [width]);
   // Конец блока CommentPost
 
   return (
