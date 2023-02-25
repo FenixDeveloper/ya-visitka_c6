@@ -238,8 +238,8 @@
   color: #ff00a8;
 }
 
-.quotesBlock:hover .quotesImg {
-  color: #ff00a8;
+.quotesBlock:hover svg path {
+  stroke: #ff00a8;
 }
 
 @media screen and (max-width: 1088px) {
