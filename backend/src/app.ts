@@ -1,17 +1,16 @@
-import express from 'express';
+import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import * as dotenv from 'dotenv';
 import { errors } from 'celebrate';
+import session from 'express-session';
 
-import { login } from './controllers/users';
 import errorHandler from './middlewares/errorsHandler';
 import { errorLogger, requestLogger } from './middlewares/logger';
-import { isLoginRequestValid } from './validators/user';
 import { DEFAULT_DB_URL, DEFAULT_PORT } from './constants';
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';
-import { jwtAuth, redirect, yandexAuth } from './controllers/auth';
+import { jwtAuth, yandexAuth } from './controllers/auth';
 
 dotenv.config();
 
@@ -21,19 +20,20 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(requestLogger);
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user as Express.User));
 
 passport.use(JwtStrategy);
 
 // Unprotected
-app.get('/oauth', redirect);
-app.get('/oauth/callback', yandexAuthMiddleware, yandexAuth);
-
-app.post('/api/login', isLoginRequestValid, login);
+app.post('/api/token/', yandexAuthMiddleware, yandexAuth);
 
 // Protected
-app.use(passport.authenticate('jwt', { session: false }));
-app.get('/login', jwtAuth);
+app.use(passport.authenticate('jwt', { session: true }));
+app.get('/api/login', jwtAuth);
 
 app.use(errors());
 
