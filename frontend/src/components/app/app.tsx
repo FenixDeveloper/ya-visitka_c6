@@ -9,6 +9,7 @@ import { SwitchProfile } from "../switch-profile/switch-profile";
 import { AppContext } from "../../utils/AppContext";
 import { getUser } from "../../mockApi";
 import MainPage from "../../pages/MainPage/MainPage";
+import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 
 function App() {
   // const [currentUser, setCurrentUser] = useState<any>({});
@@ -36,6 +37,9 @@ function App() {
           <PrivateRoute path='/'>
             <MainPage />
           </PrivateRoute>
+          <Route path='/vizitka'>
+            <VizitkaPage />
+          </Route>
         </Switch>
       </main>
       <Footer />

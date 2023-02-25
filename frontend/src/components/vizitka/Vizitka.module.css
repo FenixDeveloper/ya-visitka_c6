@@ -1,0 +1,9 @@
+.blocks {
+  align-self: center;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  row-gap: 56px;
+  column-gap: 70px;
+  grid-template-columns: repeat(2, 440px);
+}
