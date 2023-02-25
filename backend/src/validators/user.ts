@@ -109,27 +109,31 @@ export const isPatchProfileValid = celebrate({
     info: Joi.object({
       hobby: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null).messages({
-          'string.uri': MSG_INCORRECT_URL,
-        }),
+        image: Joi.string().uri().default(null).allow(null)
+          .messages({
+            'string.uri': MSG_INCORRECT_URL,
+          }),
       }),
       status: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null).messages({
-          'string.uri': MSG_INCORRECT_URL,
-        }),
+        image: Joi.string().uri().default(null).allow(null)
+          .messages({
+            'string.uri': MSG_INCORRECT_URL,
+          }),
       }),
       job: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null).messages({
-          'string.uri': MSG_INCORRECT_URL,
-        }),
+        image: Joi.string().uri().default(null).allow(null)
+          .messages({
+            'string.uri': MSG_INCORRECT_URL,
+          }),
       }),
       edu: Joi.object({
         text: Joi.string().empty('').default(''),
-        image: Joi.string().uri().default(null).allow(null).messages({
-          'string.uri': MSG_INCORRECT_URL,
-        }),
+        image: Joi.string().uri().default(null).allow(null)
+          .messages({
+            'string.uri': MSG_INCORRECT_URL,
+          }),
       }),
     }),
   }),
