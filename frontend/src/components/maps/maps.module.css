@@ -3,18 +3,21 @@
   height: 955px;
   max-height: 75vh;
 }
-.balloonContainer {
-  background-color: #fff;
-  border-radius: 6px;
+.markerInfoContainer {
+  background-color: transparent;
   min-width: 175px;
   min-height: 54px;
   display: inline-flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.balloonHeaderContainer{
+.balloonContainer {
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.balloonHeaderContainer {
   display: flex;
   justify-content: space-between;
   padding: 3px 6px 2px;
@@ -41,13 +44,9 @@
   color: #a3a3a3;
 }
 
-.balloonAva{
+.balloonAva {
   display: block;
   width: 24px;
   height: 24px;
-    border-radius: 50%;
-}
-
-[class*='balloon__tail']::after {
-  display: none;
+  border-radius: 50%;
 }
