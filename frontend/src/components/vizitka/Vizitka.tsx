@@ -1,8 +1,6 @@
 import { FC } from "react";
 import styles from "./Vizitka.module.css";
 import { IVizitka } from "../../utils/types";
-import icon from "../../images/icons/comment.svg";
-import person_img from "./person_img.png";
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
