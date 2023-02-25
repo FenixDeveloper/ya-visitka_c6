@@ -6,7 +6,6 @@ import { comments, emojies, getUser, reset } from '../../mockApi';
 import CommentButton from '../comment-button/comment-button';
 import CommentPost from '../comment-post/comment-post';
 import Tooltip from '../tooltip/tooltip';
-// import { getUser, reset } from '../../mockApi';
 
 import styles from './switch-profile.module.css';
 
