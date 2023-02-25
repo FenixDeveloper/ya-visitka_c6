@@ -21,7 +21,9 @@ export interface IVizitka {
     github?: string;
   };
   hobby: string;
+  hobby_img: string;
   family: string;
+  family_img: string;
   activity: string;
   studies: string;
 }
