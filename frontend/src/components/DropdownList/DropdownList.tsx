@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import styles from "./DropdownList.module.css";
 import arrow from "../../images/icons/arrow.svg";
 import { IDropdownList } from "../../utils/types";
+import { ErrorMessage } from "../errorMessage/errorMessage";
 
 // Стилизованный выпадающий список, доделать скролл (как в макете)
 export const DropdownList: FC<IDropdownList> = (props) => {
@@ -9,6 +10,7 @@ export const DropdownList: FC<IDropdownList> = (props) => {
 
   const handlerClick = (index: number) => {
     props.setState(props.data[index])
+    props.setStateError && props.setStateError(!props.data[index])
   }
 
   return (
@@ -37,6 +39,7 @@ export const DropdownList: FC<IDropdownList> = (props) => {
           </ul>
         )}
       </div>
+      {props.requiredField && props.stateError && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
     </div>
   );
 };
