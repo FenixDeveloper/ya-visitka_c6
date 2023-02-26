@@ -10,6 +10,7 @@ import { AppContext } from "../../utils/AppContext";
 import { getUser } from "../../mockApi";
 import MainPage from "../../pages/MainPage/MainPage";
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
+import { Profile } from "../../pages/profile/profile";
 
 function App() {
   // const [currentUser, setCurrentUser] = useState<any>({});
@@ -39,6 +40,9 @@ function App() {
           </PrivateRoute>
           <Route path='/vizitka'>
             <VizitkaPage />
+          </Route>
+          <Route path='/profile'>
+            <Profile />
           </Route>
         </Switch>
       </main>
