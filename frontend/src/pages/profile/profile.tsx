@@ -32,16 +32,13 @@ export const Profile = () => {
     const handlerSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault(); 
         if(birthday ===""){
-            setIsShowErrorBirthday(true);
-           return
+            setIsShowErrorBirthday(true)
         }
         if(userPhoto === ""){
             setIsShowErrorPhoto(true)
-            return
         }
         if(city === ""){
             setIsShowErrorCity(true)
-            return
         }
     }
 
