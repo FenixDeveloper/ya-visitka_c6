@@ -38,9 +38,9 @@ function App() {
           <PrivateRoute path='/' exact={true}>
             <MainPage />
           </PrivateRoute>
-          <Route path='/vizitka'>
+          <PrivateRoute path='/vizitka'>
             <VizitkaPage />
-          </Route>
+          </PrivateRoute>
           <Route path='/profile'>
             <Profile />
           </Route>
