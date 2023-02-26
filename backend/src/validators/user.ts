@@ -45,8 +45,21 @@ export const isPutUserValid = celebrate({
       'any.required': USER_ERR_EMAIL_EMPTY,
       'string.email': USER_ERR_EMAIL,
     }),
+
+    cohort: Joi.string().required().message(MSG_FIELD_REQUIRED),
+  }),
+});
+
+export const isCommentIdValid = celebrate({
+  params: Joi.object().keys({
+    commentId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
+      'any.invalid': MSG_INCORRECT_ID,
+      'any.required': MSG_PAR_REQUIRED,
+    }),
+
     cohort: Joi.string().required().messages({
       'any.required': MSG_FIELD_REQUIRED,
+
     }),
   }),
 });
