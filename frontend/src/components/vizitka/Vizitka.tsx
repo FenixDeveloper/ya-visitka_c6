@@ -1,11 +1,12 @@
 import { FC } from "react";
 import styles from "./Vizitka.module.css";
-import { IVizitka } from "../../utils/types";
+import { IVizitka, VizitkaStyle } from "../../utils/types";
 import telegram_logo from './telegram.svg';
 import github_logo from './GitHub.svg';
 import quotes_img from './quotes.svg';
 import icon from "../../images/icons/comment.svg";
 import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
+import derzkiy_img_style from './mask.png';
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
@@ -29,7 +30,12 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comments_number}>{props.photo_comments_number}</div>
           )}
           <img src={icon} className={styles.icon} alt="Иконка комментариев" />
-          <img src={props.image} alt='Фото персоны' className={styles.image}/>
+          {/* {props.style === VizitkaStyle.Base ? <img src={props.image} alt='Фото персоны' className={styles.image}/> : ''} */}
+          {props.style === VizitkaStyle.Derzkiy ? 
+          <div  className={styles.mask}>
+            <img className={styles.image1} src={derzkiy_img_style} alt='Фото персоны' />
+            <img className={styles.image} src={props.image} alt='Маска' />
+          </div> : <img src={props.image} alt='Фото персоны' className={props.style === VizitkaStyle.Romantic ? styles.imageRomantic : styles.image}/>}
         </li>
         <li className={styles.quotesBlock}>
           <div className={styles.quotes_comments_block}>
@@ -56,6 +62,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             comments_number = {props.hobby_comments_number}
             img={props.hobby_img}
             description={props.hobby}
+            style={props.style}
             />
             : ''}
             {item === 'Семья' ? 
@@ -64,6 +71,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             comments_number = {props.family_comments_number}
             img={props.family_img}
             description={props.family}
+            style={props.style}
             />
             : ''}
             {item === 'Cфера' ? 
@@ -71,6 +79,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             title = {'Cфера'}
             comments_number = {props.activity_comments_number}
             description={props.activity}
+            style={props.style}
             />
             : ''}
             {item === 'Yчеба' ? 
@@ -78,6 +87,7 @@ const Vizitka: FC<IVizitka> = (props) => {
               title = {'Yчеба'}
               comments_number = {props.studies_comments_number}
               description={props.studies}
+              style={props.style}
             />
             : ''}
           </li> 

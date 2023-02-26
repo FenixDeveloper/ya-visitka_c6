@@ -12,6 +12,12 @@ export interface IDropdownList {
   data:Array<string>;
 }
 
+export enum VizitkaStyle {
+  Base = 'base',
+  Romantic = 'romantic',
+  Derzkiy = 'derzkiy',
+} 
+
 export interface IVizitka {
   name:string;
   image: string;
@@ -33,6 +39,7 @@ export interface IVizitka {
   family_comments_number: number;
   activity_comments_number: number;
   studies_comments_number: number;
+  style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
 }
 
 export interface IVizitkaAboutBlock {
@@ -40,4 +47,5 @@ export interface IVizitkaAboutBlock {
   comments_number: number;
   img?: string;
   description: string;
+  style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
 }

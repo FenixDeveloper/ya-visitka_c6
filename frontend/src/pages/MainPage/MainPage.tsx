@@ -76,7 +76,6 @@ export const MainPage = (props1: any) => {
           />
         ))}
       </ul>
-      <VizitkaPage />
     </section>
   );
 };

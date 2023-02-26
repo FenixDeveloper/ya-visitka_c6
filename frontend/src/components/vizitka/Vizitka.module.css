@@ -1,3 +1,7 @@
+:root {
+  --base-border-radius: 0;
+}
+
 .blocks {
   align-self: center;
   padding: 0;
@@ -65,7 +69,9 @@
 .aboutBlock {
   display: flex;
   flex-direction: column;
-  border-top: solid rgba(16, 12, 52, 1) 3px;
+  /* border-top: solid rgba(16, 12, 52, 1) 3px; */
+  border-top: 3px solid #000000;
+  border-radius: 14px;
   cursor: pointer;
   position: relative;
 }
@@ -139,11 +145,51 @@
   justify-content: flex-end;
 }
 
+/* .image {
+  width: 100%;
+  display: block;
+  object-fit: cover; */
+/* border-radius: 220px; */
+/* } */
+
+.mask {
+  /* width: 100%;
+  display: block;
+  object-fit: cover; */
+  /* border-radius: 220px; */
+}
+
 .image {
+  /* position: absolute;
+  z-index: 0; */
   width: 100%;
   display: block;
   object-fit: cover;
+  border-radius: var(--base-border-radius);
 }
+
+.imageRomantic {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  --base-border-radius: 220px;
+  border-radius: var(--base-border-radius);
+}
+
+.image1 {
+  width: 100%;
+  position: absolute;
+  /* width: 350px;
+  height: 350px; */
+  z-index: 2;
+}
+
+/* .mask {
+  -webkit-mask-image: url(./mask.png);
+  mask-image: url(./mask.png);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+} */
 
 .comments_number {
   opacity: 0;
@@ -157,7 +203,7 @@
   position: absolute;
   top: 8px;
   right: 14px;
-  z-index: 3;
+  z-index: 4;
   color: #fff;
   font-weight: 500;
   font-size: 12px;
@@ -174,7 +220,6 @@
   height: 19px;
   background: #100c34;
   border-radius: 40px;
-  z-index: 200;
   margin-right: -33px;
   margin-top: -8px;
   z-index: 3;
@@ -193,6 +238,7 @@
   width: 27px;
   height: 27px;
   transition: opacity 0.2s linear;
+  z-index: 3;
 }
 
 .icon_block {

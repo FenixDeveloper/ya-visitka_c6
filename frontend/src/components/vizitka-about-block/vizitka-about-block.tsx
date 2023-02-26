@@ -1,11 +1,14 @@
 import { FC } from "react";
 import styles from "./vizitka-about-block.module.css";
-import { IVizitkaAboutBlock } from "../../utils/types";
+import { IVizitkaAboutBlock, VizitkaStyle } from "../../utils/types";
 import icon from "../../images/icons/comment.svg";
+import romantic from './romantic.svg'
+import derzkiy from './derzkiy.svg'
 
 const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
   return (
-    <div className={styles.hobbyBlock}>
+    <div className={`${styles.hobbyBlock} ${props.style === VizitkaStyle.Base ? styles.border : ''}`}>
+      {props.style !== VizitkaStyle.Base ? <img src={props.style === VizitkaStyle.Romantic ? romantic : derzkiy} alt='Граница блока'/> : ''}
       <div className={styles.flexWrapper}>
         <p className={styles.aboutBlockTitle}>{props.title}</p>
           <div className={styles.quotes_comments_block}>

@@ -1,9 +1,12 @@
 .hobbyBlock {
   display: flex;
   flex-direction: column;
-  border-top: solid rgba(16, 12, 52, 1) 3px;
   cursor: pointer;
   position: relative;
+}
+
+.border {
+  border-top: 3px solid #000000;
 }
 
 .hobbyBlock:hover .icon_block {

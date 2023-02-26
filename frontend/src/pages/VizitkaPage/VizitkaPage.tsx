@@ -3,6 +3,8 @@ import styles from "./VizitkaPage.module.css";
 import person_img from './person_img.png'
 import hobby_img from './hobby_img.png'
 import family_img from './family_img.png'
+import { VizitkaStyle } from "../../utils/types";
+
 const vizitkaData = 
 //тестовые данные
 {
@@ -26,6 +28,7 @@ const vizitkaData =
   family_comments_number: 4,
   activity_comments_number: 5,
   studies_comments_number: 6,
+  style: VizitkaStyle.Derzkiy,
 }
 
 export const VizitkaPage = (props1: any) => {
@@ -50,6 +53,7 @@ export const VizitkaPage = (props1: any) => {
         family_comments_number={vizitkaData.family_comments_number}
         activity_comments_number={vizitkaData.activity_comments_number}
         studies_comments_number={vizitkaData.studies_comments_number}
+        style={vizitkaData.style}
       />
     </section>
   );
