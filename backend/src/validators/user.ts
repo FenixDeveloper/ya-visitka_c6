@@ -55,6 +55,7 @@ export const isCommentIdValid = celebrate({
     commentId: Joi.string().required().custom(methodValidateId, 'custom validation').messages({
       'any.invalid': MSG_INCORRECT_ID,
       'any.required': MSG_PAR_REQUIRED,
+    }),
 
     cohort: Joi.string().required().messages({
       'any.required': MSG_FIELD_REQUIRED,
