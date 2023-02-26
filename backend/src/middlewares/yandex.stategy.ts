@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { NextFunction, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
+import 'isomorphic-fetch';
 
 import { MSG_SERVER_ERROR, PROFILE_URL, TOKEN_URL } from '../constants';
 import InternalServerError from '../errors/InternalServerError';
