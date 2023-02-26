@@ -29,9 +29,11 @@ input[type="file"] {
 }
 
 .fakeInput p {
-    margin: 0;
-    margin-left: 16px;
-    margin-top: 12px;
+    margin: 12px 19px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .icon {
