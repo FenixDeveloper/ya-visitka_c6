@@ -4,6 +4,8 @@ import { PrivateRoute } from "../private-route";
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { LogIn } from "../log-in";
+import { Admin } from "../../pages/admin-panel/admin";
+import { AdminUsers } from "../../pages/admin-panel/admin-users";
 import styles from "./app.module.css";
 import { SwitchProfile } from "../switch-profile/switch-profile";
 import { AppContext } from "../../utils/AppContext";
@@ -39,6 +41,12 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path='/vizitka'>
             <VizitkaPage />
+          </PrivateRoute>
+          <PrivateRoute path='/admin' exact>
+            <Admin />
+          </PrivateRoute>
+          <PrivateRoute path='/admin/users' exact>
+            <AdminUsers />
           </PrivateRoute>
         </Switch>
       </main>
