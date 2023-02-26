@@ -5,22 +5,19 @@ import * as dotenv from 'dotenv';
 import { errors } from 'celebrate';
 import session from 'express-session';
 
-import errorHandler from './middlewares/errorsHandler';
-import { errorLogger, requestLogger } from './middlewares/logger';
-import { DEFAULT_DB_URL, DEFAULT_PORT } from './constants';
-
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';
-import { jwtAuth, yandexAuth } from './controllers/auth';
+import errorHandler from './middlewares/errorsHandler';
+import { errorLogger, requestLogger } from './middlewares/logger';
 
-import profileRouter from './routes/profile';
+import router from './routes';
+import { yandexAuth } from './controllers/auth';
+
+import { DEFAULT_DB_URL, DEFAULT_PORT } from './constants';
 
 dotenv.config();
 
-const {
-  PORT = DEFAULT_PORT,
-  DB_URL = DEFAULT_DB_URL,
-} = process.env;
+const { PORT = DEFAULT_PORT, DB_URL = DEFAULT_DB_URL } = process.env;
 
 const app = express();
 
@@ -31,17 +28,14 @@ app.use(requestLogger);
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user as Express.User));
-
 passport.use(JwtStrategy);
 
 // Unprotected
 app.post('/api/token/', yandexAuthMiddleware, yandexAuth);
+app.use(passport.authenticate('jwt', { session: true }));
 
 // Protected
-app.use(passport.authenticate('jwt', { session: true }));
-app.get('/api/login', jwtAuth);
-
-app.use('/api/profile', profileRouter);
+app.use(router);
 
 app.use(errors());
 
