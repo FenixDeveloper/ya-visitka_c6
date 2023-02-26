@@ -1,19 +1,17 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 
 import InternalServerError from '../errors/InternalServerError';
-import { HTTP_STATUS_SERVER_ERROR, MSG_SERVER_ERROR } from '../constants';
+import { MSG_SERVER_ERROR } from '../constants';
 
 dotenv.config();
 
-export const yandexAuth = (req: Request, res: Response) => {
+export const yandexAuth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.user?.token;
   if (token) {
     res.send({ token });
   } else {
-    res
-      .status(HTTP_STATUS_SERVER_ERROR)
-      .send(new InternalServerError(MSG_SERVER_ERROR));
+    next(new InternalServerError(MSG_SERVER_ERROR));
   }
 };
 

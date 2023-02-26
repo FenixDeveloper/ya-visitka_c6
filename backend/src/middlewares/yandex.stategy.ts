@@ -44,7 +44,7 @@ const yandexAuthMiddleware = async (
 
       next();
     } else {
-      throw new InternalServerError(MSG_SERVER_ERROR);
+      next(new InternalServerError(MSG_SERVER_ERROR));
     }
   } catch (err) {
     next(err);

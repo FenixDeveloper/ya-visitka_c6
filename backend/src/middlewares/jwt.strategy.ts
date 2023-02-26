@@ -50,15 +50,13 @@ const verify = (jwtPayload: IYandexProfileFromJwt, done: VerifiedCallback) => {
   return User.findUserByEmail(yaEmail)
     .then((user) => {
       const {
-        _id,
-        name,
         email,
         cohort,
-        profile: { photo },
-      } = user.toObject();
+        profile: { photo, name },
+      } = user.toJSON();
 
       const student = {
-        _id,
+        _id: user.id,
         name,
         email,
         cohort,
