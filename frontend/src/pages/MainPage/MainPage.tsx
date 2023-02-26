@@ -6,6 +6,7 @@ import person3 from "./imagesData/person_3.png";
 import person4 from "./imagesData/person_4.png";
 import DropdownList from "../../components/DropdownList/DropdownList";
 import { Link } from "react-router-dom";
+import VizitkaPage from "../VizitkaPage/VizitkaPage";
 const props = [
   //тестовые данные
   {
