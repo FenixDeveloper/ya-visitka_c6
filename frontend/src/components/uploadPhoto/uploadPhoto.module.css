@@ -1,0 +1,72 @@
+.updatePhoto {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    align-items: center;
+}
+
+.fakeInput {
+    width: 149px;
+    height: 150px;
+    border: 1px solid #100C34;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+.rectangle {
+    opacity: 1;
+    position: absolute;
+    background-color: #D9D9D9;
+    width: 149px;
+    height: 50px;
+    bottom: 0;
+    transition: opacity 0.5s linear;
+}
+
+.fakeInput:hover .rectangle:hover {
+    opacity: 0.5;
+}
+
+.fakeInput .photo:empty~.rectangle {
+    opacity: 0;
+}
+
+.fakeInput:hover .photo:empty~.rectangle {
+    opacity: 0.5;
+}
+
+.icon {
+    width: 20px;
+    height: 17px;
+    margin: 16px auto;
+    display: block;
+}
+
+.photo {
+    width: 149px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.text {
+    margin: 0;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    color: #100C34;
+}
+
+.extraText {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+    .extraText span {
+        display: none;
+    }
+}
