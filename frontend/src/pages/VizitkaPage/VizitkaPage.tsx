@@ -28,7 +28,7 @@ const vizitkaData =
   family_comments_number: 4,
   activity_comments_number: 5,
   studies_comments_number: 6,
-  style: VizitkaStyle.Derzkiy,
+  style: VizitkaStyle.Base,
 }
 
 export const VizitkaPage = (props1: any) => {

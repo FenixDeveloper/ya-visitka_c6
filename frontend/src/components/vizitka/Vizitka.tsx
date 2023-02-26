@@ -30,7 +30,6 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comments_number}>{props.photo_comments_number}</div>
           )}
           <img src={icon} className={styles.icon} alt="Иконка комментариев" />
-          {/* {props.style === VizitkaStyle.Base ? <img src={props.image} alt='Фото персоны' className={styles.image}/> : ''} */}
           {props.style === VizitkaStyle.Derzkiy ? 
           <div  className={styles.mask}>
             <img className={styles.image1} src={derzkiy_img_style} alt='Фото персоны' />
