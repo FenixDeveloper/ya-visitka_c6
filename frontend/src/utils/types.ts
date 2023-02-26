@@ -8,8 +8,11 @@ export interface IProfileCard {
 }
 
 export interface IDropdownList {
-  title: string;
-  data:Array<string>;
+  data: Array<string>;
+  state: string;
+  setState: (value: string) => void;
+  title?: string;
+  requiredField?: boolean;
 }
 
 export enum VizitkaStyle {
