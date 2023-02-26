@@ -1,6 +1,8 @@
 import { model, Schema } from 'mongoose';
+import validator from 'validator';
+// import { ICity } from '../types/city';
 import { IUser, IUserModel } from '../types/user';
-import { isEmail } from '../validators/user';
+
 import {
   MSG_FIELD_REQUIRED,
   MSG_INCORRECT_EMAIL,
@@ -15,12 +17,43 @@ const userSchema = new Schema<IUser>({
     unique: true,
     required: [true, MSG_FIELD_REQUIRED],
     validate: {
-      validator: isEmail,
+      validator: (email: string): boolean => validator.isEmail(email),
       message: MSG_INCORRECT_EMAIL,
     },
   },
   cohort: {
     type: String,
+  },
+  profile: {
+    name: String,
+    photo: String,
+    birthday: String,
+    city: {
+      name: String,
+      geocode: [String, String],
+    },
+    quote: String,
+    telegram: String,
+    github: String,
+    template: String,
+  },
+  info: {
+    hobby: {
+      text: String,
+      image: String,
+    },
+    status: {
+      text: String,
+      image: String,
+    },
+    job: {
+      text: String,
+      image: String,
+    },
+    edu: {
+      text: String,
+      image: String,
+    },
   },
 });
 
