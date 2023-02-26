@@ -11,7 +11,6 @@ const ProfileCard: FC<IProfileCard> = (props) => {
         <div className={styles.comments_number}>{props.comments_number}</div>
       )}
       <img src={icon} className={styles.icon} alt="Иконка комментариев" />
-
       <p className={styles.name}>{props.name}</p>
       <p className={styles.city}>{props.city}</p>
     </li>
