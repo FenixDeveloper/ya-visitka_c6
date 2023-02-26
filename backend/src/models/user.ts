@@ -1,16 +1,18 @@
 import { model, Schema } from 'mongoose';
+
 import { IInfoBlock, InfoBlockName } from '../types/info-block';
+
 import {
   MSG_FIELD_REQUIRED,
-  MSG_INCORRECT_EMAIL,
-  MSG_INCORRECT_URL,
+  // MSG_INCORRECT_EMAIL,
+  // MSG_INCORRECT_URL,
   MSG_USER_NOT_FOUND,
 } from '../constants';
+
 import DataNotFoundError from '../errors/NotFoundError';
 import UnauthorizedError from '../errors/UnauthorizedError';
 import { IUser, IUserModel } from '../types/user';
-import { isEmail } from '../validators/user';
-import { isUrl } from '../validators/profile';
+// import { isEmail } from '../validators/user';
 
 const infoBlockSchema = new Schema<IInfoBlock>({
   text: {
@@ -20,10 +22,10 @@ const infoBlockSchema = new Schema<IInfoBlock>({
   image: {
     type: String,
     required: false,
-    validate: {
-      validator: isUrl,
-      message: MSG_INCORRECT_URL,
-    },
+    // validate: {
+    //   validator: isURL,
+    //   message: MSG_INCORRECT_URL,
+    // },
   },
 });
 
@@ -45,10 +47,10 @@ const userSchema = new Schema<IUser>({
     unique: true,
     index: true,
     required: [true, MSG_FIELD_REQUIRED],
-    validate: {
-      validator: isEmail,
-      message: MSG_INCORRECT_EMAIL,
-    },
+    // validate: {
+    //   validator: (email: string): boolean => validator.isEmail(email),
+    //   message: MSG_INCORRECT_EMAIL,
+    // },
   },
   cohort: String,
   profile: {
@@ -56,10 +58,10 @@ const userSchema = new Schema<IUser>({
     photo: {
       type: String,
       required: false,
-      validate: {
-        validator: isUrl,
-        message: MSG_INCORRECT_URL,
-      },
+      // validate: {
+      //   validator: isURL,
+      //   message: MSG_INCORRECT_URL,
+      // },
     },
     city: {
       required: false,
@@ -107,10 +109,10 @@ const userSchema = new Schema<IUser>({
         name: String,
         email: {
           type: String,
-          validate: {
-            validator: isEmail,
-            message: MSG_INCORRECT_EMAIL,
-          },
+          // validate: {
+          //   validator: isEmail,
+          //   message: MSG_INCORRECT_EMAIL,
+          // },
         },
       },
       target: {

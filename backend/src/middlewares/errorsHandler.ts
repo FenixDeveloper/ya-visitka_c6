@@ -10,7 +10,7 @@ const errorHandler = (
 ) => {
   const { statusCode = HTTP_STATUS_SERVER_ERROR, message } = error;
   res.status(statusCode).send(
-    { message: statusCode === HTTP_STATUS_SERVER_ERROR ? MSG_SERVER_ERROR : message },
+    { error: statusCode === HTTP_STATUS_SERVER_ERROR ? MSG_SERVER_ERROR : message },
   );
   next();
 };

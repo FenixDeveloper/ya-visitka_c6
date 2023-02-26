@@ -8,13 +8,19 @@ import session from 'express-session';
 import errorHandler from './middlewares/errorsHandler';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { DEFAULT_DB_URL, DEFAULT_PORT } from './constants';
+
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';
 import { jwtAuth, yandexAuth } from './controllers/auth';
 
+import profileRouter from './routes/profile';
+
 dotenv.config();
 
-const { PORT = DEFAULT_PORT, DB_URL = DEFAULT_DB_URL } = process.env;
+const {
+  PORT = DEFAULT_PORT,
+  DB_URL = DEFAULT_DB_URL,
+} = process.env;
 
 const app = express();
 
@@ -22,6 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(requestLogger);
+
+app.use('/api/profile', profileRouter);
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user as Express.User));
