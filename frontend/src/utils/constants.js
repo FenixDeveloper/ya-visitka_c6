@@ -1,0 +1,1 @@
+export const URL = "https://visitki.practicum-team.ru/api";
