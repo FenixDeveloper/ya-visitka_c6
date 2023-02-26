@@ -1,10 +1,19 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef } from 'react';
+import style from './header.module.css';
+import logo from '../../images/logo.svg';
+import profile from '../../images/profile.svg';
 
 export const Header = () => {
-
   return (
-    <header>
-      <h1>Здесь будет header</h1>
+    <header className={style.header}>
+      <img src={logo} alt="logo" className={style.logo} />
+      <div className={style.profile_box}>
+        <div className={style.profile_container}>
+          <img src={profile} alt="profile" className={style.avatar} />
+          <span className={style.name}>Константин Константиноповс</span>
+        </div>
+        <p className={style.profile_hidden}>Профиль</p>
+      </div>
     </header>
   );
 };

@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useReducer } from 'react';
-import { Action, initialState, reducer, User } from './reducer';
-import { State } from './reducer'
+import { Action, initialState, reducer, User } from '../reducer';
+import { State } from '../reducer'
 
 const AppContext = createContext<{
   state: State;
@@ -19,7 +19,7 @@ const AppProvider: React.FC = ({ children }) => {
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       {children}
-    </AppContext.Provider >
+    </AppContext.Provider>
   );
 };
 
