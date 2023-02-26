@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-
 import { celebrate, Joi } from 'celebrate';
 
 import {
