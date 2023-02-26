@@ -29,8 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(requestLogger);
 
-app.use('/api/profile', profileRouter);
-
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user as Express.User));
 
@@ -42,6 +40,8 @@ app.post('/api/token/', yandexAuthMiddleware, yandexAuth);
 // Protected
 app.use(passport.authenticate('jwt', { session: true }));
 app.get('/api/login', jwtAuth);
+
+app.use('/api/profile', profileRouter);
 
 app.use(errors());
 

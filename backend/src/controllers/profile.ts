@@ -9,20 +9,25 @@ import InternalServerError from '../errors/InternalServerError';
 import { IUser } from '../types/user';
 import { IProfile } from '../types/profile';
 import { Info } from '../types/info';
+import { MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
+import ForbiddenError from '../errors/ForbiddenError';
 
 type TGetProfilesQuerry = {
   offset?: number;
   limit?: number;
-}
+};
 
 export const getProfiles = (
-  req: Request<{}, {}, {}, TGetProfilesQuerry & {cohort?: string}>,
+  req: Request<{}, {}, {}, TGetProfilesQuerry & { cohort?: string }>,
   res: Response,
   next: NextFunction,
 ) => {
-  const { offset: skip, limit, cohort } = req.query;
+  const { offset: skip, limit } = req.query;
+  const userFromSession = req.session.passport.user;
+  const { role } = userFromSession;
+  const { cohort } = role === ROLE_CURATOR ? req.query : userFromSession;
 
-  const filterQuerry: FilterQuery<IUser> = (cohort) ? { cohort } : {};
+  const filterQuerry: FilterQuery<IUser> = cohort ? { cohort } : {};
 
   User.find(filterQuerry, { info: 0, reactions: 0 }, { limit, skip })
     .then((users) => res.send({ total: users.length, items: users }))
@@ -32,7 +37,7 @@ export const getProfiles = (
 };
 
 export const getProfileById = async (
-  req: Request<{id:string}>,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -45,24 +50,31 @@ export const getProfileById = async (
       res.send(user);
       return;
     }
-    next(new DataNotFoundError('The specified resource was not found'));
+    next(new DataNotFoundError(MSG_USER_NOT_FOUND));
   } catch (err) {
     next(new DataNotFoundError(String(err)));
   }
 };
 
 export const getReactionsById = async (
-  req: Request<{id: string}, {}, {}, TGetProfilesQuerry>,
+  req: Request<{ id: string }, {}, {}, TGetProfilesQuerry>,
   res: Response,
   next: NextFunction,
 ) => {
   const { id: userId = '' } = req.params;
   const { offset: skip = 0, limit = 20 } = req.query;
+  const userFromSession = req.session.passport.user;
 
   try {
     const user = await User.findById(userId);
+
     if (!user) {
-      next(new DataNotFoundError('The specified resource was not found'));
+      next(new DataNotFoundError(MSG_USER_NOT_FOUND));
+      return;
+    }
+
+    if (user.id !== userFromSession._id) {
+      next(new ForbiddenError());
       return;
     }
 
@@ -92,17 +104,24 @@ export const getReactionsById = async (
 };
 
 export const patchProfile = async (
-  req: Request<{id: string}, {}, {profile: IProfile, info: Info}>,
+  req: Request<{ id: string }, {}, { profile: IProfile; info: Info }>,
   res: Response,
   next: NextFunction,
 ) => {
   const { id: userId = '' } = req.params;
   const { profile, info } = req.body;
+  const userFromSession = req.session.passport.user;
 
   try {
     const user = await User.findById(userId);
+
     if (!user) {
-      next(new DataNotFoundError('The specified resource was not found'));
+      next(new DataNotFoundError(MSG_USER_NOT_FOUND));
+      return;
+    }
+
+    if (user.id !== userFromSession._id) {
+      next(new ForbiddenError());
       return;
     }
 
