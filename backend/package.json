@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "0.1.0",
   "description": "Бэкенд проекта \"Визитница\"",
-  "main": "build/app.js",
+  "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node-dev src/app.ts",
     "start": "ts-node src/app.ts",
-    "build": "rm rf build && tsc",
+    "build": "rm -rf dist && tsc",
     "lint": "eslint src/**/*.ts && prettier"
   },
   "repository": {

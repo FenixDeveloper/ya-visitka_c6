@@ -1,12 +1,25 @@
-version: "3.3"
+version: "3.9"
+
+volumes:
+  mongodb_data:
+
 services:
   mongodb:
-    image: mongo:5.0.15
-    container_name: mongodb
+    container_name: database
+    image: mongo:latest
     restart: unless-stopped
-    ports:
-      - 27017:27017
     volumes:
-      - ./DB:/data/db
+      - mongodb_data:/var/lib/mongodb/:rw
     env_file:
       - ./backend/.env
+
+  backend:
+    container_name: backend
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3001"
