@@ -1,7 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProjectionType } from 'mongoose';
 import User from '../models/user';
-import { MSG_EMAIL_ALREADY_EXIST, MSG_SERVER_ERROR } from '../constants';
+import {
+  HTTP_STATUS_OK,
+  HTTP_STATUS_CONFLICT,
+  MSG_EMAIL_ALREADY_EXIST,
+  MSG_SERVER_ERROR,
+  CONFLICT_ERROR_CODE,
+} from '../constants';
 import InternalServerError from '../errors/InternalServerError';
 import { IUser, IUserFiltered } from '../types/user';
 import CustomError from '../errors/CustomError';
@@ -40,11 +46,11 @@ export const createUser = (
 
   User.create({ email, cohort })
     .then((user) => {
-      res.status(200).send(filterUserInfo(user));
+      res.status(HTTP_STATUS_OK).send(filterUserInfo(user));
     })
     .catch((err) => {
-      if (err.code === 11000) {
-        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, 409));
+      if (err.code === CONFLICT_ERROR_CODE) {
+        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, HTTP_STATUS_CONFLICT));
         return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
@@ -71,7 +77,7 @@ export const searchUsers = (
     { skip: offset, limit },
   )
     .then((users) => {
-      res.status(200).send({ total: users.length, items: users });
+      res.status(HTTP_STATUS_OK).send({ total: users.length, items: users });
     })
     .catch(next);
 };
@@ -91,14 +97,14 @@ export const putUser = (
   )
     .then((user) => {
       if (user) {
-        res.status(200).send(user);
+        res.status(HTTP_STATUS_OK).send(user);
       } else {
         throw new Error();
       }
     })
     .catch((err) => {
-      if (err.code && err.code === 11000) {
-        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, 409));
+      if (err.code && err.code === CONFLICT_ERROR_CODE) {
+        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, HTTP_STATUS_CONFLICT));
         return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
