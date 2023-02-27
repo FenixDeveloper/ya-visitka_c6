@@ -70,6 +70,7 @@ export interface IComment {
   recipient: string;
   block: string;
   text: string;
+}
 
 export interface ICity {
   name: string;

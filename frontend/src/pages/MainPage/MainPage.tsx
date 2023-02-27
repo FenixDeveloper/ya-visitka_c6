@@ -63,10 +63,6 @@ export const MainPage = (props1: any) => {
     <section className={styles.main}>
       <div className={styles.header}>
         <DropdownList data={cities} state={city} setState={setCity} />
-        <Link to={""} className={styles.link}>
-          Посмотреть на карте
-        </Link>
-        <DropdownList data={cities} title={"Все города"} />
         <Link to={"/maps"} className={styles.link}>
           Посмотреть на карте
         </Link>

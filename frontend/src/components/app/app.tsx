@@ -1,19 +1,19 @@
-import React, { useEffect, useContext } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
-import { PrivateRoute } from "../private-route";
-import { Header } from "../header/header";
-import { Footer } from "../footer/footer";
-import { LogIn } from "../log-in";
-import { Admin } from "../../pages/admin-panel/admin";
-import { AdminUsers } from "../../pages/admin-panel/admin-users";
-import styles from "./app.module.css";
-import { SwitchProfile } from "../switch-profile/switch-profile";
-import { AppContext } from "../../utils/AppContext";
-import { getUser } from "../../mockApi";
+import React, { useEffect, useContext } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
+import { PrivateRoute } from '../private-route';
+import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
+import { LogIn } from '../log-in';
+import { Admin } from '../../pages/admin-panel/admin';
+import { AdminUsers } from '../../pages/admin-panel/admin-users';
+import styles from './app.module.css';
+import { SwitchProfile } from '../switch-profile/switch-profile';
+import { AppContext } from '../../utils/AppContext';
+import { getUser } from '../../mockApi';
 import Maps from '../maps/maps';
-import MainPage from "../../pages/MainPage/MainPage";
+import MainPage from '../../pages/MainPage/MainPage';
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
-import { Profile } from "../../pages/profile/profile";
+import { Profile } from '../../pages/profile/profile';
 
 function App() {
   // const [currentUser, setCurrentUser] = useState<any>({});
@@ -32,30 +32,30 @@ function App() {
       <Header />
       <main className={styles.content}>
         <Switch>
-          <Route path='/login'>
-            <LogIn/>
+          <Route path="/login">
+            <LogIn />
           </Route>
-          <Route path='/switch-profile'>
+          <Route path="/switch-profile">
             <SwitchProfile />
           </Route>
-          <Route path='/maps'>
-            <Maps/>
-          </Route>
-          <PrivateRoute path='/' exact={true}>
+          <PrivateRoute path="/" exact={true}>
             <MainPage />
           </PrivateRoute>
-          <PrivateRoute path='/vizitka'>
+          <PrivateRoute path="/maps">
+            <Maps />
+          </PrivateRoute>
+          <PrivateRoute path="/vizitka">
             <VizitkaPage />
           </PrivateRoute>
-          <PrivateRoute path='/admin' exact>
+          <PrivateRoute path="/admin" exact>
             <Admin />
           </PrivateRoute>
-          <PrivateRoute path='/admin/users' exact>
+          <PrivateRoute path="/admin/users" exact>
             <AdminUsers />
           </PrivateRoute>
-          <Route path='/profile'>
+          <PrivateRoute path="/profile">
             <Profile />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </main>
       <Footer />
