@@ -11,6 +11,7 @@ import { getUser } from "../../mockApi";
 import Maps from '../maps/maps';
 import MainPage from "../../pages/MainPage/MainPage";
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
+import { Profile } from "../../pages/profile/profile";
 
 function App() {
   // const [currentUser, setCurrentUser] = useState<any>({});
@@ -44,6 +45,9 @@ function App() {
           <PrivateRoute path='/vizitka'>
             <VizitkaPage />
           </PrivateRoute>
+          <Route path='/profile'>
+            <Profile />
+          </Route>
         </Switch>
       </main>
       <Footer />

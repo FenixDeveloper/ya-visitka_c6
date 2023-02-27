@@ -15,6 +15,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.header div {
+  width: 325px ;
+}
 
 .link{
   font-size: 16px;
@@ -66,7 +69,9 @@
   .header {
     flex-direction: column-reverse;
   }
-
+  .header div {
+    width: 272px;
+  }
   .link{
     padding-bottom: 24px;
     align-self: flex-end;

@@ -6,7 +6,7 @@ import person3 from "./imagesData/person_3.png";
 import person4 from "./imagesData/person_4.png";
 import DropdownList from "../../components/DropdownList/DropdownList";
 import { Link } from "react-router-dom";
-import VizitkaPage from "../VizitkaPage/VizitkaPage";
+import { useState } from "react";
 const props = [
   //тестовые данные
   {
@@ -56,10 +56,16 @@ export const MainPage = (props1: any) => {
   props.forEach((item) => {
     cities.push(item.city);
   });
+  
+  const [city, setCity] = useState<string>("Все города");
 
   return (
     <section className={styles.main}>
       <div className={styles.header}>
+        <DropdownList data={cities} state={city} setState={setCity} />
+        <Link to={""} className={styles.link}>
+          Посмотреть на карте
+        </Link>
         <DropdownList data={cities} title={"Все города"} />
         <Link to={"/maps"} className={styles.link}>
           Посмотреть на карте
