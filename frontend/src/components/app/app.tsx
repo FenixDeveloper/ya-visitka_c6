@@ -36,9 +36,8 @@ function App() {
             <SwitchProfile />
           </Route>
           <Route path='/maps'>
-            <Maps />
+            <Maps/>
           </Route>
-          <PrivateRoute path='/'></PrivateRoute>
           <PrivateRoute path='/' exact={true}>
             <MainPage />
           </PrivateRoute>
