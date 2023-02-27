@@ -8,8 +8,13 @@ export interface IProfileCard {
 }
 
 export interface IDropdownList {
-  title: string;
-  data:Array<string>;
+  data: Array<string>;
+  state: string;
+  setState: (value: string) => void;
+  title?: string;
+  requiredField?: boolean;
+  stateError?: boolean;
+  setStateError?: (value: boolean) => void;
 }
 
 export enum VizitkaStyle {
@@ -65,4 +70,31 @@ export interface IComment {
   recipient: string;
   block: string;
   text: string;
+
+export interface ICity {
+  name: string;
+  geocode: number[];
+}
+
+export interface IProfile {
+  name: string;
+  photo: string;
+  city: ICity;
+}
+
+export interface IUserInfo {
+  _id: string;
+  createdAt: Date | number;
+  updatedAt: number | Date | null;
+  email: string;
+  cohort: string;
+  profile: IProfile;
+}
+
+export interface IMapProps {
+  data?: IUserInfo[];
+  centerMap?: number[];
+  zoomMap?: number;
+  balloonImg?: string;
+
 }
