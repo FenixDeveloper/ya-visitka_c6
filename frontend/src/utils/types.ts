@@ -55,6 +55,22 @@ export interface IVizitkaAboutBlock {
   style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
 }
 
+export interface IUser {
+  _id?: number;
+  cohort: number;
+  email: string;
+  name: string;
+}
+
+export interface IComment {
+  _id: number;
+  cohort: number;
+  createdAt: string;
+  sender: string;
+  recipient: string;
+  block: string;
+  text: string;
+
 export interface ICity {
   name: string;
   geocode: number[];
@@ -80,4 +96,5 @@ export interface IMapProps {
   centerMap?: number[];
   zoomMap?: number;
   balloonImg?: string;
+
 }
