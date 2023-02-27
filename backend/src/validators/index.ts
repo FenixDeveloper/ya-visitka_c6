@@ -33,3 +33,9 @@ export const joiTarget = Joi.string().valid(...TARGET_ARR).allow(null).messages(
 export const joiStringRequired = Joi.string().required().messages({
   'any.required': MSG_FIELD_REQUIRED,
 });
+
+export const joiStringOptional = Joi.string().optional();
+
+export const joiLimit = Joi.number().integer().positive().default(20);
+
+export const joiOffset = Joi.number().integer().positive().optional();

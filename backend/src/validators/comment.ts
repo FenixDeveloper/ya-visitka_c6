@@ -1,10 +1,21 @@
 import { celebrate, Joi } from 'celebrate';
-import { joiId } from './index';
+import {
+  joiId,
+  joiLimit,
+  joiOffset,
+  joiStringOptional,
+} from './index';
 
-const isCommentIdValid = celebrate({
+export const isGetCommentValid = celebrate({
+  query: Joi.object().keys({
+    offset: joiOffset,
+    limit: joiLimit,
+    search: joiStringOptional,
+  }),
+});
+
+export const isCommentIdValid = celebrate({
   params: Joi.object().keys({
     commentId: joiId,
   }),
 });
-
-export default isCommentIdValid;
