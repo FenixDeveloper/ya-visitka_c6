@@ -49,3 +49,30 @@ export interface IVizitkaAboutBlock {
   description: string;
   style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
 }
+
+export interface ICity {
+  name: string;
+  geocode: number[];
+}
+
+export interface IProfile {
+  name: string;
+  photo: string;
+  city: ICity;
+}
+
+export interface IUserInfo {
+  _id: string;
+  createdAt: Date | number;
+  updatedAt: number | Date | null;
+  email: string;
+  cohort: string;
+  profile: IProfile;
+}
+
+export interface IMapProps {
+  data?: IUserInfo[];
+  centerMap?: number[];
+  zoomMap?: number;
+  balloonImg?: string;
+}

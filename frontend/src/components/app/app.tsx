@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { PrivateRoute } from "../private-route";
 import { Header } from "../header/header";
@@ -8,6 +8,7 @@ import styles from "./app.module.css";
 import { SwitchProfile } from "../switch-profile/switch-profile";
 import { AppContext } from "../../utils/AppContext";
 import { getUser } from "../../mockApi";
+import Maps from '../maps/maps';
 import MainPage from "../../pages/MainPage/MainPage";
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 
@@ -17,9 +18,9 @@ function App() {
   const { state, dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    const userId = localStorage.getItem("user");
+    const userId = localStorage.getItem('user');
     if (userId) {
-      dispatch({ type: "success", results: getUser(Number.parseInt(userId)) });
+      dispatch({ type: 'success', results: getUser(Number.parseInt(userId)) });
     }
   }, [dispatch]);
 
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path='/switch-profile'>
             <SwitchProfile />
+          </Route>
+          <Route path='/maps'>
+            <Maps/>
           </Route>
           <PrivateRoute path='/' exact={true}>
             <MainPage />
