@@ -66,6 +66,10 @@ export const MainPage = (props1: any) => {
         <Link to={""} className={styles.link}>
           Посмотреть на карте
         </Link>
+        <DropdownList data={cities} title={"Все города"} />
+        <Link to={"/maps"} className={styles.link}>
+          Посмотреть на карте
+        </Link>
       </div>
       <ul className={styles.cards}>
         {props.map((item, index) => (
