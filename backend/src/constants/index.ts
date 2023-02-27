@@ -32,6 +32,7 @@ export const MSG_INCORRECT_TARGET = 'Некорректный ключ';
 export const MSG_EXPIRED_CODE = 'Срок действия кода истек';
 export const MSG_CLIENT_NOT_FOUND = 'Приложение с текущим client_id не найдено';
 export const MSG_WRONG_CLIENT_SECRET = 'Неверный client_secret';
+export const MSG_EMAIL_ALREADY_EXIST = 'Пользователь с таким email уже существует';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';

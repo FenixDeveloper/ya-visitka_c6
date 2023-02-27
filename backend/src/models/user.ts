@@ -33,14 +33,16 @@ const userSchema = new Schema<IUser>({
   _id: {
     type: Schema.Types.ObjectId,
     ref: 'user',
+    required: true,
+    auto: true,
   },
   createdAt: {
     type: Schema.Types.Date,
-    default: Date.now(),
+    default: Date.now,
   },
   updatedAt: {
     type: Schema.Types.Date,
-    default: Date.now(),
+    default: Date.now,
   },
   email: {
     type: String,

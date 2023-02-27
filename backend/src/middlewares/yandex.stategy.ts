@@ -64,7 +64,7 @@ const yandexAuthMiddleware = async (
       }
 
       const userResponse = await fetch(PROFILE_URL, {
-        headers: { Authorization: `OAuht ${access_token}` },
+        headers: { Authorization: `OAuth ${access_token}` },
       });
 
       const userJwt = await userResponse.text();
