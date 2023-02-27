@@ -4,7 +4,6 @@ import profileRouter from './profile';
 import commentsRouter from './comments';
 
 import { jwtAuth } from '../controllers/auth';
-import { getUsers } from '../controllers/users';
 
 const router = Router();
 
