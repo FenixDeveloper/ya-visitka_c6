@@ -1,0 +1,11 @@
+.vizitka {
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding-bottom: 207px;
+}
