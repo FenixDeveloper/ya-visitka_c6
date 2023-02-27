@@ -11,8 +11,8 @@ import {
   joiUrl,
 } from './joiUtils';
 
-export const joiOffset = joiInteger.default(0).min(0);
-export const joiLimit = joiInteger.default(20).max(50).min(1);
+const joiOffset = joiInteger.default(0).min(0);
+const joiLimit = joiInteger.default(20).max(50).min(1);
 
 export const validateProfileQuerry = celebrate({
   query: Joi.object().keys({

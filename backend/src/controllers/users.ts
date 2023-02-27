@@ -45,6 +45,7 @@ export const createUser = (
     .catch((err) => {
       if (err.code === 11000) {
         next(new CustomError(MSG_EMAIL_ALREADY_EXIST, 409));
+        return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
     });
@@ -98,6 +99,7 @@ export const putUser = (
     .catch((err) => {
       if (err.code && err.code === 11000) {
         next(new CustomError(MSG_EMAIL_ALREADY_EXIST, 409));
+        return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
     });

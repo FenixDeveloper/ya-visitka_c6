@@ -9,7 +9,6 @@ import {
   joiStringRequired,
 } from './index';
 import { regexUrl } from '../constants';
-import { joiLimit, joiOffset } from './profile';
 import { joiString } from './joiUtils';
 
 export const isEmail = (email: string): boolean => validator.isEmail(email);
