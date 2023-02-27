@@ -14,6 +14,10 @@ export interface IUser {
   reactions: Array<ICommentReaction | IEmotionReaction>;
 }
 
+export interface IUserFiltered extends Omit<IUser, 'profile' | 'info' | 'reactions'> {
+  name?: string;
+}
+
 export interface IUserModel extends Model<IUser> {
   // eslint-disable-next-line no-unused-vars
   findUserByEmailAndCohort: (
