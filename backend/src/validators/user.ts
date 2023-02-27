@@ -3,6 +3,9 @@ import { celebrate, Joi } from 'celebrate';
 import {
   joiEmail,
   joiId,
+  joiLimit,
+  joiOffset,
+  joiStringOptional,
   joiStringRequired,
 } from './index';
 import { regexUrl } from '../constants';
@@ -15,7 +18,7 @@ export const isUrl = (url: string): boolean => regexUrl.test(url);
 export const isLoginRequestValid = celebrate({
   body: Joi.object().keys({
     email: joiEmail,
-    cohort: Joi.string().optional(),
+    cohort: joiStringOptional,
   }),
 });
 
@@ -23,6 +26,14 @@ export const isPostUserValid = celebrate({
   body: Joi.object().keys({
     email: joiEmail,
     cohort: joiStringRequired,
+  }),
+});
+
+export const isGetUserValid = celebrate({
+  query: Joi.object().keys({
+    offset: joiOffset,
+    limit: joiLimit,
+    search: joiStringOptional,
   }),
 });
 

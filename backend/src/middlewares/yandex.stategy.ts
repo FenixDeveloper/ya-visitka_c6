@@ -43,6 +43,7 @@ const yandexAuthMiddleware = async (
 
       if (!response.ok) {
         const error = await response.json();
+
         if (error.error === ERR_INVALID_GRANT) {
           throw new BadRequestError(MSG_EXPIRED_CODE);
         }
