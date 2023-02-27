@@ -1,12 +1,10 @@
 import { URL } from "./constants";
 
-const checkResponse = (res) => {
-    if (res.ok || res.created) {
+const checkResponse = (res: Response) => {
+    if (res.ok) {
         return res.json();
     }
-    return res.json().then((err) => {
-        return Promise.reject(err);
-    });
+    return Promise.reject(`Ошибка ${res.status}`);
 };
 
 const headersContentType = { "Content-Type": "application/json" };
@@ -17,7 +15,7 @@ const headersAuthorization = () => ({
 
 //#region users
 
-export const postUser = (userData) => {
+export const postUser = (userData: any) => {
     return fetch(`${URL}/users/`, {
         method: "POST",
         headers: headersContentType,//headersAuthorization(),
@@ -32,7 +30,7 @@ export const getUsers = () => {
     }).then(checkResponse);
 };
 
-export const putUser = (userData, id) => {
+export const putUser = (userData: any, id: number) => {
     return fetch(`${URL}/users/${id}`, {
         method: "PUT",
         headers: headersContentType,//headersAuthorization(),
@@ -51,7 +49,7 @@ export const getComments = () => {
     }).then(checkResponse);
 };
 
-export const deleteComment = (id) => {
+export const deleteComment = (id: number) => {
     return fetch(`${URL}/comments/${id}`, {
         method: "DELETE",
         headers: headersContentType,//headersAuthorization(),
@@ -65,14 +63,14 @@ export const deleteComment = (id) => {
 //#region id
 
 //#region reactions
-export const getReactions = (id) => {
+export const getReactions = (id: number) => {
     return fetch(`${URL}/profiles/${id}/reactions`, {
         method: "GET",
         headers: headersContentType,//headersAuthorization(),
     }).then(checkResponse);
 };
 
-export const postReactions = (id) => {
+export const postReactions = (profileData: any, id: number) => {
     return fetch(`${URL}/profiles/${id}/reactions`, {
         method: "POST",
         headers: headersContentType,//headersAuthorization(),
@@ -81,14 +79,14 @@ export const postReactions = (id) => {
 };
 //#endregion
 
-export const getProfile = (id) => {
+export const getProfile = (id: number) => {
     return fetch(`${URL}/profiles/${id}`, {
         method: "GET",
         headers: headersContentType,//headersAuthorization(),
     }).then(checkResponse);
 };
 
-export const patchProfile= (profileData, id) => {
+export const patchProfile= (profileData: any, id: number) => {
     return fetch(`${URL}/profiles/${id}`, {
         method: "PATCH",
         headers: headersContentType,//headersAuthorization(),
