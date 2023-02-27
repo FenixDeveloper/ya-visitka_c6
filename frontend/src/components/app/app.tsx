@@ -16,7 +16,6 @@ import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 import { Profile } from '../../pages/profile/profile';
 
 function App() {
-  // const [currentUser, setCurrentUser] = useState<any>({});
   const history = useHistory();
   const { state, dispatch } = useContext(AppContext);
 

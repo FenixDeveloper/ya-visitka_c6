@@ -1,7 +1,7 @@
 .header {
     display: flex;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 8px auto;
     padding: 43.5px 0 43.5px 40px;
     align-items: center;
     justify-content: space-between;
@@ -18,13 +18,12 @@
 
 .profile_box {
     display: flex;
-    position: relative;    
+    position: absolute;    
     align-items: center;
-    padding: 40px 24px 30px; 
-    box-sizing: border-box;
-    position: absolute;
+    padding: 40px 24px 32px; 
     top: 0;
     right: 0;
+    border-radius: 0 0 10px 10px;
     flex-direction: column;
     row-gap: 16px;
     cursor: pointer;
@@ -54,15 +53,35 @@
 }
 
 .profile_hidden {
-    padding: 8px 0 36px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    width: 248px;
+    height: 36px;
+    box-sizing: border-box;
+    padding: 0 0 0 36px;
+    border-radius: 4px;
     display: none;
 }
 
+.link {
+    margin: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+
+.profile_box:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+}
+
 .profile_box:hover .profile_hidden {
-    display: block;
+    display: flex;
+    align-items: center;
+}
+
+.profile_hidden:hover {
+    background-color: #F9F9F9;
 }
 
 @media screen and (max-width: 1024px) {
@@ -86,5 +105,9 @@
 
     .name {
         display: none;
+    }
+
+    .profile_box:hover .name {
+        display: block;
     }
 }
