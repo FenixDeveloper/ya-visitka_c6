@@ -30,11 +30,19 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user as Express.User));
 passport.use(JwtStrategy);
 
+app.get('/hello', (req, res) => {
+  res.send('Hello');
+});
+
 // Unprotected
 app.post('/api/token/', yandexAuthMiddleware, yandexAuth);
 app.use(passport.authenticate('jwt', { session: true }));
 
 // Protected
+
+app.get('/helloProtected', (req, res) => {
+  res.send('helloProtected');
+});
 app.use(router);
 
 app.use(errors());
@@ -46,8 +54,15 @@ mongoose.set('strictQuery', true);
 mongoose
   .connect(DB_URL)
   .then(() => console.log(`Connected to database ${DB_URL}`))
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`App listening on port ${PORT}!`);
+    });
+  })
   .catch((err) => console.error(err.message));
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-});
+// app.listen(PORT, () => {
+//   console.log(`App listening on port ${PORT}!`);
+// });
+
+export default app;
