@@ -105,16 +105,19 @@ function MyMap({
                </div>
              </div>`),
           iconOffset: [-30, -65],
-        }
+        },
       );
     });
+    // @ts-ignore
+    const clusterer = new ymaps.Clusterer({ clusterDisableClickZoom: true });
 
     placemarks.forEach((placemark) => {
-      map.geoObjects.add(placemark);
+      clusterer.add(placemark);
+      // map.geoObjects.add(placemark);
     });
 
-    
-
+    // @ts-ignore
+    map.geoObjects.add(clusterer);
   }, [balloonImg, centerMap, data, ymaps, zoomMap]);
 
   
