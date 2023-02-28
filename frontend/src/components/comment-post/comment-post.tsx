@@ -4,6 +4,7 @@ import styles from './comment-post.module.css';
 interface CommentPostProps {
   comments: string[];
   emojies: { type: string; count: number }[];
+  class?: boolean;
 }
 
 function CommentPost(props: CommentPostProps) {
@@ -17,7 +18,7 @@ function CommentPost(props: CommentPostProps) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={!props.class ? styles.container : styles.container_modifed}>
       <div className={styles.commentWrap}>
         {comments.map((item, index) => (
           <p key={index} className={styles.commentText}>

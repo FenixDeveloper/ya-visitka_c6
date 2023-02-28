@@ -8,6 +8,20 @@
   background-color: #fff;
 }
 
+.container_modifed{
+  margin: 12px -20px 0 0;
+  box-sizing: border-box;
+  width: 321px;
+  min-height: 92px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.container_modifed .commentWrap{
+  max-height: 145px;
+}
+
 .commentWrap {
   margin: 12px 4px 12px 12px;
   padding-right: 5px;
@@ -113,6 +127,17 @@
     margin-right: -10px;
     width: 342px;
   }
+}
+
+@media (max-width: 767px) {
+  .container_modifed{
+    width: 268px;
+  }
+
+  
+.container_modifed .commentWrap{
+  max-height: 92px;
+}
 }
 
 @media screen and (max-width: 480px) {
