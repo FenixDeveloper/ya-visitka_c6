@@ -14,7 +14,7 @@ import {
 const joiOffset = joiInteger.default(0).min(0);
 const joiLimit = joiInteger.default(20).max(50).min(1);
 
-export const validateProfileQuerry = celebrate({
+export const validateProfileQuery = celebrate({
   query: Joi.object().keys({
     offset: joiOffset,
     limit: joiLimit,
@@ -28,7 +28,7 @@ export const validateIdParam = celebrate({
   }),
 });
 
-export const validateReactionsQuerry = celebrate({
+export const validateReactionsQuery = celebrate({
   params: Joi.object().keys({
     id: joiId,
   }),

@@ -9,16 +9,16 @@ import InternalServerError from '../errors/InternalServerError';
 import { IUser } from '../types/user';
 import { IProfile } from '../types/profile';
 import { Info } from '../types/info';
-import { MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
+import { HTTP_STATUS_OK, MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
 import ForbiddenError from '../errors/ForbiddenError';
 
-type TGetProfilesQuerry = {
+type TGetProfilesQuery = {
   offset?: number;
   limit?: number;
 };
 
 export const getProfiles = (
-  req: Request<{}, {}, {}, TGetProfilesQuerry & { cohort?: string }>,
+  req: Request<{}, {}, {}, TGetProfilesQuery & { cohort?: string }>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -27,9 +27,9 @@ export const getProfiles = (
   const { role } = userFromSession;
   const { cohort } = role === ROLE_CURATOR ? req.query : userFromSession;
 
-  const filterQuerry: FilterQuery<IUser> = cohort ? { cohort } : {};
+  const filterQuery: FilterQuery<IUser> = cohort ? { cohort } : {};
 
-  User.find(filterQuerry, { info: 0, reactions: 0 }, { limit, skip })
+  User.find(filterQuery, { info: 0, reactions: 0 }, { limit, skip })
     .then((users) => res.send({ total: users.length, items: users }))
     .catch((err) => {
       next(new InternalServerError(err));
@@ -57,7 +57,7 @@ export const getProfileById = async (
 };
 
 export const getReactionsById = async (
-  req: Request<{ id: string }, {}, {}, TGetProfilesQuerry>,
+  req: Request<{ id: string }, {}, {}, TGetProfilesQuery>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -127,7 +127,7 @@ export const patchProfile = async (
 
     User.findByIdAndUpdate(userId, { $set: { profile, info } }, { new: true })
       .then((updUser) => {
-        res.status(200).send(updUser);
+        res.status(HTTP_STATUS_OK).send(updUser);
       })
       .catch((err) => next(new BadRequestError(String(err))));
   } catch (err) {
