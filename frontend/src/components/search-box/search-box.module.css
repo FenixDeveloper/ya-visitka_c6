@@ -1,0 +1,27 @@
+.inputContainer {
+  position: relative;
+}
+
+.input {
+  width: 440px;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid #100c34;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #100c34;
+  cursor: pointer;
+  padding: 12px 68px 12px 16px;
+  box-sizing: border-box;
+}
+
+.arrow {
+  position: absolute;
+  top: 19px;
+  right: 16px;
+}
+
+.arrow_open {
+  transform: rotate(180deg);
+}
