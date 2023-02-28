@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { NextFunction, Request, Response } from 'express';
-import * as dotenv from 'dotenv';
-import 'isomorphic-fetch';
 
+import BadRequestError from '../errors/BadRequestError';
+import InternalServerError from '../errors/InternalServerError';
+import { getAccessToken, getUserJwtToken } from '../utils';
 import {
   ERR_CLIENT_NOT_FOUND,
   ERR_INVALID_CLIENT,
@@ -11,15 +12,7 @@ import {
   MSG_EXPIRED_CODE,
   MSG_SERVER_ERROR,
   MSG_WRONG_CLIENT_SECRET,
-  PROFILE_URL,
-  TOKEN_URL,
 } from '../constants';
-import InternalServerError from '../errors/InternalServerError';
-import BadRequestError from '../errors/BadRequestError';
-
-dotenv.config();
-
-const { CLIENT_SECRET = '' } = process.env;
 
 const yandexAuthMiddleware = async (
   req: Request,
@@ -27,57 +20,38 @@ const yandexAuthMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    const { code, client_id } = req.body;
+    const { code } = req.body;
 
-    if (code && client_id) {
-      const response = await fetch(TOKEN_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          grant_type: 'authorization_code',
-          code,
-          client_id,
-          client_secret: CLIENT_SECRET,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-
-        if (error.error === ERR_INVALID_GRANT) {
-          throw new BadRequestError(MSG_EXPIRED_CODE);
-        }
-
-        if (error.error === ERR_INVALID_CLIENT) {
-          // eslint-disable-next-line operator-linebreak
-          const message =
-            error.error_description === ERR_CLIENT_NOT_FOUND
-              ? MSG_CLIENT_NOT_FOUND
-              : MSG_WRONG_CLIENT_SECRET;
-          throw new BadRequestError(message);
-        }
-      }
-
-      const { access_token } = await response.json();
+    if (code) {
+      const { access_token } = await getAccessToken(code);
 
       if (!access_token) {
         throw new InternalServerError(MSG_SERVER_ERROR);
       }
 
-      const userResponse = await fetch(PROFILE_URL, {
-        headers: { Authorization: `OAuth ${access_token}` },
-      });
+      const userJwtToken = await getUserJwtToken(access_token);
 
-      const userJwt = await userResponse.text();
-
-      req.user = { token: userJwt };
+      req.user = { token: userJwtToken };
 
       next();
     } else {
       throw new InternalServerError(MSG_SERVER_ERROR);
     }
-  } catch (err) {
-    next(err);
+  } catch (err: any) {
+    let sendingError = err;
+
+    if (err.error === ERR_INVALID_GRANT) {
+      sendingError = new BadRequestError(MSG_EXPIRED_CODE);
+    }
+
+    if (err.error === ERR_INVALID_CLIENT) {
+      const message = err.error_description === ERR_CLIENT_NOT_FOUND
+        ? MSG_CLIENT_NOT_FOUND
+        : MSG_WRONG_CLIENT_SECRET;
+      sendingError = new BadRequestError(message);
+    }
+
+    next(sendingError);
   }
 };
 
