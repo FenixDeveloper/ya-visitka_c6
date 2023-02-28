@@ -9,5 +9,13 @@ export const getComments = (
   res: Response,
   next: NextFunction,
 ) => {
+  console.log('ok');
+  console.log(req.query);
+  const { offset: offset, limit, search: search } = req.query;
+  console.log('offset', offset, 'limit', limit, 'search', search);
+
+
+
+
 
 };
