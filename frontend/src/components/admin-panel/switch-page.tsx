@@ -1,4 +1,3 @@
-import { useState, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './admin-panel.module.css';
 
@@ -10,13 +9,13 @@ export const SwitchPage = () => {
                       ( window.location.pathname === '/admin/users'
                         ? `${styles.text_dark}` 
                         : `${styles.text_light}`) +
-                        ` ${styles.text_header}`
+                        ` ${styles.text_title}`
                     } to='/admin/users'>студенты</Link>
       <Link className={
                       ( window.location.pathname === '/admin'
                       ? `${styles.text_dark}` 
                       : `${styles.text_light}`) +
-                      ` ${styles.text_header}`
+                      ` ${styles.text_title}`
                     } to='/admin'>комментарии</Link>
     </nav>
   );

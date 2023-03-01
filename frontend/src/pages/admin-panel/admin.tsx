@@ -4,7 +4,7 @@ import { SearchBar } from '../../components/admin-panel/search-bar';
 import { TableCommentsRow } from '../../components/admin-panel/table-comments-row';
 import { TableCell } from '../../components/admin-panel/table-cell';
 import { IComment } from '../../utils/types'; 
-import styles from '../../components/admin-panel/admin-panel.module.css';
+import styles from './admin.module.css';
 
 export const Admin = () => {
 

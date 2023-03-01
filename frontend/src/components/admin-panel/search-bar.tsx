@@ -8,17 +8,14 @@ type TSearchProps = {
 export const SearchBar: FC<TSearchProps>  = ({onChange}) => {
 
   return (
-    <div className={styles.search}>
-      <label className={styles.text + styles.text_dark}>
-        Фильтровать
-        
-      </label>
+    <label className={styles.search}>
+      <p className={`${styles.text}` + ` ${styles.text_dark}`}>Фильтровать</p>
       <input
           type='search'
           className={styles.input}
           onChange={onChange}
           placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
         />
-    </div>
+    </label>
   );
 };

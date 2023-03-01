@@ -17,6 +17,7 @@ export const TableUsersRow: FC<TRowProps> = ({data, loaded}) => {
       <TableCell value={data.cohort} loaded={loaded} type={'input'}/>
       <TableCell value={data.email} loaded={loaded} type={'input'}/>
       <TableCell value={data.name} loaded={loaded} type={type}/>
+      <button type='button' className={styles.button_delete}></button>
     </div>
   );
 };
