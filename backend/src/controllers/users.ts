@@ -3,14 +3,13 @@ import { ProjectionType } from 'mongoose';
 import User from '../models/user';
 import {
   HTTP_STATUS_OK,
-  HTTP_STATUS_CONFLICT,
   MSG_EMAIL_ALREADY_EXIST,
   MSG_SERVER_ERROR,
   CONFLICT_ERROR_CODE,
 } from '../constants';
 import InternalServerError from '../errors/InternalServerError';
 import { IUser, IUserFiltered } from '../types/user';
-import CustomError from '../errors/CustomError';
+import ConflictError from '../errors/ConflictError';
 
 type TGetUsersQuery = {
   offset?: number;
@@ -50,7 +49,7 @@ export const createUser = (
     })
     .catch((err) => {
       if (err.code === CONFLICT_ERROR_CODE) {
-        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, HTTP_STATUS_CONFLICT));
+        next(new ConflictError(MSG_EMAIL_ALREADY_EXIST));
         return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
@@ -90,7 +89,7 @@ export const putUser = (
   const { email, cohort } = req.body;
   const { userId } = req.params;
 
-  User.findOneAndReplace(
+  User.findOneAndUpdate(
     { _id: userId },
     { email, cohort },
     { new: true, projection: getUserProjection() },
@@ -104,7 +103,7 @@ export const putUser = (
     })
     .catch((err) => {
       if (err.code && err.code === CONFLICT_ERROR_CODE) {
-        next(new CustomError(MSG_EMAIL_ALREADY_EXIST, HTTP_STATUS_CONFLICT));
+        next(new ConflictError(MSG_EMAIL_ALREADY_EXIST));
         return;
       }
       next(new InternalServerError(MSG_SERVER_ERROR));
