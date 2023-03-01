@@ -28,14 +28,6 @@ export const isPostUserValid = celebrate({
   }),
 });
 
-export const isGetUserValid = celebrate({
-  query: Joi.object().keys({
-    offset: joiOffset,
-    limit: joiLimit,
-    search: joiStringOptional,
-  }),
-});
-
 export const isPutUserValid = celebrate({
   params: Joi.object().keys({
     userId: joiId,
@@ -51,12 +43,5 @@ export const isSearchUserValid = celebrate({
     offset: joiOffset,
     limit: joiLimit,
     search: joiString,
-  }),
-});
-
-export const isCommentIdValid = celebrate({
-  params: Joi.object().keys({
-    commentId: joiId,
-    cohort: joiStringRequired,
   }),
 });

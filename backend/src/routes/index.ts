@@ -13,6 +13,7 @@ router.get('/api/login', jwtAuth);
 
 router.use('/api/users', usersRouter);
 router.use('/api/profile', profileRouter);
+
 router.use('/api/comments', commentsRouter);
 
 export default router;
