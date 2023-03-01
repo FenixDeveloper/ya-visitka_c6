@@ -6,7 +6,6 @@ import { InputDate } from '../../components/inputDate/inputDate';
 import { InputFile } from '../../components/inputFile/inputFile';
 import { Textarea } from '../../components/textarea/textarea';
 import { UploadPhoto } from '../../components/uploadPhoto/uploadPhoto';
-// import { YMaps, withYMaps } from '@pbe/react-yandex-maps';
 import { SearchBox } from '../../components/search-box/search-box';
 import styles from './profile.module.css';
 
