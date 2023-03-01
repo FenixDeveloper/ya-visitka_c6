@@ -4,11 +4,16 @@ export const DEFAULT_DB_URL = 'mongodb://127.0.0.1:27017/visitkadb';
 export const DEFAULT_SESSION_SECRET = 'secret';
 
 // HTTP Statuses
+export const HTTP_STATUS_OK = 200;
 export const HTTP_STATUS_BAD_REQUEST = 400;
 export const HTTP_STATUS_UNAUTHORIZED = 401;
 export const HTTP_STATUS_FORBIDDEN = 403;
 export const HTTP_STATUS_NOT_FOUND = 404;
+export const HTTP_STATUS_CONFLICT = 409;
 export const HTTP_STATUS_SERVER_ERROR = 500;
+
+// Error codes
+export const CONFLICT_ERROR_CODE = 11000;
 
 // Token
 export const TOKEN_INCORRECT = 'Некорректный токен';
@@ -32,6 +37,7 @@ export const MSG_INCORRECT_TARGET = 'Некорректный ключ';
 export const MSG_EXPIRED_CODE = 'Срок действия кода истек';
 export const MSG_CLIENT_NOT_FOUND = 'Приложение с текущим client_id не найдено';
 export const MSG_WRONG_CLIENT_SECRET = 'Неверный client_secret';
+export const MSG_EMAIL_ALREADY_EXIST = 'Пользователь с таким email уже существует';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';

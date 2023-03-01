@@ -9,6 +9,7 @@ import {
   joiStringRequired,
 } from './index';
 import { regexUrl } from '../constants';
+import { joiString } from './joiUtils';
 
 export const isEmail = (email: string): boolean => validator.isEmail(email);
 export const isUrl = (url: string): boolean => regexUrl.test(url);
@@ -27,14 +28,6 @@ export const isPostUserValid = celebrate({
   }),
 });
 
-export const isGetUserValid = celebrate({
-  query: Joi.object().keys({
-    offset: joiOffset,
-    limit: joiLimit,
-    search: joiStringOptional,
-  }),
-});
-
 export const isPutUserValid = celebrate({
   params: Joi.object().keys({
     userId: joiId,
@@ -45,9 +38,10 @@ export const isPutUserValid = celebrate({
   }),
 });
 
-export const isCommentIdValid = celebrate({
-  params: Joi.object().keys({
-    commentId: joiId,
-    cohort: joiStringRequired,
+export const isSearchUserValid = celebrate({
+  query: Joi.object().keys({
+    offset: joiOffset,
+    limit: joiLimit,
+    search: joiString,
   }),
 });
