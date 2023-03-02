@@ -20,10 +20,5 @@ export interface IUserFiltered extends Omit<IUser, 'profile' | 'info' | 'reactio
 
 export interface IUserModel extends Model<IUser> {
   // eslint-disable-next-line no-unused-vars
-  findUserByEmailAndCohort: (
-    email: string,
-    cohort: string,
-  ) => Promise<Document<IUser>>;
-  // eslint-disable-next-line no-unused-vars
   findUserByEmail: (email: string) => Promise<Document<IUser>>;
 }
