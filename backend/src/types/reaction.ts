@@ -1,9 +1,11 @@
+import { Types } from 'mongoose';
+
 import { InfoBlockName } from './info-block';
 
 export interface IReaction {
-  _id: string;
+  _id: Types.ObjectId;
   from: {
-    _id: string;
+    _id: Types.ObjectId;
     name: string;
     email: string;
   };
