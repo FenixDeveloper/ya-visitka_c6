@@ -1,4 +1,5 @@
-import { ChangeEvent, FC } from "react"
+import { FC, useEffect } from "react"
+import { Calendar } from "../calendar/calendar"
 import { ErrorMessage } from "../errorMessage/errorMessage"
 import styles from "./inputDate.module.css"
 
@@ -17,15 +18,16 @@ export const InputDate: FC<IInputDate> = ({
     setStateError
 }) => {
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(e.target.value);
-        setStateError(!e.target.value)
-    }
+    useEffect(() => {
+        if(state !== null){
+            setStateError(false);
+        }
+    }, [setStateError, state])
 
     return (
         <label>
             <p className={styles.text}>{labelName}<span>*</span></p>
-            <input type="date" value={state} onChange={onChange} />
+            <Calendar startDate={state} setStartDate={setState} />
            {stateError && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
         </label>
     )

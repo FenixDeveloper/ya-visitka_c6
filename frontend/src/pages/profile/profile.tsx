@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState } from 'react';
 import DropdownList from '../../components/DropdownList/DropdownList';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
 import { Input } from '../../components/input/input';
@@ -17,7 +17,7 @@ export const Profile = () => {
   const [hobbies, setHobbies] = useState<string>('');
   const [motto, setMotto] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string>('');
-  const [birthday, setBirthday] = useState<string>('');
+  const [birthday, setBirthday] = useState<Date | null>(null);
   const [city, setCity] = useState<string>('');
   const [github, setGithub] = useState<string>('');
   const [sample, setSample] = useState<string>(samples[0]);
@@ -33,7 +33,7 @@ export const Profile = () => {
 
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (birthday === '') {
+    if (birthday === null) {
       setIsShowErrorBirthday(true);
     }
     if (userPhoto === '') {
@@ -60,15 +60,6 @@ export const Profile = () => {
         setStateError={setIsShowErrorBirthday}
       />
       <SearchBox />
-      {/* <DropdownList
-        state={city}
-        setState={setCity}
-        data={['Казань', 'Челны']}
-        title={'Выберите город'}
-        requiredField={true}
-        stateError={isShowErrorCity}
-        setStateError={setIsShowErrorCity}
-      /> */}
       <Input
         type={'text'}
         value={nicknameTelegram}
