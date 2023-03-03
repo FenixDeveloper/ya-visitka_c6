@@ -7,15 +7,23 @@ import session from 'express-session';
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';
 import errorHandler from './middlewares/errorsHandler';
+
 import { errorLogger, requestLogger } from './middlewares/logger';
 
 import router from './routes';
 import { yandexAuth } from './controllers/auth';
 
+import infoRouter from './routes/info';
+
 const app = express();
+
+app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/info', infoRouter);
+
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(requestLogger);
 
