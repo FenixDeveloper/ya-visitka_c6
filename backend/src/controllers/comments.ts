@@ -35,14 +35,19 @@ export const getComments = (
     },
     'reactions.from.cohort': '$cohort',
   };
+  const fieldsShow = {
+    'reactions.text': 1,
+    'reactions.from': 1,
+    'reactions.target': 1,
+    'reactions.to': 1,
+    'reactions.createdAt': 1,
+    _id: 0,
+  };
 
   User.aggregate()
     .addFields(addFieldTo)
     .unwind('reactions')
-    .project({
-      reactions: 1,
-      _id: 0,
-    })
+    .project(fieldsShow)
     .match({
       $or: filter,
     })
@@ -51,11 +56,13 @@ export const getComments = (
     })
     .skip(offset)
     .limit(limit)
-    .sort('cohort to.name target')
-    .then((items) => (res.send({
+    .sort({
+      createdAt: 'desc',
+    })
+    .then((items) => res.send({
       total: items.length,
       items,
-    })))
+    }))
     .catch(() => {
       next(new InternalServerError(MSG_SERVER_ERROR));
     });

@@ -40,6 +40,10 @@ const reactionSchema = new Schema<IReaction>({
     required: true,
     auto: true,
   },
+  createdAt: {
+    type: Schema.Types.Date,
+    default: Date.now,
+  },
   from: {
     type: {
       _id: {
