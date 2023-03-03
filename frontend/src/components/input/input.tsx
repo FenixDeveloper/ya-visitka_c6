@@ -1,29 +1,38 @@
 import styles from "./input.module.css"
-import { ChangeEventHandler, FC } from "react"
+import { FC } from "react"
+import { ErrorMessage } from '../errorMessage/errorMessage'
 
 interface IInput {
     type: "text" | "email",
     value: string,
     labelName: string,
-    onChange: ChangeEventHandler<HTMLInputElement>,
+    stateError?: boolean,
+    setStateError?: (value: boolean) => void,
+    messageError?: string,
 }
-export const Input: FC<IInput> = ({
+export const Input: FC<IInput & React.HTMLProps<HTMLInputElement>> = ({
     type,
     value,
     labelName,
     onChange,
+    stateError,
+    setStateError,
+    messageError,
+    ...props
 }) => {
     return (
         <label>
 
             <p className={styles.text}>{labelName}</p>
-            
+
             <input
+                {...props}
                 className={styles.input}
                 type={type}
                 value={value}
                 onChange={onChange}
             />
+            {stateError && <ErrorMessage>{messageError}</ErrorMessage>}
         </label>
     )
 }
