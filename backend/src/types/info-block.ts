@@ -5,7 +5,9 @@ export enum InfoBlockName {
   EDU = 'edu',
 }
 
+export type TInfoType = 'hobby' | 'status' | 'job' | 'edu';
+
 export interface IInfoBlock {
   text: string | '';
-  image: string | undefined;
+  image: string | undefined | null;
 }
