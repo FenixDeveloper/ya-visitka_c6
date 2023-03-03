@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState } from 'react';
 import DropdownList from '../../components/DropdownList/DropdownList';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
 import { Input } from '../../components/input/input';
@@ -8,8 +8,10 @@ import { Textarea } from '../../components/textarea/textarea';
 import { UploadPhoto } from '../../components/uploadPhoto/uploadPhoto';
 import { SearchBox } from '../../components/search-box/search-box';
 import styles from './profile.module.css';
+import { ErrorMessage } from '../../components/errorMessage/errorMessage';
 
 const samples = ['серьезный', 'романтичный', 'дерзкий'];
+const cities = ["Москва", "Санкт-Петербург","Казань", "Екатеринбург"];
 
 export const Profile = () => {
   const [nicknameTelegram, setNicknameTelegram] = useState<string>('');
@@ -27,8 +29,7 @@ export const Profile = () => {
   const [dicisionStudy, setDicisionStudy] = useState<string>('');
 
   const [isShowErrorPhoto, setIsShowErrorPhoto] = useState<boolean>(false);
-  const [isShowErrorBirthday, setIsShowErrorBirthday] =
-    useState<boolean>(false);
+  const [isShowErrorBirthday, setIsShowErrorBirthday] = useState<boolean>(false);
   const [isShowErrorCity, setIsShowErrorCity] = useState<boolean>(false);
 
   const handlerSubmit = (e: { preventDefault: () => void }) => {
@@ -59,16 +60,8 @@ export const Profile = () => {
         stateError={isShowErrorBirthday}
         setStateError={setIsShowErrorBirthday}
       />
-      <SearchBox />
-      {/* <DropdownList
-        state={city}
-        setState={setCity}
-        data={['Казань', 'Челны']}
-        title={'Выберите город'}
-        requiredField={true}
-        stateError={isShowErrorCity}
-        setStateError={setIsShowErrorCity}
-      /> */}
+      <SearchBox setStateError={setIsShowErrorCity} setState={setCity} listDefaultCities={cities} />
+      {isShowErrorCity && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
       <Input
         type={'text'}
         value={nicknameTelegram}

@@ -13,8 +13,6 @@ export interface IDropdownList {
   setState: (value: string) => void;
   title?: string;
   requiredField?: boolean;
-  stateError?: boolean;
-  setStateError?: (value: boolean) => void;
 }
 
 export enum VizitkaStyle {
