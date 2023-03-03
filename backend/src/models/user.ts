@@ -1,6 +1,16 @@
 import { model, Schema } from 'mongoose';
 
+import {
+  ICommentReaction,
+  IEmotionReaction,
+  IReaction,
+} from '../types/reaction';
+import { IUser, IUserModel } from '../types/user';
 import { IInfoBlock, InfoBlockName } from '../types/info-block';
+
+import { isEmail, isUrl } from '../validators/user';
+
+import DataNotFoundError from '../errors/NotFoundError';
 
 import {
   MSG_FIELD_REQUIRED,
@@ -8,11 +18,6 @@ import {
   MSG_INCORRECT_URL,
   MSG_USER_NOT_FOUND,
 } from '../constants';
-
-import DataNotFoundError from '../errors/NotFoundError';
-import UnauthorizedError from '../errors/UnauthorizedError';
-import { IUser, IUserModel } from '../types/user';
-import { isEmail, isUrl } from '../validators/user';
 
 const infoBlockSchema = new Schema<IInfoBlock>({
   text: {
@@ -28,6 +33,34 @@ const infoBlockSchema = new Schema<IInfoBlock>({
     },
   },
 });
+
+const reactionSchema = new Schema<IReaction>({
+  _id: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    auto: true,
+  },
+  from: {
+    type: {
+      _id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+      },
+      name: String,
+      email: String,
+    },
+    required: true,
+  },
+  target: {
+    type: String,
+    enum: [...Object.values(InfoBlockName), null],
+    required: false,
+  },
+});
+
+const commentSchema = new Schema({ text: String });
+const emotionSchema = new Schema({ emotion: String });
 
 const userSchema = new Schema<IUser>({
   _id: {
@@ -97,50 +130,8 @@ const userSchema = new Schema<IUser>({
     job: infoBlockSchema,
     edu: infoBlockSchema,
   },
-  reactions: [
-    {
-      _id: {
-        type: Schema.Types.ObjectId,
-        ref: 'reaction',
-      },
-      from: {
-        _id: {
-          type: Schema.Types.ObjectId,
-          ref: 'user',
-        },
-        name: String,
-        email: {
-          type: String,
-          validate: {
-            validator: isEmail,
-            message: MSG_INCORRECT_EMAIL,
-          },
-        },
-      },
-      target: {
-        type: String,
-        enum: InfoBlockName,
-        required: false,
-      },
-      text: {
-        type: String,
-        required: false,
-      },
-    },
-  ],
+  reactions: [reactionSchema],
 });
-
-userSchema.static(
-  'findUserByEmailAndCohort',
-  function findUserByEmailAndCohort(email: string, cohort: string) {
-    return this.findOne({ email, cohort }).then((user: IUser | null) => {
-      if (!user) {
-        return Promise.reject(new UnauthorizedError());
-      }
-      return user;
-    });
-  },
-);
 
 userSchema.static('findUserByEmail', function findUserByEmail(email: string) {
   return this.findOne({ email }).then((user: IUser | null) => {
@@ -150,5 +141,16 @@ userSchema.static('findUserByEmail', function findUserByEmail(email: string) {
     return user;
   });
 });
+
+const docArray = userSchema.path<Schema.Types.Array>('reactions');
+
+export const Comment = docArray.discriminator<ICommentReaction>(
+  'comment',
+  commentSchema,
+);
+export const Emotion = docArray.discriminator<IEmotionReaction>(
+  'emotion',
+  emotionSchema,
+);
 
 export default model<IUser, IUserModel>('user', userSchema);

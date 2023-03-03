@@ -1,21 +1,31 @@
-import { Request, Response, NextFunction } from 'express';
 import mongoose, { FilterQuery } from 'mongoose';
-import BadRequestError from '../errors/BadRequestError';
-import User from '../models/user';
+import { Request, Response, NextFunction } from 'express';
 
+import User, { Comment, Emotion } from '../models/user';
+
+import ForbiddenError from '../errors/ForbiddenError';
+import BadRequestError from '../errors/BadRequestError';
 import DataNotFoundError from '../errors/NotFoundError';
 import InternalServerError from '../errors/InternalServerError';
 
+import { Info } from '../types/info';
 import { IUser } from '../types/user';
 import { IProfile } from '../types/profile';
-import { Info } from '../types/info';
-import { HTTP_STATUS_OK, MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
-import ForbiddenError from '../errors/ForbiddenError';
+import { InfoBlockName } from '../types/info-block';
+
+import {
+  HTTP_STATUS_OK, MSG_SERVER_ERROR, MSG_USER_NOT_FOUND, ROLE_CURATOR,
+} from '../constants';
 
 type TGetProfilesQuery = {
   offset?: number;
   limit?: number;
 };
+
+type TReactionBody = { target: InfoBlockName | null } & (
+  | { text: string }
+  | { emotion: string }
+);
 
 export const getProfiles = (
   req: Request<{}, {}, {}, TGetProfilesQuery & { cohort?: string }>,
@@ -73,7 +83,10 @@ export const getReactionsById = async (
       return;
     }
 
-    if (user.id !== userFromSession._id) {
+    const isOwner = user.id === userFromSession._id;
+    const isCurator = userFromSession.role === ROLE_CURATOR;
+
+    if (!isOwner && !isCurator) {
       next(new ForbiddenError());
       return;
     }
@@ -132,5 +145,46 @@ export const patchProfile = async (
       .catch((err) => next(new BadRequestError(String(err))));
   } catch (err) {
     next(new DataNotFoundError(String(err)));
+  }
+};
+
+export const postReaction = async (
+  req: Request<{ id: string }, {}, TReactionBody>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { target } = req.body;
+  const { _id: sessionUserId, name, email } = req.session.passport.user;
+  const { id: userId } = req.params;
+
+  try {
+    const user = await User.findById(userId).catch((err) => next(new BadRequestError(String(err))));
+
+    if (!user) {
+      next(new DataNotFoundError(MSG_USER_NOT_FOUND));
+      return;
+    }
+
+    const reaction: any = {
+      from: {
+        _id: sessionUserId,
+        name,
+        email,
+      },
+      target,
+    };
+
+    if ('text' in req.body) {
+      reaction.text = req.body.text;
+      user.reactions.push(new Comment(reaction));
+    } else {
+      reaction.emotion = req.body.emotion;
+      user.reactions.push(new Emotion(reaction));
+    }
+
+    await user.save().catch((err) => next(new BadRequestError(String(err))));
+    res.end();
+  } catch (err) {
+    next(new InternalServerError(MSG_SERVER_ERROR));
   }
 };
