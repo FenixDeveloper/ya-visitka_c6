@@ -1,29 +1,26 @@
-import { ChangeEvent, FC } from "react"
+import { ChangeEvent, FC, RefObject } from "react"
 import styles from "./graidentButton.module.css"
 
 interface IGraidentButton {
     type: "submit" | "button" | "file",
     text: string,
     handlerClick?: () => void,
-    setState?: (value: File | undefined) => void
+    onChange?:  (e:ChangeEvent<HTMLInputElement>) => void,
+    inputFileRef?: RefObject<HTMLInputElement>
 }
 export const GraidentButton: FC<IGraidentButton> = ({
     type,
     text,
-    setState,
-    handlerClick
+    handlerClick,
+    onChange,
+    inputFileRef
 }) => {
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : undefined;
-        setState && setState(file);
-    }
 
     return (
         <label>
             {type === "file" ?
                 <>
-                    <input type="file" onChange={onChange} />
+                    <input type="file" onChange={onChange} ref={inputFileRef} />
                     <div className={`${styles.input} ${styles.small}`}>
                         <p>{text}</p>
                     </div>

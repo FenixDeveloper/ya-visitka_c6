@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useRef } from 'react';
 import { read, utils } from 'xlsx';
 import { SwitchPage } from '../../components/admin-panel/switch-page';
 import { SearchBar } from '../../components/admin-panel/search-bar';
@@ -6,6 +6,7 @@ import { TableUsersRow } from '../../components/admin-panel/table-users-row';
 import { TableCell } from '../../components/admin-panel/table-cell';
 import { IUser } from '../../utils/types'; 
 import styles from './admin.module.css';
+import { GraidentButton } from '../../components/graidentButton/graidentButton';
 
 const data = [  
   {
@@ -24,6 +25,7 @@ export const AdminUsers = () => {
 
   const [inputValue, setInputValue] = useState<string | number>('');
   const [loadedData, SetLoadedData] = useState<IUser[] | []>([]);
+  const loadedFileRef = useRef<any>(null);
 
   useEffect(() => {
 
@@ -45,6 +47,11 @@ export const AdminUsers = () => {
 		const files = evt.target.files;
 		if(files && files[0]) handleFile(files[0]);
 	};
+
+  const handleDeleteFile = () => {
+    SetLoadedData([])
+    loadedFileRef.current.value = null
+  }
 
   const createUsers = () => {
   } 
@@ -83,21 +90,25 @@ export const AdminUsers = () => {
             </div>
           </div>
           <div className={styles.second_column}>
-            <p className={`${styles.text_title}` + ` ${styles.text_dark}`}>Добавить студентов</p>
-            <p className={`${styles.text}` + ` ${styles.text_dark}`}>Чтобы добавить новых студентов, 
+            <p className={`${styles.text_title} ${styles.text_dark}`}>Добавить студентов</p>
+            <p className={`${styles.text} ${styles.text_dark}`}>Чтобы добавить новых студентов, 
               загрузите csv или xlsx файл: первая колонка должна содержать email студентов, вторая колонка — номер когорты.
             </p>
-            <label className={styles.upload}> 
-              <p className={styles.upload_text}>Выберите файл</p>
-              <input type='file' hidden onChange={(e) => handleUpload(e)}/>
-            </label>
+            <div className={styles.wrapper_gradient_button}>
+              <GraidentButton 
+                type={'file'} 
+                text={'Выберите файл'} 
+                onChange={handleUpload} 
+                inputFileRef={loadedFileRef}
+              />
+            </div>
             { loadedData.length > 0 &&
               <>
-                <p className={`${styles.text}` + ` ${styles.text_dark}`}>Проверьте, что загруженные данные корректны и сохраните их или удалите и загрузите заново.
+                <p className={`${styles.text} ${styles.text_dark}`}>Проверьте, что загруженные данные корректны и сохраните их или удалите и загрузите заново.
                 </p>
                 <div className={styles.columns}>
-                  <button className={`${styles.button}` + ` ${styles.button_delete}`} onClick={() => SetLoadedData([])}>Удалить</button>
-                  <button className={`${styles.button}` + ` ${styles.button_save}`} onClick={() => createUsers()}>Сохранить</button>
+                  <button className={`${styles.button} ${styles.button_delete}`} onClick={handleDeleteFile}>Удалить</button>
+                  <button className={`${styles.button} ${styles.button_save}`} onClick={() => createUsers()}>Сохранить</button>
                 </div>
               </>
             }
