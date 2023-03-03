@@ -1,9 +1,8 @@
 .map {
   width: 99.9%;
   min-width: 320px;
-  height: calc(100vh - (72px + 112px)); 
+  height: calc(100vh - (72px + 112px));
   min-height: 100%;
-
 }
 .markerInfoContainer {
   background-color: transparent;
@@ -11,21 +10,29 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
+  cursor: pointer;
 }
 
-.balloonContainer {
+.markerContainer {
   background-color: #fff;
   border-radius: 6px;
+  box-shadow: 2px 2px 5px gray;
 }
 
-.balloonHeaderContainer {
+.markerHeaderContainer {
   display: flex;
   padding: 3px 6px 2px;
   gap: 4px;
 }
 
-.balloonHeader {
+h1 {
+  width: 115px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.markerHeader {
   white-space: nowrap;
   font-family: 'IBM Plex Sans';
   font-style: normal;
@@ -35,7 +42,7 @@
   margin: 0;
   color: #100c34;
 }
-.balloonPlace {
+.markerPlace {
   margin: 0 0 4px 34px;
   font-family: 'IBM Plex Sans';
   font-style: normal;
@@ -46,21 +53,29 @@
   white-space: nowrap;
 }
 
-.balloonAva {
+.markerAva {
   display: block;
   width: 24px;
   height: 24px;
   border-radius: 50%;
 }
 
+.balloonBody{
+  text-decoration: none;
+  color: black;
+}
+.balloonBody:hover{
+  color: gray;
+}
+
 @media screen and (max-width: 1024px) {
-  .map{
+  .map {
     height: calc(100vh - (72px + 96px));
   }
 }
 
 @media screen and (max-width: 480px) {
-  .map{
+  .map {
     height: calc(100vh - (72px + 80px));
   }
 }
