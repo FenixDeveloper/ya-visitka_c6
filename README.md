@@ -48,3 +48,50 @@ formData.append('hobby', files[3]);
 ```
 
 - Статический маршрут к загруженным файлам доступен по api/files/:file
+
+## Авторизация
+
+1. Получение токена:
+
+    ```bash
+    POST /api/token
+
+    body:
+
+      {
+        code: <код, полученный от https://oauth.yandex.ru/authorize>
+      }
+    ```
+
+    ```bash
+      response:
+
+        {
+          token: "string"
+        }
+    ```
+
+2. Полученный в ответе токен должен присутствовать в загловках при каждом запросе.
+
+    ```bash
+    "Authorization": "Bearer ..."
+    ```
+
+3. Получение информации о текущем пользователе
+
+    ```bash
+    GET /api/login
+    ```
+
+    ```bash
+    response:
+
+      {
+        _id: "507f1f77bcf86cd799439011",
+        name: "string",
+        email: "user@example.com",
+        cohort: "web+123",
+        photo: "https://placehold.co/600",
+        role: "student"
+      }
+    ```
