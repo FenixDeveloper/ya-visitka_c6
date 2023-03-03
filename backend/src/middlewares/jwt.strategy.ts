@@ -1,8 +1,5 @@
 import {
-  Strategy,
-  VerifiedCallback,
-  StrategyOptions,
-  JwtFromRequestFunction,
+  JwtFromRequestFunction, Strategy, StrategyOptions, VerifiedCallback,
 } from 'passport-jwt';
 
 import User from '../models/user';
@@ -18,9 +15,7 @@ const tokenExtractor: JwtFromRequestFunction = (req) => {
     throw new BadRequestError(TOKEN_NOT_IN_HEADER);
   }
 
-  const token = authorization.split(' ')[1];
-
-  return token;
+  return authorization.split(' ')[1];
 };
 
 const opt: StrategyOptions = {

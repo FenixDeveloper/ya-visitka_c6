@@ -10,7 +10,6 @@ import {
 
 export const joiInteger = Joi.number().integer();
 
-export const joiCohort = Joi.string().default(null);
 export const joiString = Joi.string().default('');
 
 export const joiId = Joi.string().required().custom((value: string, helpers: any) => {

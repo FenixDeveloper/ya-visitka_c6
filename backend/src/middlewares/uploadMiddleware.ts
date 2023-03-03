@@ -10,7 +10,7 @@ const upload = multer({ dest: DEFAULT_TEMP_DIR })
     { name: 'job', maxCount: 1 },
     { name: 'edu', maxCount: 1 }]);
 
-const uploadMiddlware = (req: Request, res: Response, next: NextFunction) => {
+const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
   upload(req, res, (err) => {
     if (err instanceof MulterError) {
       next(new BadRequestError(String(err)));
@@ -20,4 +20,4 @@ const uploadMiddlware = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export default uploadMiddlware;
+export default uploadMiddleware;

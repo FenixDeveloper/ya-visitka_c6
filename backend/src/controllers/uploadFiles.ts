@@ -17,10 +17,10 @@ const uploadFiles = (
     .filter((k) => k)
     .map((key) => {
       const fileDescription = files[key as TInfoType][0];
-      const pathhFile = `${fileDescription.destination}${fileDescription.filename}`;
+      const filePath = `${fileDescription.destination}${fileDescription.filename}`;
 
       return {
-        [key]: { file: pathhFile },
+        [key]: { file: filePath },
       };
     })[0];
 

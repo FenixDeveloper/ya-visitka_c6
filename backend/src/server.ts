@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { DEFAULT_DB_URL, DEFAULT_PORT } from './constants';

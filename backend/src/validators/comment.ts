@@ -3,14 +3,14 @@ import {
   joiId,
   joiLimit,
   joiOffset,
-  joiSarch,
+  joiSearch,
 } from './index';
 
 export const isGetCommentValid = celebrate({
   query: Joi.object().keys({
     offset: joiOffset,
     limit: joiLimit,
-    search: joiSarch,
+    search: joiSearch,
   }),
 });
 

@@ -1,7 +1,6 @@
 // App
 export const DEFAULT_PORT = 3001;
 export const DEFAULT_DB_URL = 'mongodb://127.0.0.1:27017/visitkadb';
-export const DEFAULT_SESSION_SECRET = 'secret';
 
 // HTTP Statuses
 export const HTTP_STATUS_OK = 200;
@@ -16,10 +15,7 @@ export const HTTP_STATUS_SERVER_ERROR = 500;
 export const CONFLICT_ERROR_CODE = 11000;
 
 // Token
-export const TOKEN_INCORRECT = 'Некорректный токен';
-export const TOKEN_SECRET = 'super-strong-secret';
 export const TOKEN_NOT_IN_HEADER = 'Отсутствует заголовок авторизации';
-export const TOKEN_LIFE_TIME = '7d';
 
 // Messages
 export const MSG_SERVER_ERROR = 'На сервере произошла ошибка';

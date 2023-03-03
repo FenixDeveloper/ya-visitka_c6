@@ -5,7 +5,6 @@ import {
   joiId,
   joiLimit,
   joiOffset,
-  joiStringOptional,
   joiStringRequired,
 } from './index';
 import { regexUrl } from '../constants';
@@ -13,13 +12,6 @@ import { joiString } from './joiUtils';
 
 export const isEmail = (email: string): boolean => validator.isEmail(email);
 export const isUrl = (url: string): boolean => regexUrl.test(url);
-
-export const isLoginRequestValid = celebrate({
-  body: Joi.object().keys({
-    email: joiEmail,
-    cohort: joiStringOptional,
-  }),
-});
 
 export const isPostUserValid = celebrate({
   body: Joi.object().keys({

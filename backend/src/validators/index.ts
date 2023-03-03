@@ -44,7 +44,7 @@ export const joiStringRequired = Joi.string().required().messages({
 
 export const joiStringOptional = Joi.string().optional();
 
-export const joiSarch = Joi.string().default('').allow('');
+export const joiSearch = Joi.string().default('').allow('');
 
 export const joiLimit = Joi.number().integer().positive().default(20);
 
