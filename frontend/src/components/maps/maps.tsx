@@ -70,8 +70,8 @@ const testData: IUserInfo[] = [
 
 function MyMap({
   data = testData,
-  centerMap = [55.959183, 76.101650],
-  zoomMap = 3,
+  centerMap = [55.959183, 76.10165],
+  zoomMap = 10,
   balloonImg = markerMapImg,
 }: IMapProps) {
   const mapRef = useRef(null);
@@ -88,39 +88,59 @@ function MyMap({
     const placemarks = data.map((user) => {
       return new ymaps.Placemark(
         user.profile.city.geocode,
-        {},
+        {
+          balloonContentHeader: user.profile.name,
+          balloonContentBody: `<a class=${styles.balloonBody} href='/profile' >Посмотреть профиль</a>`,
+          balloonContentFooter: user.profile.city.name,
+        },
         {
           iconLayout: ymaps.templateLayoutFactory.createClass(`<div class=${
             styles.markerInfoContainer
           }>
           <img class=${styles.marker} src=${markerMapImg} alt=''/>
-               <div class=${styles.balloonContainer}>
-                 <div class=${styles.balloonHeaderContainer}>
-                    <img class=${styles.balloonAva} src=${
+               <div class=${styles.markerContainer}>
+                 <div class=${styles.markerHeaderContainer}>
+                    <img class=${styles.markerAva} src=${
             user.profile.photo ?? avaTest
           } alt='Аватарка'/>
-                    <h1 class=${styles.balloonHeader}>${user.profile.name}</h1>
+                    <h1 class=${styles.markerHeader}>${user.profile.name}</h1>
                  </div>
-                 <p class=${styles.balloonPlace}>${user.profile.city.name}</p>
+                 <p class=${styles.markerPlace}>${user.profile.city.name}</p>
                </div>
              </div>`),
           iconOffset: [-30, -65],
+          iconShape: {
+            type: 'Rectangle',
+            //@ts-ignore
+            coordinates: [
+              [5, 5],
+              [216, 68],
+            ],
+          },
+          openEmptyBalloon: false,
         },
       );
     });
-    // @ts-ignore
-    const clusterer = new ymaps.Clusterer({ clusterDisableClickZoom: true });
+
+    const clusterer = new ymaps.Clusterer({
+      // @ts-ignore
+      clusterDisableClickZoom: true,
+      preset: 'islands#redClusterIcons',
+      hasBalloon: false,
+    });
 
     placemarks.forEach((placemark) => {
       clusterer.add(placemark);
-      // map.geoObjects.add(placemark);
     });
 
     // @ts-ignore
     map.geoObjects.add(clusterer);
-  }, [balloonImg, centerMap, data, ymaps, zoomMap]);
 
-  
+    // @ts-ignore
+    map.setBounds(clusterer.getBounds(), {
+      checkZoomRange: true,
+    });
+  }, [balloonImg, centerMap, data, ymaps, zoomMap]);
 
   return (
     <>
@@ -129,36 +149,20 @@ function MyMap({
   );
 }
 
-export default function Maps({ data, centerMap, zoomMap, balloonImg }: IMapProps) {
+export default function Maps({
+  data,
+  centerMap,
+  zoomMap,
+  balloonImg,
+}: IMapProps) {
   return (
     <YMaps query={{ load: 'package.full', apikey: '<KEY>' }}>
-      <MyMap data={data} centerMap={centerMap} zoomMap={zoomMap} balloonImg={balloonImg} />
+      <MyMap
+        data={data}
+        centerMap={centerMap}
+        zoomMap={zoomMap}
+        balloonImg={balloonImg}
+      />
     </YMaps>
   );
 }
-
-// export default function Maps({ data=testData, centerMap=[55.959183, 76.101650], zoomMap=3, balloonImg=markerMapImg }: IMapProps) {
-//   return (
-//     <YMaps query={{ load: 'package.full', apikey: '<KEY>' }}>
-//       <div className={styles.map}><Map state={{ center: centerMap, zoom: zoomMap }} width={'100%'} height={'100%'} >
-//  {data.map((user) => {
-//    return <Placemark geometry={user.profile.city.geocode} defaultOptions={{iconLayout:`<div class=${
-//             styles.markerInfoContainer
-//           }>
-//           <img class=${styles.marker} src=${markerMapImg} alt=''/>
-//                <div class=${styles.balloonContainer}>
-//                  <div class=${styles.balloonHeaderContainer}>
-//                     <img class=${styles.balloonAva} src=${
-//             user.profile.photo ?? avaTest
-//           } alt='Аватарка'/>
-//                     <h1 class=${styles.balloonHeader}>${user.profile.name}</h1>
-//                  </div>
-//                  <p class=${styles.balloonPlace}>${user.profile.city.name}</p>
-//                </div>
-//              </div>`,iconOffset:[30,60]} } />
-//       })}
-//       </Map></div >
-//      </YMaps>
-//    );
-  
-// }
