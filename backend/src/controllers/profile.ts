@@ -16,6 +16,7 @@ import { InfoBlockName } from '../types/info-block';
 import {
   HTTP_STATUS_OK, MSG_SERVER_ERROR, MSG_USER_NOT_FOUND, ROLE_CURATOR,
 } from '../constants';
+import { moveFileToUploads } from '../utils';
 
 type TGetProfilesQuery = {
   offset?: number;
@@ -124,6 +125,11 @@ export const patchProfile = async (
   const { id: userId = '' } = req.params;
   const { profile, info } = req.body;
   const userFromSession = req.session.passport.user;
+
+  info.edu.image = moveFileToUploads(info.edu.image, next);
+  info.hobby.image = moveFileToUploads(info.hobby.image, next);
+  info.job.image = moveFileToUploads(info.job.image, next);
+  info.status.image = moveFileToUploads(info.status.image, next);
 
   try {
     const user = await User.findById(userId);
