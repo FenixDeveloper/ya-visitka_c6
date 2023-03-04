@@ -15,9 +15,6 @@ import { yandexAuth } from './controllers/auth';
 
 const app = express();
 
-// Раздача загруженных файлов, доступна всем
-app.use('/api/files', express.static('uploads'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
