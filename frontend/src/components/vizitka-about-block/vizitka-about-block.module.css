@@ -93,6 +93,17 @@
   margin: 15px 0 0 0;
 }
 
+.comment {
+  position: absolute;
+  top: 48px;
+  left: 2px;
+  z-index: 100;
+}
+
+.showComments {
+  opacity: 1;
+}
+
 @media screen and (max-width: 1088px) {
   .comments_number_block {
     opacity: 1;
