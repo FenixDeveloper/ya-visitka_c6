@@ -11,35 +11,15 @@
 
 .header {
   margin: 0;
+  margin-bottom: 72px;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
   font-size: 40px;
 }
 
-.text {
-  margin: 0;
-  text-decoration: none;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 108%;
-  color: #F0F0F0;
-  text-shadow: #000000 1px 1px 0, #000000 -1px -1px 0, 
-  #000000 -1px 1px 0, #000000 1px -1px 0;
-}
-
-.button {
-  margin: 72px 0 0 0;
-  width: 100%;
-  height: 68px;
-  border-radius: 4px;
-  border: none;
-  background-image: linear-gradient(to right, #C914E7, 63.24%, #3B23B7);
-  cursor: pointer;
-}
-
 @media screen and (max-width: 480px) {
   .header {
     font-size: 32px;
+    margin-bottom: 32px;
   }
 }
