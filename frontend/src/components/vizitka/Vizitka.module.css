@@ -274,7 +274,7 @@
   stroke: #ff00a8;
 }
 
-@media screen and (max-width: 1088px) {
+@media screen and (max-width: 1024px) {
   .imageBlock .icon {
     opacity: 1;
   }
@@ -319,19 +319,19 @@
 .comment {
   position: absolute;
   top: 48px;
-  left: 2px;
+  /* left: 2px; */
   z-index: 100;
 }
 
 @media (max-width: 767px) {
   .blocks {
-    grid-template-columns: repeat(1, 272px);
+    grid-template-columns: repeat(1, 342px);
     justify-content: center;
   }
 
   .mainBlocks {
     row-gap: 35px;
-    grid-template-columns: 272px;
+    grid-template-columns: 342px;
     justify-content: center;
   }
 
@@ -348,5 +348,18 @@
 
   .city {
     margin: 24px 0 27px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blocks {
+    grid-template-columns: repeat(1, 272px);
+    justify-content: center;
+  }
+
+  .mainBlocks {
+    row-gap: 35px;
+    grid-template-columns: 272px;
+    justify-content: center;
   }
 }
