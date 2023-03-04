@@ -6,7 +6,6 @@ import family_img from './family_img.png'
 import { VizitkaStyle } from "../../utils/types";
 
 const vizitkaData = 
-//тестовые данные
 {
   name: 'Виктория Листвиновская',
   image: person_img,
