@@ -5,6 +5,7 @@ import person2 from './imagesData/person_2.png';
 import person3 from './imagesData/person_3.png';
 import person4 from './imagesData/person_4.png';
 import DropdownList from '../../components/DropdownList/DropdownList';
+import { authorization } from '../../utils/api';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 interface IData {
@@ -78,7 +79,13 @@ export const MainPage = (props1: any) => {
       const params = new URLSearchParams(document.location.search);
       const code = params.get("code");
       if (code) {
-        console.log(code);
+        authorization(code)
+        .then((res) => {
+          console.log(res.access_token)
+        })
+        .catch(e => {
+          console.log(e.type);
+        })
       }
   }, []);
 
