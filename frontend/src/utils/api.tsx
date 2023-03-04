@@ -1,7 +1,9 @@
 import { URL } from "./constants";
 
 const checkResponse = (res: Response) => {
+    console.log(res)
     if (res.ok) {
+        
         return res.json();
     }
     return Promise.reject(`Ошибка ${res.status}`);
@@ -103,3 +105,17 @@ export const getProfiles = () => {
 };
 
   //#endregion
+  export const authorization = async (code:string) => {
+    return await fetch(`https://oauth.yandex.ru/token`, {
+        mode: 'cors',
+        method: "POST",
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': 'http://localhost:3000/',
+            'grant_type': 'authorization_code',
+            'code': code,
+            'client_id': '0cdebeaa249342658d6f8a1f5eb5eb3e',
+            'client_secret': '6aa9a1fa0acd402aa247912d561e3bdc'
+        }
+    }).then(checkResponse);
+};

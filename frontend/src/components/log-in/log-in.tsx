@@ -10,7 +10,7 @@ export const LogIn = () => {
       <div className={styles.container}>
         <h1 className={styles.header}>С кем я учусь?</h1>
           <GraidentButton
-            type={"button"}
+            type={"href"}
             text={"Войти с Яндекс ID"}
             handlerClick={() => history.push("/switch-profile")}
           />
