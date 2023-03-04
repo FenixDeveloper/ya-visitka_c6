@@ -19,7 +19,7 @@ export const Profile = () => {
   const [hobbies, setHobbies] = useState<string>('');
   const [motto, setMotto] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string>('');
-  const [birthday, setBirthday] = useState<string>('');
+  const [birthday, setBirthday] = useState<Date | null>(null);
   const [city, setCity] = useState<string>('');
   const [github, setGithub] = useState<string>('');
   const [sample, setSample] = useState<string>(samples[0]);
@@ -34,7 +34,7 @@ export const Profile = () => {
 
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (birthday === '') {
+    if (birthday === null) {
       setIsShowErrorBirthday(true);
     }
     if (userPhoto === '') {
