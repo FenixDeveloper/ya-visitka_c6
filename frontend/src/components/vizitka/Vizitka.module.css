@@ -320,7 +320,7 @@
   position: absolute;
   top: 48px;
   /* left: 2px; */
-  z-index: 100;
+  z-index: 5;
 }
 
 @media (max-width: 767px) {

@@ -24,7 +24,7 @@ const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
                 emojies={[{ type: '', count: 3 }]}
-                class={true}
+                class={false}
               />
             </div>
           )}

@@ -49,7 +49,6 @@
   height: 19px;
   background: #100c34;
   border-radius: 40px;
-  z-index: 200;
   margin-right: -33px;
   margin-top: -8px;
   z-index: 3;
@@ -97,7 +96,7 @@
   position: absolute;
   top: 48px;
   left: 2px;
-  z-index: 100;
+  z-index: 5;
 }
 
 .showComments {
