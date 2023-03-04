@@ -1,113 +1,112 @@
 .header {
-    display: flex;
-    width: 100%;
-    margin: 0 auto 8px auto;
-    padding: 43.5px 0 43.5px 40px;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    max-height: 112px;
-    max-width: 1440px;
-    position: relative;
+  display: flex;
+  width: 100%;
+  margin: 0 auto 8px auto;
+  padding: 43.5px 0 43.5px 40px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  max-height: 112px;
+  max-width: 1440px;
+  position: relative;
 }
 
 .logo {
-    width: 130px;
-    height: 25px;
+  width: 130px;
+  height: 25px;
 }
 
 .profile_box {
-    display: flex;
-    position: absolute;    
-    align-items: center;
-    padding: 40px 24px 32px; 
-    top: 0;
-    right: 0;
-    border-radius: 0 0 10px 10px;
-    flex-direction: column;
-    row-gap: 16px;
-    cursor: pointer;
-    background: #FFFFFF;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  padding: 40px 24px 32px;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 10px 10px;
+  flex-direction: column;
+  row-gap: 16px;
+  cursor: pointer;
+  background: #ffffff;
 }
 
 .profile_container {
-    display: flex;
-    column-gap: 4px;
-    align-items: center;
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .name {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    max-width: 212px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  max-width: 212px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .profile_hidden {
-    width: 248px;
-    height: 36px;
-    box-sizing: border-box;
-    padding: 0 0 0 36px;
-    border-radius: 4px;
-    display: none;
+  width: 248px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0 0 0 36px;
+  border-radius: 4px;
+  display: none;
 }
 
 .link {
-    margin: 0;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    text-decoration: none;
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
 }
 
-
 .profile_box:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    z-index: 2;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 }
 
 .profile_box:hover .profile_hidden {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .profile_hidden:hover {
-    background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 
 @media screen and (max-width: 1024px) {
-    .header {
-        padding: 35.5px 32px;
-    }
+  .header {
+    padding: 35.5px 32px;
+  }
 
-    .profile_box {
-        padding: 38px 32px;
-    }
+  .profile_box {
+    padding: 38px 32px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .header {
-        padding: 27.5px 24px;
-    }
+  .header {
+    padding: 27.5px 24px;
+  }
 
-    .profile_box {
-        padding: 24px;
-    }
+  .profile_box {
+    padding: 24px;
+  }
 
-    .name {
-        display: none;
-    }
+  .name {
+    display: none;
+  }
 
-    .profile_box:hover .name {
-        display: block;
-    }
+  .profile_box:hover .name {
+    display: block;
+  }
 }
