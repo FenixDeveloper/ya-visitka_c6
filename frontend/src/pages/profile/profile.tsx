@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState } from 'react';
 import DropdownList from '../../components/DropdownList/DropdownList';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
 import { Input } from '../../components/input/input';
@@ -9,8 +9,9 @@ import { UploadPhoto } from '../../components/uploadPhoto/uploadPhoto';
 import { SearchBox } from '../../components/search-box/search-box';
 import styles from './profile.module.css';
 import { InputGithubLink } from '../../components/input-github-link/input-github-link';
-
+import { ErrorMessage } from '../../components/errorMessage/errorMessage';
 const samples = ['серьезный', 'романтичный', 'дерзкий'];
+const cities = ["Москва", "Санкт-Петербург","Казань", "Екатеринбург"];
 
 export const Profile = () => {
   const [nicknameTelegram, setNicknameTelegram] = useState<string>('');
@@ -18,7 +19,7 @@ export const Profile = () => {
   const [hobbies, setHobbies] = useState<string>('');
   const [motto, setMotto] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string>('');
-  const [birthday, setBirthday] = useState<string>('');
+  const [birthday, setBirthday] = useState<Date | null>(null);
   const [city, setCity] = useState<string>('');
   const [github, setGithub] = useState<string>('');
   const [sample, setSample] = useState<string>(samples[0]);
@@ -36,7 +37,7 @@ export const Profile = () => {
 
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (birthday === '') {
+    if (birthday === null) {
       setIsShowErrorBirthday(true);
     }
     if (userPhoto === '') {
@@ -62,16 +63,8 @@ export const Profile = () => {
         stateError={isShowErrorBirthday}
         setStateError={setIsShowErrorBirthday}
       />
-      <SearchBox />
-      {/* <DropdownList
-        state={city}
-        setState={setCity}
-        data={['Казань', 'Челны']}
-        title={'Выберите город'}
-        requiredField={true}
-        stateError={isShowErrorCity}
-        setStateError={setIsShowErrorCity}
-      /> */}
+      <SearchBox setStateError={setIsShowErrorCity} setState={setCity} listDefaultCities={cities} />
+      {isShowErrorCity && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
       <Input
         type={'text'}
         value={nicknameTelegram}
