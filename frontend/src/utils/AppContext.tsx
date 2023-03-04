@@ -1,5 +1,5 @@
 import { createContext, Dispatch, useReducer } from 'react';
-import { Action, initialState, reducer, User } from '../reducer';
+import { Action, initialState, reducer } from '../reducer';
 import { State } from '../reducer'
 
 const AppContext = createContext<{

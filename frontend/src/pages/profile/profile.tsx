@@ -8,8 +8,8 @@ import { Textarea } from '../../components/textarea/textarea';
 import { UploadPhoto } from '../../components/uploadPhoto/uploadPhoto';
 import { SearchBox } from '../../components/search-box/search-box';
 import styles from './profile.module.css';
+import { InputGithubLink } from '../../components/input-github-link/input-github-link';
 import { ErrorMessage } from '../../components/errorMessage/errorMessage';
-
 const samples = ['серьезный', 'романтичный', 'дерзкий'];
 const cities = ["Москва", "Санкт-Петербург","Казань", "Екатеринбург"];
 
@@ -29,7 +29,10 @@ export const Profile = () => {
   const [dicisionStudy, setDicisionStudy] = useState<string>('');
 
   const [isShowErrorPhoto, setIsShowErrorPhoto] = useState<boolean>(false);
-  const [isShowErrorBirthday, setIsShowErrorBirthday] = useState<boolean>(false);
+  const [isShowErrorBirthday, setIsShowErrorBirthday] =
+    useState<boolean>(false);
+  const [isShowErrorGithubLink, setIsShowErrorGithubLink] =
+    useState<boolean>(false);
   const [isShowErrorCity, setIsShowErrorCity] = useState<boolean>(false);
 
   const handlerSubmit = (e: { preventDefault: () => void }) => {
@@ -66,13 +69,16 @@ export const Profile = () => {
         type={'text'}
         value={nicknameTelegram}
         labelName={'Ник в телеграм'}
-        onChange={(e) => setNicknameTelegram(e.target.value)}
+        onChange={(e) => setNicknameTelegram((e.target as HTMLInputElement).value)}
       />
-      <Input
+      <InputGithubLink
         type={'text'}
         value={github}
         labelName={'Ник на гитхабе'}
-        onChange={(e) => setGithub(e.target.value)}
+        onChange={(e) => setGithub((e.target as HTMLInputElement).value)}
+        setValue={setGithub}
+        stateError={isShowErrorGithubLink}
+        setStateError={setIsShowErrorGithubLink}
       />
       <DropdownList
         state={sample}
