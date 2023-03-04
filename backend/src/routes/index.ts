@@ -14,7 +14,7 @@ router.get('/api/login', jwtAuth);
 
 router.use('/api/users', usersRouter);
 router.use('/api/profile', profileRouter);
-router.use('/api/info', uploadRouter);
+router.use('/api/files', uploadRouter);
 
 router.use('/api/comments', commentsRouter);
 
