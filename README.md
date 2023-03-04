@@ -63,9 +63,9 @@ fetch(imageUrl)
   //заголовки авторизации
   .then(response => response.blob())
   .then(imageBlob => {
-      // Then create a local URL for that image and print it 
+      
       const imageObjectURL = URL.createObjectURL(imageBlob);
-      const image = //img tag //
+      const image = //img tag element//
       image.src = imageObjectURL
   });
 ```
