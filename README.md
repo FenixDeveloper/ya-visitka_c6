@@ -53,6 +53,23 @@ formData.append('hobby', files[3]);
 
 - Получение файла для авторизованных пользователей GET api/files/:file
 
+напрямую использовать файл в качестве картинки из html не получится, поскольку нужна авторизация. поэтому сначала файл нужно получить через fetch, а затем его установить в img
+
+пример:
+```
+const imageUrl = /api/files/8b19aa0033f0120eb7d38a12851ebbf7";
+
+fetch(imageUrl)
+  //заголовки авторизации
+  .then(response => response.blob())
+  .then(imageBlob => {
+      // Then create a local URL for that image and print it 
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      const image = //img tag //
+      image.src = imageObjectURL
+  });
+```
+
 ## Авторизация
 
 1. Получение токена:
