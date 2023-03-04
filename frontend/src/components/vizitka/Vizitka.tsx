@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./Vizitka.module.css";
 import { IVizitka, VizitkaStyle } from "../../utils/types";
 import telegram_logo from './telegram.svg';
@@ -7,9 +7,11 @@ import quotes_img from './quotes.svg';
 import icon from "../../images/icons/comment.svg";
 import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
 import derzkiy_img_style from './mask.png';
+import CommentPost from '../comment-post/comment-post';
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
+  const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   return (
     <section>
       <ul className={styles.mainBlocks}>
@@ -26,15 +28,26 @@ const Vizitka: FC<IVizitka> = (props) => {
           </div>
         </li>
         <li className={styles.imageBlock}>
-          {props.photo_comments_number !== 0 && (
-            <div className={styles.comments_number}>{props.photo_comments_number}</div>
+          <div onClick={() => { setOpenPhotoComment(!openPhotoComment) }}>
+            {props.photo_comments_number !== 0 && (
+              <div className={`${styles.comments_number} ${openPhotoComment ? styles.showCommets : ''}`}>{props.photo_comments_number}</div>
+            )}
+            <img src={icon} className={`${styles.icon} ${openPhotoComment ? styles.showCommets : ''}`} alt="Иконка комментариев" />
+          </div>
+          {openPhotoComment && (
+            <div className={styles.comment}>
+              <CommentPost
+                comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                emojies={[{ type: '', count: 3 }]}
+                class={true}
+              />
+            </div>
           )}
-          <img src={icon} className={styles.icon} alt="Иконка комментариев" />
           {props.style === VizitkaStyle.Derzkiy ? 
           <div  className={styles.mask}>
             <img className={styles.image1} src={derzkiy_img_style} alt='Фото персоны' />
             <img className={styles.image} src={props.image} alt='Маска' />
-          </div> : <img src={props.image} alt='Фото персоны' className={props.style === VizitkaStyle.Romantic ? styles.imageRomantic : styles.image}/>}
+          </div> : <img src={props.image} alt='Фото персоны' className={`${props.style === VizitkaStyle.Romantic ? styles.imageRomantic : styles.image} ${openPhotoComment ? styles.showBorder : ''}`}/>}
         </li>
         <li className={styles.quotesBlock}>
           <div className={styles.quotes_comments_block}>

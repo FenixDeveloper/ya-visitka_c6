@@ -236,6 +236,15 @@
   box-sizing: border-box;
 }
 
+.showCommets {
+  opacity: 1;
+}
+
+.showBorder {
+  box-shadow: 0px 0px 0px 2px #ff00a8;
+  box-sizing: border-box;
+}
+
 .quotesBlock:hover .icon_block {
   opacity: 1;
 }
@@ -300,6 +309,12 @@
     grid-row: 2;
     grid-column: 2;
   }
+}
+
+.comment {
+  position: absolute;
+  top: 48px;
+  left: 2px;
 }
 
 @media (max-width: 767px) {
