@@ -236,7 +236,7 @@
   box-sizing: border-box;
 }
 
-.showCommets {
+.showComments {
   opacity: 1;
 }
 
@@ -266,6 +266,11 @@
 }
 
 .quotesBlock:hover svg path {
+  stroke: #ff00a8;
+}
+
+.quoteActive {
+  color: #ff00a8;
   stroke: #ff00a8;
 }
 
@@ -315,6 +320,7 @@
   position: absolute;
   top: 48px;
   left: 2px;
+  z-index: 100;
 }
 
 @media (max-width: 767px) {
