@@ -4,7 +4,7 @@ import person_img from './person_img.png'
 import hobby_img from './hobby_img.png'
 import family_img from './family_img.png'
 import { VizitkaStyle } from "../../utils/types";
-
+// тестовые данные
 const vizitkaData = 
 {
   name: 'Виктория Листвиновская',
