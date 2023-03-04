@@ -61,18 +61,26 @@ export const MainPage = (props1: any) => {
   const [props, setProps] = useState<Array<IData>>(data);
   const cities: Array<string> = ['Все города'];
 
-  data.forEach((item) => {
+   data.forEach((item) => {
     cities.push(item.city);
   });
 
   useEffect(() => {
     if (city !== 'Все города') {
-      const result = data.filter((person) => person.city == city);
+      const result = data.filter((person) => person.city === city);
       setProps(result);
     } else {
       setProps(data);
     }
   }, [city]);
+
+  useEffect(() => {
+      const params = new URLSearchParams(document.location.search);
+      const code = params.get("code");
+      if (code) {
+        console.log(code);
+      }
+  }, []);
 
   return (
     <section className={styles.main}>
