@@ -78,7 +78,7 @@ export const MainPage = (props1: any) => {
   useEffect(() => {
       const params = new URLSearchParams(document.location.search);
       const code = params.get("code");
-      if (code) {
+      if (code && !localStorage.getItem('user')) {
         authorization(code)
         .then((res) => {
           console.log(res.access_token)

@@ -66,8 +66,7 @@ export const SwitchProfile = () => {
       history.replace({ pathname: "/" });
     } else if (user.role === 'curator') {
       history.replace({ pathname: "/curator" });
-    }
-    
+    }  
   }
 
   return (
