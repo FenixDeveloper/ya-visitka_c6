@@ -1,15 +1,19 @@
-import { Request, Response, NextFunction } from 'express';
 import { ProjectionType } from 'mongoose';
+import { Request, Response, NextFunction } from 'express';
+
 import User from '../models/user';
+
+import { IUser, IUserFiltered } from '../types/user';
+
+import ConflictError from '../errors/ConflictError';
+import InternalServerError from '../errors/InternalServerError';
+
 import {
   HTTP_STATUS_OK,
   MSG_EMAIL_ALREADY_EXIST,
   MSG_SERVER_ERROR,
   CONFLICT_ERROR_CODE,
 } from '../constants';
-import InternalServerError from '../errors/InternalServerError';
-import { IUser, IUserFiltered } from '../types/user';
-import ConflictError from '../errors/ConflictError';
 
 type TGetUsersQuery = {
   offset?: number;
@@ -25,9 +29,9 @@ const filterUserInfo = (user: IUser): IUserFiltered => ({
   cohort: user.cohort,
 });
 
-const getUserProjection = (
-  additional?: {[field: string]: number | string},
-): ProjectionType<IUser> => ({
+const getUserProjection = (additional?: {
+  [field: string]: number | string;
+}): ProjectionType<IUser> => ({
   _id: 1,
   email: 1,
   createdAt: 1,
@@ -37,7 +41,7 @@ const getUserProjection = (
 });
 
 export const createUser = (
-  req: Request<{}, {}, { email: string, cohort: string }>,
+  req: Request<{}, {}, { email: string; cohort: string }>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -82,7 +86,7 @@ export const searchUsers = (
 };
 
 export const putUser = (
-  req: Request<{ userId: string }, {}, { email: string, cohort: string }>,
+  req: Request<{ userId: string }, {}, { email: string; cohort: string }>,
   res: Response,
   next: NextFunction,
 ) => {

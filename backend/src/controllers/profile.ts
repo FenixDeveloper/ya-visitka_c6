@@ -13,10 +13,14 @@ import { IUser } from '../types/user';
 import { IProfile } from '../types/profile';
 import { InfoBlockName } from '../types/info-block';
 
-import {
-  HTTP_STATUS_OK, MSG_SERVER_ERROR, MSG_USER_NOT_FOUND, ROLE_CURATOR,
-} from '../constants';
 import { moveFileToUploads } from '../utils';
+
+import {
+  HTTP_STATUS_OK,
+  MSG_SERVER_ERROR,
+  MSG_USER_NOT_FOUND,
+  ROLE_CURATOR,
+} from '../constants';
 
 type TGetProfilesQuery = {
   offset?: number;
@@ -164,14 +168,16 @@ export const postReaction = async (
   const { id: userId } = req.params;
 
   try {
-    const user = await User.findById(userId).catch((err) => next(new BadRequestError(String(err))));
+    const user = await User.findById(userId).catch((err) =>
+      next(new BadRequestError(String(err))),
+    );
 
     if (!user) {
       next(new DataNotFoundError(MSG_USER_NOT_FOUND));
       return;
     }
 
-    const reaction: any = {
+    const reaction: Record<string, unknown> = {
       from: {
         _id: sessionUserId,
         name,

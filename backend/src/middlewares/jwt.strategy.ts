@@ -1,9 +1,14 @@
 import {
-  JwtFromRequestFunction, Strategy, StrategyOptions, VerifiedCallback,
+  JwtFromRequestFunction,
+  Strategy,
+  StrategyOptions,
+  VerifiedCallback,
 } from 'passport-jwt';
 
 import User from '../models/user';
+
 import BadRequestError from '../errors/BadRequestError';
+
 import { ROLE_CURATOR, ROLE_STUDENT, TOKEN_NOT_IN_HEADER } from '../constants';
 
 const { CLIENT_SECRET, CURATORS } = process.env;

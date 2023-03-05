@@ -1,5 +1,6 @@
 import validator from 'validator';
 import { celebrate, Joi } from 'celebrate';
+
 import {
   joiEmail,
   joiId,
@@ -7,8 +8,9 @@ import {
   joiOffset,
   joiStringRequired,
 } from './index';
-import { regexUrl } from '../constants';
 import { joiString } from './joiUtils';
+
+import { regexUrl } from '../constants';
 
 export const isEmail = (email: string): boolean => validator.isEmail(email);
 export const isUrl = (url: string): boolean => regexUrl.test(url);

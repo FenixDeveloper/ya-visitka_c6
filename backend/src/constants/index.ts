@@ -33,9 +33,12 @@ export const MSG_INCORRECT_TARGET = 'Некорректное значение [
 export const MSG_EXPIRED_CODE = 'Срок действия кода истек';
 export const MSG_CLIENT_NOT_FOUND = 'Приложение с текущим client_id не найдено';
 export const MSG_WRONG_CLIENT_SECRET = 'Неверный client_secret';
-export const MSG_EMAIL_ALREADY_EXIST = 'Пользователь с таким email уже существует';
-export const MSG_MISSING_PEERS = 'Должно содержать хотя бы одно из [text, emotion]';
-export const MSG_CONFLICT_PEERS = 'Конфликт между взаимоисключающими полями [text, emotion]';
+export const MSG_EMAIL_ALREADY_EXIST =
+  'Пользователь с таким email уже существует';
+export const MSG_MISSING_PEERS =
+  'Должно содержать хотя бы одно из [text, emotion]';
+export const MSG_CONFLICT_PEERS =
+  'Конфликт между взаимоисключающими полями [text, emotion]';
 
 // User messages
 export const USER_ERR_EMAIL_EMPTY = 'E-mail должен быть введен';
@@ -46,7 +49,8 @@ export const ROLE_CURATOR = 'curator';
 export const ROLE_STUDENT = 'student';
 
 // Regex
-export const regexUrl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:?#[\]@!$&'()*+,;=.]+$/;
+export const regexUrl =
+  /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:?#[\]@!$&'()*+,;=.]+$/;
 
 // Yandex OAuth
 export const TOKEN_URL = 'https://oauth.yandex.ru/token';

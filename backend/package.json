@@ -7,7 +7,7 @@
     "dev": "ts-node-dev src/server.ts",
     "start": "ts-node src/server.ts",
     "build": "rm -rf dist && tsc",
-    "lint": "eslint src/**/*.ts && prettier",
+    "lint": "eslint src/**/*.ts --fix && prettier --config .prettierrc -c src/**/*.ts",
     "test": "jest --detectOpenHandles --runInBand"
   },
   "repository": {

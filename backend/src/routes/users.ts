@@ -1,6 +1,11 @@
 import { Router } from 'express';
+
 import { createUser, putUser, searchUsers } from '../controllers/users';
-import { isPostUserValid, isPutUserValid, isSearchUserValid } from '../validators/user';
+import {
+  isPostUserValid,
+  isPutUserValid,
+  isSearchUserValid,
+} from '../validators/user';
 import curatorGuard from '../middlewares/curatorGuard';
 
 const router = Router();

@@ -3,7 +3,9 @@ import { NextFunction, Request, Response } from 'express';
 
 import BadRequestError from '../errors/BadRequestError';
 import InternalServerError from '../errors/InternalServerError';
+
 import { getAccessToken, getUserJwtToken } from '../utils';
+
 import {
   ERR_CLIENT_NOT_FOUND,
   ERR_INVALID_CLIENT,
@@ -37,6 +39,7 @@ const yandexAuthMiddleware = async (
     } else {
       throw new InternalServerError(MSG_SERVER_ERROR);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     let sendingError = err;
 
@@ -45,9 +48,10 @@ const yandexAuthMiddleware = async (
     }
 
     if (err.error === ERR_INVALID_CLIENT) {
-      const message = err.error_description === ERR_CLIENT_NOT_FOUND
-        ? MSG_CLIENT_NOT_FOUND
-        : MSG_WRONG_CLIENT_SECRET;
+      const message =
+        err.error_description === ERR_CLIENT_NOT_FOUND
+          ? MSG_CLIENT_NOT_FOUND
+          : MSG_WRONG_CLIENT_SECRET;
       sendingError = new BadRequestError(message);
     }
 
