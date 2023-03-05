@@ -1,10 +1,8 @@
 import { Router } from 'express';
-import {
-  isGetCommentValid,
-  isCommentIdValid,
-} from '../validators/comment';
-import { deleteComment, getComments } from '../controllers/comments';
+
 import curatorGuard from '../middlewares/curatorGuard';
+import { deleteComment, getComments } from '../controllers/comments';
+import { isGetCommentValid, isCommentIdValid } from '../validators/comment';
 
 const router = Router();
 

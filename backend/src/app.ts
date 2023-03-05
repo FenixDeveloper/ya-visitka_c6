@@ -1,8 +1,7 @@
-import express, { Express } from 'express';
 import passport from 'passport';
-
 import { errors } from 'celebrate';
 import session from 'express-session';
+import express, { Express } from 'express';
 
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';

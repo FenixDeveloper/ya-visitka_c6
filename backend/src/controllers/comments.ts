@@ -1,11 +1,10 @@
-import {
-  Request,
-  Response,
-  NextFunction,
-} from 'express';
+import { Request, Response, NextFunction } from 'express';
+
 import User from '../models/user';
+
 import DataNotFoundError from '../errors/NotFoundError';
 import InternalServerError from '../errors/InternalServerError';
+
 import { MSG_INCORRECT_ID, MSG_SERVER_ERROR } from '../constants';
 
 type TGetQuery = {
@@ -20,7 +19,7 @@ export const getComments = (
   next: NextFunction,
 ) => {
   const { offset = 0, limit = 20, search } = req.query;
-  const searchRegex = { $regex: search!.toLowerCase(), $options: 'i' };
+  const searchRegex = { $regex: search?.toLowerCase(), $options: 'i' };
   const filter = [
     { 'reactions.from.name': searchRegex },
     { 'reactions.to.name': searchRegex },
@@ -59,10 +58,12 @@ export const getComments = (
     .sort({
       createdAt: 'desc',
     })
-    .then((items) => res.send({
-      total: items.length,
-      items,
-    }))
+    .then((items) =>
+      res.send({
+        total: items.length,
+        items,
+      }),
+    )
     .catch(() => {
       next(new InternalServerError(MSG_SERVER_ERROR));
     });
@@ -79,10 +80,12 @@ export const deleteComment = (
     { 'reactions._id': commentId },
     { $pull: { reactions: { _id: commentId } } },
     { new: true },
-  ).then((user) => {
-    if (user) res.status(200).send();
-    else next(new DataNotFoundError(MSG_INCORRECT_ID));
-  }).catch(() => {
-    next(new InternalServerError(MSG_SERVER_ERROR));
-  });
+  )
+    .then((user) => {
+      if (user) res.status(200).send();
+      else next(new DataNotFoundError(MSG_INCORRECT_ID));
+    })
+    .catch(() => {
+      next(new InternalServerError(MSG_SERVER_ERROR));
+    });
 };

@@ -1,6 +1,7 @@
 import { Document, Model, Schema } from 'mongoose';
-import { IProfile } from './profile';
+
 import { Info } from './info';
+import { IProfile } from './profile';
 import { ICommentReaction, IEmotionReaction } from './reaction';
 
 export interface IUser {
@@ -14,7 +15,8 @@ export interface IUser {
   reactions: Array<ICommentReaction | IEmotionReaction>;
 }
 
-export interface IUserFiltered extends Omit<IUser, 'profile' | 'info' | 'reactions'> {
+export interface IUserFiltered
+  extends Omit<IUser, 'profile' | 'info' | 'reactions'> {
   name?: string;
 }
 

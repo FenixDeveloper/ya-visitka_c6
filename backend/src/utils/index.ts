@@ -1,13 +1,17 @@
+import fs from 'fs';
+import path from 'path';
 import 'isomorphic-fetch';
 import * as dotenv from 'dotenv';
-
 import { NextFunction } from 'express';
-import path from 'path';
-import fs from 'fs';
-import {
-  DEFAULT_TEMP_DIR, DEFAULT_UPLOAD_DIR, PROFILE_URL, TOKEN_URL,
-} from '../constants';
+
 import InternalServerError from '../errors/InternalServerError';
+
+import {
+  DEFAULT_TEMP_DIR,
+  DEFAULT_UPLOAD_DIR,
+  PROFILE_URL,
+  TOKEN_URL,
+} from '../constants';
 
 dotenv.config();
 
@@ -17,7 +21,8 @@ export const fetchWithRetry = async (
   url: string,
   // eslint-disable-next-line no-undef
   options: RequestInit,
-  retry: number = 1,
+  retry = 1,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   try {
     return await fetch(url, options);
@@ -86,7 +91,11 @@ export const moveFileToUploads = (
 
     fs.renameSync(fromPath, newPath);
   } catch {
-    next(new InternalServerError('Ошибка перемещения файла в постоянное хранилище'));
+    next(
+      new InternalServerError(
+        'Ошибка перемещения файла в постоянное хранилище',
+      ),
+    );
     return null;
   }
 

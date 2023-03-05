@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { celebrate, Joi } from 'celebrate';
 
 import {
@@ -43,7 +42,6 @@ export const isPatchProfileValid = celebrate({
     id: joiId,
   }),
   body: Joi.object().keys({
-
     profile: Joi.object({
       name: Joi.string().required(),
       photo: joiUrl.required(),
