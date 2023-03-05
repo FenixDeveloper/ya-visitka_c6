@@ -105,4 +105,11 @@ describe('Negative test profiles', () => {
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('Bad Request');
   });
+
+  test('Get unhandled routs', async () => {
+    const res = await request(app).get('/unhandeled').send({});
+
+    expect(authMock).toBeCalled();
+    expect(res.status).toBe(404);
+  });
 });
