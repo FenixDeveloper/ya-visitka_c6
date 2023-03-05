@@ -55,9 +55,6 @@ export const ERR_INVALID_GRANT = 'invalid_grant';
 export const ERR_INVALID_CLIENT = 'invalid_client';
 export const ERR_CLIENT_NOT_FOUND = 'Client not found';
 
-// Target
-export const TARGET_ARR = ['hobby', 'status', 'job', 'edu'];
-
 // UPLOADING FILES
 export const DEFAULT_TEMP_DIR = 'temp/';
 export const DEFAULT_UPLOAD_DIR = './uploads';
