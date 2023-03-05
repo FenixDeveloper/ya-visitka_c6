@@ -1,10 +1,10 @@
 # ya-visitka_c6
+
 Репозиторий третьего проектного месяца для когорты 6, проект "Визитница" для Яндекс.Практикум
 
 **Бриф проекта**
 
 [Платформа-визитница VISITKI](https://www.notion.so/3-465e1da1ed11434799ccfb0b27354e75?pvs=4#ad33a3506d264a7a810d62e3644014ca)
-
 
 ## Описание сервиса по загрузке файлов
 
@@ -12,7 +12,7 @@
    Маршрут доступен для авторизованных пользователей. Тело запроса в формате formData
    пример:
 
-```
+```js
 const formData = new FormData();
 formData.append('job', files[0]);
 formData.append('status', files[1]);
@@ -24,7 +24,7 @@ formData.append('hobby', files[3]);
 
 Результат запроса:
 
-```
+```json
 {
     "hobby": {
         "file": "temp/8b19aa0033f0120eb7d38a12851ebbf7"
@@ -35,7 +35,7 @@ formData.append('hobby', files[3]);
 - PATCH api/profile/:id
    полученные ссылки на временные файлы устанавливаются в image
 
-```
+```json
 ...
 "info":{
   "hobby":{
@@ -47,7 +47,7 @@ formData.append('hobby', files[3]);
 Результат:
 возвращается info с уже замененными временными ссылками на постоянные
 
-```
+```json
 ...
 "info":{
   "hobby":{
@@ -61,14 +61,15 @@ formData.append('hobby', files[3]);
 напрямую использовать файл в качестве картинки из html не получится, поскольку нужна авторизация. поэтому сначала файл нужно получить через fetch, а затем его установить в img
 
 пример:
-```
+
+```js
 const imageUrl = /api/files/8b19aa0033f0120eb7d38a12851ebbf7";
 
 fetch(imageUrl)
   //заголовки авторизации
   .then(response => response.blob())
   .then(imageBlob => {
-      
+
       const imageObjectURL = URL.createObjectURL(imageBlob);
       const image = //img tag element//
       image.src = imageObjectURL
@@ -77,47 +78,47 @@ fetch(imageUrl)
 
 ## Авторизация
 
-1. Получение токена:
+- Получение токена:
 
-    ```bash
-    POST /api/token
+  ```bash
+  POST /api/token
 
-    body:
+  body:
 
-      {
-        code: <код, полученный от https://oauth.yandex.ru/authorize>
-      }
-    ```
+    {
+      code: <код, полученный от https://oauth.yandex.ru/authorize>
+    }
+  ```
 
-    ```bash
-      response:
-
-        {
-          token: "string"
-        }
-    ```
-
-2. Полученный в ответе токен должен присутствовать в загловках при каждом запросе.
-
-    ```bash
-    "Authorization": "Bearer ..."
-    ```
-
-3. Получение информации о текущем пользователе
-
-    ```bash
-    GET /api/login
-    ```
-
-    ```bash
+  ```bash
     response:
 
       {
-        _id: "507f1f77bcf86cd799439011",
-        name: "string",
-        email: "user@example.com",
-        cohort: "web+123",
-        photo: "https://placehold.co/600",
-        role: "student"
+        token: "string"
       }
-    ```
+  ```
+
+- Полученный в ответе токен должен присутствовать в загловках при каждом запросе.
+
+  ```bash
+  "Authorization": "Bearer ..."
+  ```
+
+- Получение информации о текущем пользователе
+
+  ```bash
+  GET /api/login
+  ```
+
+  ```bash
+  response:
+
+    {
+      _id: "507f1f77bcf86cd799439011",
+      name: "string",
+      email: "user@example.com",
+      cohort: "web+123",
+      photo: "https://placehold.co/600",
+      role: "student"
+    }
+  ```
