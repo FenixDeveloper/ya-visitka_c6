@@ -82,8 +82,7 @@ export const MainPage = (props1: any) => {
       if (code && !localStorage.getItem('auth_token')) {
         loginUser(code)
         .then((res) => {
-          localStorage.setItem('auth_token', res.access_token)
-          console.log(res.access_token)
+          console.log(res)
         })
         .catch(e => {
           console.log(e.type);
