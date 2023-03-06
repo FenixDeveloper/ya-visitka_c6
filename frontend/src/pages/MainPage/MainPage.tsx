@@ -5,7 +5,7 @@ import person2 from './imagesData/person_2.png';
 import person3 from './imagesData/person_3.png';
 import person4 from './imagesData/person_4.png';
 import DropdownList from '../../components/DropdownList/DropdownList';
-import { authorization } from '../../utils/api';
+import { loginUser } from '../../utils/api';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 interface IData {
@@ -61,6 +61,7 @@ export const MainPage = (props1: any) => {
   const [city, setCity] = useState<string>('Все города');
   const [props, setProps] = useState<Array<IData>>(data);
   const cities: Array<string> = ['Все города'];
+  const token: string | undefined = localStorage.getItem('auth_token') || undefined;
 
    data.forEach((item) => {
     cities.push(item.city);
@@ -78,9 +79,10 @@ export const MainPage = (props1: any) => {
   useEffect(() => {
       const params = new URLSearchParams(document.location.search);
       const code = params.get("code");
-      if (code && !localStorage.getItem('user')) {
-        authorization(code)
+      if (code && !localStorage.getItem('auth_token')) {
+        loginUser(code)
         .then((res) => {
+          localStorage.setItem('auth_token', res.access_token)
           console.log(res.access_token)
         })
         .catch(e => {

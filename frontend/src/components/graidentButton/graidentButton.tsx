@@ -28,12 +28,12 @@ export const GraidentButton: FC<IGraidentButton> = ({
       ) : type === 'href' ? (
         <>
           <button className={`${styles.input} ${styles.large}`}>
-            {/* <a className={styles.text} href="https://oauth.yandex.com/authorize?response_type=code&client_id=0cdebeaa249342658d6f8a1f5eb5eb3e">
+            <a className={styles.text} href="https://oauth.yandex.com/authorize?response_type=code&client_id=0cdebeaa249342658d6f8a1f5eb5eb3e">
              {text}
-          </a> */}
-            <Link className={styles.text} to="/switch-profile">
+          </a>
+            {/* <Link className={styles.text} to="/switch-profile">
               {text}
-            </Link>
+            </Link> */}
           </button>
         </>
       ) : (

@@ -10,7 +10,7 @@ const checkResponse = (res: Response) => {
 const headersContentType = { 'Content-Type': 'application/json' };
 const headersAuthorization = () => ({
   'Content-Type': 'application/json',
-  authorization: `Bearer ${sessionStorage.getItem('auth_token')}`,
+  authorization: `Bearer ${localStorage.getItem('auth_token')}`,
 });
 
 //#region users
@@ -103,7 +103,27 @@ export const getProfiles = () => {
 };
 
 //#endregion
+export const loginUser = (code: string) => {
+  return fetch(`${URL}/api/login`, {
+    mode: 'cors',
+    method: "POST",
+    headers: headersContentType,
+    body: JSON.stringify({ code }),
+  })
+    .then(checkResponse)
+    .then((data) => {
+      if (data.access_token) {
+        sessionStorage.setItem("auth_token", data.access_token);
+        return data;
+      } else {
+        return;
+      }
+    });
+};
+
+
 export const authorization = async (code: string) => {
+
   let urlencoded = new URLSearchParams();
   urlencoded.append('grant_type', 'authorization_code');
   urlencoded.append('code', code);
