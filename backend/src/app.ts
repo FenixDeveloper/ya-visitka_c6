@@ -2,6 +2,7 @@ import passport from 'passport';
 import { errors } from 'celebrate';
 import session from 'express-session';
 import express, { Express } from 'express';
+import cors from 'cors';
 
 import yandexAuthMiddleware from './middlewares/yandex.stategy';
 import JwtStrategy from './middlewares/jwt.strategy';
@@ -16,6 +17,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(requestLogger);
