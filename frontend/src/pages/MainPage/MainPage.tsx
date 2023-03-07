@@ -104,24 +104,6 @@ export const MainPage = (props1: any) => {
       authorizeUser(code);
     }
     
-    // if (code && !localStorage.getItem('auth_token')) {
-    //   getToken(code)
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e.type);
-    //     });
-    // }
-    // if (localStorage.getItem('auth_token')) {
-    //   loginUser()
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e.type);
-    //     });
-    // }
   }, []);
 
   return (
