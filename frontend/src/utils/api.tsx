@@ -108,7 +108,6 @@ export const loginUser = (code: string) => {
     "code": code
   });
   return fetch(`${URL}/api/token`, {
-    // mode: 'cors',
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -118,8 +117,9 @@ export const loginUser = (code: string) => {
   })
     .then(checkResponse)
     .then((data) => {
-      if (data.access_token) {
-        localStorage.setItem("auth_token", data.access_token);
+      if (data.token) {
+        localStorage.setItem("auth_token", data.token);
+        console.log(data);
         return data;
       } else {
         return;
