@@ -107,12 +107,13 @@ export const loginUser = (code: string) => {
   let raw = JSON.stringify({
     "code": code
   });
-  var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
   return fetch(`${URL}/api/token`, {
-    mode: 'no-cors',
+    // mode: 'cors',
     method: "POST",
-    headers: myHeaders,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
     body: raw,
   })
     .then(checkResponse)
