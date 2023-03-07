@@ -104,11 +104,16 @@ export const getProfiles = () => {
 
 //#endregion
 export const loginUser = (code: string) => {
+  let raw = JSON.stringify({
+    "code": code
+  });
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
   return fetch(`${URL}/api/token`, {
     mode: 'no-cors',
     method: "POST",
-    headers: headersContentType,
-    body: JSON.stringify({ 'code': code }),
+    headers: myHeaders,
+    body: raw,
   })
     .then(checkResponse)
     .then((data) => {
@@ -120,21 +125,3 @@ export const loginUser = (code: string) => {
       }
     });
 };
-
-
-// export const authorization = async (code: string) => {
-
-//   let urlencoded = new URLSearchParams();
-//   urlencoded.append('grant_type', 'authorization_code');
-//   urlencoded.append('code', code);
-//   urlencoded.append('client_id', '0cdebeaa249342658d6f8a1f5eb5eb3e');
-//   urlencoded.append('client_secret', '6aa9a1fa0acd402aa247912d561e3bdc');
-
-//   return await fetch(`https://oauth.yandex.ru/token`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     body: urlencoded,
-//   }).then(checkResponse);
-// };
