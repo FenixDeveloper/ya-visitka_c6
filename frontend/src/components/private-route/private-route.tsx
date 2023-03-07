@@ -9,8 +9,11 @@ export const PrivateRoute = ({ children, ...rest }: any) => {
   const [isUserLoaded, setUserLoaded] = useState(false);
 
   const init = async () => {
-    await getUser(+localStorage.user);
-    setUserLoaded(true);
+    // await getUser(+localStorage.user);
+    if (state.data?.email) {
+      setUserLoaded(true);
+      console.log(state.data)
+    } 
   };
 
 
@@ -18,9 +21,9 @@ export const PrivateRoute = ({ children, ...rest }: any) => {
     init();
   }, []);
 
-  if (!isUserLoaded) {
-    return null;
-  }
+  // if (!isUserLoaded) {
+  //   return null;
+  // }
 
   return (
     <Route
