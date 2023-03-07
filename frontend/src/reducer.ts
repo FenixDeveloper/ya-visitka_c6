@@ -5,13 +5,13 @@ export type State = {
 }
 
 export type User = {
-  _id: string
-  createdAt: number,
-  updatedAt: null | number,
+  _id?: string
+  createdAt?: number,
+  updatedAt?: null | number,
   email: string,
-  cohort: string | null,
-  name: string | null,
-  photo: string | null,
+  cohort?: string | null,
+  name?: string | null,
+  photo?: string | null,
   role: string
 }
 

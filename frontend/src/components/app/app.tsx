@@ -37,9 +37,9 @@ function App() {
           <Route path="/switch-profile">
             <SwitchProfile />
           </Route>
-          <PrivateRoute path="/" exact={true}>
+          <Route path="/" exact={true}>
             <MainPage />
-          </PrivateRoute>
+          </Route>
           <PrivateRoute path="/maps">
             <Maps />
           </PrivateRoute>

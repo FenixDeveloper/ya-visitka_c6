@@ -1,3 +1,4 @@
+import { useEffect, useState, useContext } from 'react';
 import styles from './MainPage.module.css';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import person1 from './imagesData/person_1.png';
@@ -5,9 +6,10 @@ import person2 from './imagesData/person_2.png';
 import person3 from './imagesData/person_3.png';
 import person4 from './imagesData/person_4.png';
 import DropdownList from '../../components/DropdownList/DropdownList';
-import { loginUser } from '../../utils/api';
+import { AppContext } from '../../utils/AppContext';
+import { getToken, loginUser } from '../../utils/api';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+
 interface IData {
   name: string;
   city: string;
@@ -60,10 +62,10 @@ const data: Array<IData> = [
 export const MainPage = (props1: any) => {
   const [city, setCity] = useState<string>('Все города');
   const [props, setProps] = useState<Array<IData>>(data);
+  const { state, dispatch } = useContext(AppContext);
   const cities: Array<string> = ['Все города'];
-  const token: string | undefined = localStorage.getItem('auth_token') || undefined;
 
-   data.forEach((item) => {
+  data.forEach((item) => {
     cities.push(item.city);
   });
 
@@ -76,18 +78,32 @@ export const MainPage = (props1: any) => {
     }
   }, [city]);
 
-  useEffect(() => {
-      const params = new URLSearchParams(document.location.search);
-      const code = params.get("code");
-      if (code && !localStorage.getItem('auth_token')) {
-        loginUser(code)
-        .then((res) => {
-          console.log(res)
-        })
-        .catch(e => {
-          console.log(e.type);
-        })
+  const authorizeUser = async (code: string) => {
+    
+    try {
+      if (!localStorage.getItem('auth_token')) {
+        const response = await getToken(code);
+        if (response && response.token) {
+          const user = await loginUser();
+          if(user) {
+            dispatch({ type: 'success', results: user });
+          }
+          
+          // history.replace({ pathname: "/gifts/line" });
+        }
       }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(document.location.search);
+    const code = params.get('code');
+    if(code) {
+      authorizeUser(code);
+    }
+    
   }, []);
 
   return (

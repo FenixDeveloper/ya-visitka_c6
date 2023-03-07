@@ -10,7 +10,7 @@ const checkResponse = (res: Response) => {
 const headersContentType = { 'Content-Type': 'application/json' };
 const headersAuthorization = () => ({
   'Content-Type': 'application/json',
-  authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+  'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
 });
 
 //#region users
@@ -103,23 +103,33 @@ export const getProfiles = () => {
 };
 
 //#endregion
-export const loginUser = (code: string) => {
-  let raw = JSON.stringify({
-    "code": code
-  });
+export const getToken = (code: string) => {
   return fetch(`${URL}/api/token`, {
-    // mode: 'cors',
     method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: raw,
+    headers: headersContentType,
+    body: JSON.stringify({
+      "code": code
+    }),
   })
     .then(checkResponse)
     .then((data) => {
-      if (data.access_token) {
-        localStorage.setItem("auth_token", data.access_token);
+      if (data.token) {
+        localStorage.setItem("auth_token", data.token);
+        return data;
+      } else {
+        return;
+      }
+    });
+};
+
+export const loginUser = () => {
+  return fetch(`${URL}/api/login`, {
+    method: "GET",
+    headers: headersAuthorization(),
+  })
+    .then(checkResponse)
+    .then((data) => {
+      if (data) {
         return data;
       } else {
         return;
