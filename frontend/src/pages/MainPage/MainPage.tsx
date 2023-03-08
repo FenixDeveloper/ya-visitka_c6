@@ -78,18 +78,12 @@ export const MainPage = (props1: any) => {
     }
   }, [city]);
 
-  const authorizeUser = async (code: string) => {
-    
+  const authorizeUser = async () => {
     try {
-      if (!localStorage.getItem('auth_token')) {
-        const response = await getToken(code);
-        if (response && response.token) {
-          const user = await loginUser();
-          if(user) {
-            dispatch({ type: 'success', results: user });
-          }
-          
-          // history.replace({ pathname: "/gifts/line" });
+      if (localStorage.getItem('auth_token')) {
+        const user = await loginUser();
+        if (user) {
+          dispatch({ type: 'success', results: user });
         }
       }
     } catch (err) {
@@ -98,12 +92,7 @@ export const MainPage = (props1: any) => {
   };
 
   useEffect(() => {
-    const params = new URLSearchParams(document.location.search);
-    const code = params.get('code');
-    if(code) {
-      authorizeUser(code);
-    }
-    
+    authorizeUser();
   }, []);
 
   return (

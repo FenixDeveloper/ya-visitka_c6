@@ -9,11 +9,10 @@ export const PrivateRoute = ({ children, ...rest }: any) => {
   const [isUserLoaded, setUserLoaded] = useState(false);
 
   const init = async () => {
-    // await getUser(+localStorage.user);
-    if (state.data?.email) {
+    await getUser(+localStorage.user);
+    if(localStorage.getItem('auth_token')) {
       setUserLoaded(true);
-      console.log(state.data)
-    } 
+    }  
   };
 
 
@@ -21,15 +20,16 @@ export const PrivateRoute = ({ children, ...rest }: any) => {
     init();
   }, []);
 
-  // if (!isUserLoaded) {
-  //   return null;
-  // }
+  if (!isUserLoaded) {
+    return null;
+  }
 
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        return state.data ? (
+        // return state.data ? (
+        return isUserLoaded ? (
           children
         ) : (<Redirect
             to={{
