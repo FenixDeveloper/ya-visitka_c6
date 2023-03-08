@@ -1,0 +1,25 @@
+version: "3.9"
+
+volumes:
+  mongodb_data:
+
+services:
+  mongodb:
+    container_name: database
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/var/lib/mongodb/:rw
+    env_file:
+      - ./backend/.env
+
+  backend:
+    container_name: backend
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3001"
