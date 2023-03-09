@@ -57,7 +57,9 @@ export interface IUser {
   _id?: number;
   cohort: string;
   email: string;
-  name: string;
+  name?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IComment {

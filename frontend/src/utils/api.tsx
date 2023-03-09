@@ -27,7 +27,7 @@ const headersAuthorization = () => ({
 //#region users
 
 export const postUser = (userData: any) => {
-  return fetch(`${URL}/users/`, {
+  return fetch(`${URL}/api/users`, {
     method: 'POST',
     headers: headersAuthorization(),
     body: JSON.stringify(userData),
@@ -35,14 +35,15 @@ export const postUser = (userData: any) => {
 };
 
 export const getUsers = () => {
-  return fetch(`${URL}/users/`, {
+  const options = {
     method: 'GET',
     headers: headersAuthorization(),
-  }).then(checkResponse);
+  };
+  return request('/api/users', options);
 };
 
 export const putUser = (userData: any, id: number) => {
-  return fetch(`${URL}/users/${id}`, {
+  return fetch(`${URL}/api/users/${id}`, {
     method: 'PUT',
     headers: headersAuthorization(),
     body: JSON.stringify(userData),

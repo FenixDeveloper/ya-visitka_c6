@@ -12,13 +12,14 @@ type TRowProps = {
 
 export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) => {
   const type = loaded ? 'input' : 'common'
-  
+  const name = data.name ? data.name : ''
+
   if (onDelete && index !== undefined) {
     return (
       <div className={styles.table_row}>
         <TableCell value={data.cohort} loaded={loaded} type={'input'}/>
         <TableCell value={data.email} loaded={loaded} type={'input'}/>
-        <TableCell value={data.name} loaded={loaded} type={type}/>
+        <TableCell value={name} loaded={loaded} type={type}/>
         <button type='button' className={styles.button_delete} onClick={(e: React.MouseEvent) => onDelete(e, index)}></button>
       </div>
     );
@@ -27,7 +28,7 @@ export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) =>
     <div className={styles.table_row}>
       <TableCell value={data.cohort} loaded={loaded} type={'input'}/>
       <TableCell value={data.email} loaded={loaded} type={'input'}/>
-      <TableCell value={data.name} loaded={loaded} type={type}/>
+      <TableCell value={name} loaded={loaded} type={type}/>
       <button type='button' className={styles.button_delete}></button>
     </div>
   );

@@ -18,7 +18,7 @@ export const AdminUsers = () => {
 
   useEffect(() => {
     getUsers().then((res) => {
-      setDataUsers(res);
+      setDataUsers(res.items);
     });
   }, []);
 
@@ -87,7 +87,8 @@ export const AdminUsers = () => {
                 .filter(
                   (el) =>
                     (el.name || '').includes(inputValue as string) ||
-                    (el.email || '').includes(inputValue as string),
+                    (el.email || '').includes(inputValue as string) ||
+                     el.cohort.includes(inputValue as string),
                 )
                 .map((value: IUser, index: number) => (
                   <TableUsersRow
@@ -102,8 +103,9 @@ export const AdminUsers = () => {
               dataUsers
                 .filter(
                   (el) =>
-                    el.name.includes(inputValue as string) ||
-                    el.email.includes(inputValue as string),
+                  (el.name || '').includes(inputValue as string) ||
+                    el.email.includes(inputValue as string) ||
+                    el.cohort.includes(inputValue as string),
                 )
                 .map((value: IUser) => (
                   <TableUsersRow data={value} key={uuidv4()} />
