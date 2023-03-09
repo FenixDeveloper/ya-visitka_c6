@@ -12,7 +12,7 @@ export const Header = () => {
   return (
     <header className={style.header}>
       <img src={logo} alt="logo" className={style.logo} />
-      {location.pathname !== '/login' && (
+      {location.pathname !== '/login' && location.pathname !== '/auth' && (
         <div className={style.profile_box}>
           <div className={style.profile_container}>
             <img src={profile} alt="profile" className={style.avatar} />

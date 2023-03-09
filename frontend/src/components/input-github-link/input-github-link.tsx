@@ -54,7 +54,7 @@ export const InputGithubLink: FC<IInput & React.HTMLProps<HTMLInputElement>> = (
             labelName={labelName}
             {...props}
             onChange={onChange}
-            onBlur={async _ => await isExistGithubProfile()}
+            onBlur={isExistGithubProfile}
             messageError={'Некорректная ссылка на профиль гитхаба'}
             stateError={stateError}
         />
