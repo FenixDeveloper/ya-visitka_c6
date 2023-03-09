@@ -14,6 +14,7 @@ import Maps from '../maps/maps';
 import MainPage from '../../pages/MainPage/MainPage';
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 import { Profile } from '../../pages/profile/profile';
+import { AuthPage } from '../../pages/authPage/authPage';
 
 function App() {
   const history = useHistory();
@@ -34,12 +35,15 @@ function App() {
           <Route path="/login">
             <LogIn />
           </Route>
-          <Route path="/switch-profile">
+          <Route path="/auth">
+            <AuthPage />
+          </Route>
+          {/* <Route path="/switch-profile">
             <SwitchProfile />
-          </Route>
-          <Route path="/" exact={true}>
+          </Route> */}
+          <PrivateRoute path="/" exact={true}>
             <MainPage />
-          </Route>
+          </PrivateRoute>
           <PrivateRoute path="/maps">
             <Maps />
           </PrivateRoute>

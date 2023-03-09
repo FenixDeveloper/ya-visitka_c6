@@ -78,33 +78,34 @@ export const MainPage = (props1: any) => {
     }
   }, [city]);
 
-  const authorizeUser = async (code: string) => {
+  // const authorizeUser = async (code: string) => {
     
-    try {
-      if (!localStorage.getItem('auth_token')) {
-        const response = await getToken(code);
-        if (response && response.token) {
-          const user = await loginUser();
-          if(user) {
-            dispatch({ type: 'success', results: user });
-          }
+  //   try {
+  //     if (!localStorage.getItem('auth_token')) {
+  //       const response = await getToken(code);
+  //       if (response && response.token) {
+  //         const user = await loginUser();
+  //         if(user) {
+  //           console.log(user);
+  //           dispatch({ type: 'success', results: user });
+  //         }
           
           // history.replace({ pathname: "/gifts/line" });
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    const params = new URLSearchParams(document.location.search);
-    const code = params.get('code');
-    if(code) {
-      authorizeUser(code);
-    }
+  // useEffect(() => {
+  //   const params = new URLSearchParams(document.location.search);
+  //   const code = params.get('code');
+  //   if(code) {
+  //     authorizeUser(code);
+  //   }
     
-  }, []);
+  // }, []);
 
   return (
     <section className={styles.main}>

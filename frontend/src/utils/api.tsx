@@ -1,11 +1,22 @@
 import { URL } from './constants';
 
+interface IOptions {
+  method: string;
+  headers: object;
+  body?: string;
+}
+
 const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка ${res.status}`);
 };
+
+function request(endpoint: string, options: RequestInit) {
+  // принимает два аргумента: урл и объект опций, как и `fetch`
+  return fetch(`${URL}${endpoint}`, options).then(checkResponse);
+}
 
 const headersContentType = { 'Content-Type': 'application/json' };
 const headersAuthorization = () => ({
@@ -105,16 +116,16 @@ export const getProfiles = () => {
 //#endregion
 export const getToken = (code: string) => {
   return fetch(`${URL}/api/token`, {
-    method: "POST",
+    method: 'POST',
     headers: headersContentType,
     body: JSON.stringify({
-      "code": code
+      code: code,
     }),
   })
     .then(checkResponse)
     .then((data) => {
       if (data.token) {
-        localStorage.setItem("auth_token", data.token);
+        localStorage.setItem('auth_token', data.token);
         return data;
       } else {
         return;
@@ -123,16 +134,22 @@ export const getToken = (code: string) => {
 };
 
 export const loginUser = () => {
-  return fetch(`${URL}/api/login`, {
-    method: "GET",
+  const options = {
+    method: 'GET',
     headers: headersAuthorization(),
-  })
-    .then(checkResponse)
-    .then((data) => {
-      if (data) {
-        return data;
-      } else {
-        return;
-      }
-    });
+  };
+  return request('/api/login', options);
+  // return fetch(`${URL}/api/login`, {
+  //   method: 'GET',
+  //   headers: headersAuthorization(),
+  // })
+  //   .then(checkResponse)
+  //   .then((data) => {
+  //     if (data) {
+  //       console.log(data);
+  //       return data;
+  //     } else {
+  //       return;
+  //     }
+  //   });
 };
