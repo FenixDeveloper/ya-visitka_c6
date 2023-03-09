@@ -5,28 +5,22 @@ import { SearchBar } from '../../components/admin-panel/search-bar';
 import { TableUsersRow } from '../../components/admin-panel/table-users-row';
 import { TableCell } from '../../components/admin-panel/table-cell';
 import { IUser } from '../../utils/types';
+import { getUsers, postUser } from '../../utils/api';
 import styles from './admin.module.css';
+import { v4 as uuidv4 } from 'uuid';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
-
-const data = [
-  {
-    cohort: 1853,
-    email: 'mail@gmail.com',
-    name: 'Сергей Иванов',
-  },
-  {
-    cohort: 1853,
-    email: 'dmitriystepanov@gmail.com',
-    name: 'Дмитрий Степанов',
-  },
-];
 
 export const AdminUsers = () => {
   const [inputValue, setInputValue] = useState<string | number>('');
   const [loadedData, SetLoadedData] = useState<IUser[] | []>([]);
+  const [dataUsers, setDataUsers] = useState<IUser[] | []>([]);
   const loadedFileRef = useRef<any>(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getUsers().then((res) => {
+      setDataUsers(res);
+    });
+  }, []);
 
   const handleFile = (file: any) => {
     const reader = new FileReader();
@@ -64,7 +58,13 @@ export const AdminUsers = () => {
       );
   };
 
-  const createUsers = () => {};
+  const createUsers = () => {
+    loadedData.forEach(el => {
+      const email = el.email;
+      const cohort = el.cohort;
+      postUser({cohort, email })
+    });
+  };
 
   return (
     <section className={styles.main}>
@@ -93,20 +93,20 @@ export const AdminUsers = () => {
                   <TableUsersRow
                     data={value}
                     loaded={true}
-                    key={Math.random() * 100}
+                    key={uuidv4()}
                     onDelete={handleDeleteUser}
                     index={index}
                   />
                 ))}
-            {data.length > 0 &&
-              data
+            {dataUsers.length > 0 &&
+              dataUsers
                 .filter(
                   (el) =>
                     el.name.includes(inputValue as string) ||
                     el.email.includes(inputValue as string),
                 )
                 .map((value: IUser) => (
-                  <TableUsersRow data={value} key={Math.random() * 100} />
+                  <TableUsersRow data={value} key={uuidv4()} />
                 ))}
           </div>
         </div>

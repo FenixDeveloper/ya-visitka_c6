@@ -18,22 +18,22 @@ const headersAuthorization = () => ({
 export const postUser = (userData: any) => {
   return fetch(`${URL}/users/`, {
     method: 'POST',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
     body: JSON.stringify(userData),
   }).then(checkResponse);
 };
 
 export const getUsers = () => {
-  return fetch(`${URL}/users`, {
+  return fetch(`${URL}/users/`, {
     method: 'GET',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
   }).then(checkResponse);
 };
 
 export const putUser = (userData: any, id: number) => {
   return fetch(`${URL}/users/${id}`, {
     method: 'PUT',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
     body: JSON.stringify(userData),
   }).then(checkResponse);
 };
@@ -45,14 +45,14 @@ export const putUser = (userData: any, id: number) => {
 export const getComments = () => {
   return fetch(`${URL}/comments`, {
     method: 'GET',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
   }).then(checkResponse);
 };
 
 export const deleteComment = (id: number) => {
   return fetch(`${URL}/comments/${id}`, {
     method: 'DELETE',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
   }).then(checkResponse);
 };
 

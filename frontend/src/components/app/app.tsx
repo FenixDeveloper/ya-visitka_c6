@@ -46,12 +46,12 @@ function App() {
           <PrivateRoute path="/vizitka">
             <VizitkaPage />
           </PrivateRoute>
-          <PrivateRoute path="/admin" exact>
+          <Route  path="/admin" exact>
             <Admin />
-          </PrivateRoute>
-          <PrivateRoute path="/admin/users" exact>
+          </Route >
+          <Route  path="/admin/users" exact>
             <AdminUsers />
-          </PrivateRoute>
+          </Route >
           <PrivateRoute path="/profile">
             <Profile />
           </PrivateRoute>
