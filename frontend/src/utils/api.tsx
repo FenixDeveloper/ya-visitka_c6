@@ -139,17 +139,4 @@ export const loginUser = () => {
     headers: headersAuthorization(),
   };
   return request('/api/login', options);
-  // return fetch(`${URL}/api/login`, {
-  //   method: 'GET',
-  //   headers: headersAuthorization(),
-  // })
-  //   .then(checkResponse)
-  //   .then((data) => {
-  //     if (data) {
-  //       console.log(data);
-  //       return data;
-  //     } else {
-  //       return;
-  //     }
-  //   });
 };
