@@ -1,4 +1,3 @@
-import { string } from 'prop-types';
 import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { getToken, loginUser } from '../../utils/api';
@@ -17,7 +16,7 @@ export const AuthPage = () => {
       let response: IResponse | undefined = undefined;
       if (!localStorage.getItem('auth_token')) {
         response = await getToken(code);
-        if (response && response.token && !state.data) {
+        if (response && response.token) {
           const user = await loginUser();
           console.log(user);
           if (user) {
@@ -28,22 +27,15 @@ export const AuthPage = () => {
           }
         }
       } else {
-        // const user = await loginUser();
-        // console.log(user);
-        if (localStorage.getItem('auth_token')) {
+        const user = await loginUser();
+        console.log(user);
+        if (user) {
+          dispatch({ type: 'success', results: user });
           history.replace({ pathname: '/' });
         } else {
           history.replace({ pathname: '/login' });
         }
-        // Ниже код не удалять!!!
-        // if (user) {
-        //   dispatch({ type: 'success', results: user });
-        //   history.replace({ pathname: '/' });
-        // } else {
-        //   history.replace({ pathname: '/login' });
-        // }
       }
-      
     } catch (err) {
       console.log(err);
     }

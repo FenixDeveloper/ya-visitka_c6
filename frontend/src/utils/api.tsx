@@ -21,7 +21,7 @@ function request(endpoint: string, options: RequestInit) {
 const headersContentType = { 'Content-Type': 'application/json' };
 const headersAuthorization = () => ({
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+  'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
 });
 
 //#region users
