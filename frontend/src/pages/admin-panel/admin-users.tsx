@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
 
 export const AdminUsers = () => {
-  const [inputValue, setInputValue] = useState<string | number>('');
+  const [inputValue, setInputValue] = useState<string>('');
   const [loadedData, SetLoadedData] = useState<IUser[] | []>([]);
   const [dataUsers, setDataUsers] = useState<IUser[] | []>([]);
   const loadedFileRef = useRef<any>(null);
@@ -75,6 +75,8 @@ export const AdminUsers = () => {
             onChange={(evt: ChangeEvent<HTMLInputElement>) => {
               setInputValue(evt.target.value);
             }}
+            value={inputValue}
+
           />
           <div className={styles.table_row}>
             <TableCell value={'Номер когорты'} type={'header'} />

@@ -3,9 +3,10 @@ import styles from './admin-panel.module.css';
 
 type TSearchProps = {
   onChange: React.ChangeEventHandler;
+  value: string;
 }
 
-export const SearchBar: FC<TSearchProps>  = ({onChange}) => {
+export const SearchBar: FC<TSearchProps>  = ({onChange, value}) => {
 
   return (
     <label className={styles.search}>
@@ -13,6 +14,7 @@ export const SearchBar: FC<TSearchProps>  = ({onChange}) => {
       <input
           type='search'
           className={styles.input}
+          value={value}
           onChange={onChange}
           placeholder='По имени или фамилии или почте или номеру когорты (введите любой из этих параметров)'
         />
