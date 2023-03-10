@@ -11,7 +11,6 @@ type TRowProps = {
 }
 
 export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) => {
-  console.log(index);
   const type = loaded ? 'input' : 'common'
   
   if (onDelete && index !== undefined) {

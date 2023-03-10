@@ -22,7 +22,7 @@ const data = [
 ];
 
 export const AdminUsers = () => {
-  const [inputValue, setInputValue] = useState<string | number>('');
+  const [inputValue, setInputValue] = useState<string>('');
   const [loadedData, SetLoadedData] = useState<IUser[] | []>([]);
   const loadedFileRef = useRef<any>(null);
 
@@ -72,6 +72,7 @@ export const AdminUsers = () => {
       <div className={styles.columns}>
         <div className={styles.first_column}>
           <SearchBar
+            state={inputValue}
             onChange={(evt: ChangeEvent<HTMLInputElement>) => {
               setInputValue(evt.target.value);
             }}
@@ -86,8 +87,9 @@ export const AdminUsers = () => {
               loadedData
                 .filter(
                   (el) =>
-                    (el.name || '').includes(inputValue as string) ||
-                    (el.email || '').includes(inputValue as string),
+                    el.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.email?.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    String(el.cohort).toLowerCase().includes(inputValue.toLowerCase())
                 )
                 .map((value: IUser, index: number) => (
                   <TableUsersRow
@@ -102,8 +104,9 @@ export const AdminUsers = () => {
               data
                 .filter(
                   (el) =>
-                    el.name.includes(inputValue as string) ||
-                    el.email.includes(inputValue as string),
+                    el.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.email.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    String(el.cohort).toLowerCase().includes(inputValue.toLowerCase())
                 )
                 .map((value: IUser) => (
                   <TableUsersRow data={value} key={Math.random() * 100} />
