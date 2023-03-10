@@ -14,9 +14,10 @@ function request(endpoint: string, options: RequestInit) {
 }
 
 const headersContentType = { 'Content-Type': 'application/json' };
+const authorization = () => `Bearer ${localStorage.getItem('auth_token')}`;
 const headersAuthorization = () => ({
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+  Authorization: authorization(),
 });
 
 //#region users
@@ -77,7 +78,7 @@ export const getProfiles = () => {
     headers: headersAuthorization(),
   };
 
-  return request('/api/profiles', options);
+  return request('/api/profile', options);
 };
 
 export const getProfile = (id: number) => {
@@ -86,7 +87,7 @@ export const getProfile = (id: number) => {
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profiles/${id}`, options);
+  return request(`/api/profile/${id}`, options);
 };
 
 export const patchProfile = (profileData: IProfile, id: number) => {
@@ -96,7 +97,7 @@ export const patchProfile = (profileData: IProfile, id: number) => {
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profiles/${id}`, options);
+  return request(`/api/profile/${id}`, options);
 };
 //#endregion
 
@@ -107,7 +108,7 @@ export const getReactions = (id: number) => {
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profiles/${id}/reactions`, options);
+  return request(`/api/profile/${id}/reactions`, options);
 };
 
 export const postReactions = (profileData: IProfileData, id: number) => {
@@ -117,7 +118,7 @@ export const postReactions = (profileData: IProfileData, id: number) => {
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profiles/${id}/reactions`, options);
+  return request(`/api/profile/${id}/reactions`, options);
 };
 //#endregion
 
@@ -128,12 +129,11 @@ export const uploadFiles = (file: File) => {
     headers: {
       'Content-Type': file.type,
       'Content-Length': `${file.size}`,
-      Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+      Authorization: authorization(),
     },
     body: file,
   };
-
-  return request('/api/uploadFiles', options);
+  return request('/api/files', options);
 };
 
 export const getFile = (file: string) => {
@@ -141,8 +141,7 @@ export const getFile = (file: string) => {
     method: 'GET',
     headers: headersAuthorization(),
   };
-
-  return request(`/api/uploadFiles/${file}`, options);
+  return request(`/api/files/${file}`, options);
 };
 //#endregion
 
