@@ -3,9 +3,10 @@ export enum InfoBlockName {
   STATUS = 'status',
   JOB = 'job',
   EDU = 'edu',
+  QUOTE = 'quote',
 }
 
-export type TInfoType = 'hobby' | 'status' | 'job' | 'edu';
+export type TInfoType = 'hobby' | 'status' | 'job' | 'edu' | 'quote';
 
 export interface IInfoBlock {
   text: string | '';
