@@ -54,7 +54,7 @@ function ApplicationView() {
           <PrivateRoute path="/maps">
             <Maps />
           </PrivateRoute>
-          <PrivateRoute path="/vizitka/:id">
+          <PrivateRoute path="/vizitka">
             <VizitkaPage />
           </PrivateRoute>
           <PrivateRoute  path="/admin" exact>

@@ -50,17 +50,18 @@ export const VizitkaPage = (props1: any) => {
   }, []);
 
   const getProfileData = async() => {
-    getProfile(id)
-      .then(data => setProfile({ ...profile, data: data, isLoading: false }))
+    getProfile("640cd54c99e1743ebeff63ca")
+    .then(data => setProfile({ ...profile, data: data, isLoading: false }))
       .catch(e => {
         setProfile({ ...profile, hasError: true, isLoading: false });
       })}
-
+console.log(profile)
   return (
     <section className={styles.vizitka}>
+      {profile && 'Hello'}
       {isLoading && "Загрузка ..."}
       {hasError && "Ошибка"}
-      {/* {!isLoading && !hasError && profile && profile.data && profile.data.profile &&
+      {!isLoading && !hasError && profile && profile.data && profile.data.profile &&
       <Vizitka 
         name = {profile.data.profile.name}
         image = {profile.data.profile.photo}
@@ -81,7 +82,7 @@ export const VizitkaPage = (props1: any) => {
         activity_comments_number={profile.data.info.job.reactions}
         studies_comments_number={profile.data.info.edu.reactions}
         style={vizitkaData.style}
-      />} */}
+      />
       {/* <Vizitka 
       name = {vizitkaData.name}
       image = {vizitkaData.image}

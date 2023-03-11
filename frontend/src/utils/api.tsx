@@ -78,7 +78,7 @@ export const getProfiles = () => {
     headers: headersAuthorization(),
   };
 
-  return request('/api/profile', options);
+  return request('/api/profiles', options);
 };
 
 export const getProfile = (id: string) => {
