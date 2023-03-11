@@ -1,10 +1,5 @@
 import { URL } from './constants';
-
-interface IOptions {
-  method: string;
-  headers: object;
-  body?: string;
-}
+import { IProfile, IProfileData, IUserData } from './types';
 
 const checkResponse = (res: Response) => {
   if (res.ok) {
@@ -19,19 +14,21 @@ function request(endpoint: string, options: RequestInit) {
 }
 
 const headersContentType = { 'Content-Type': 'application/json' };
+const authorization = () => `Bearer ${localStorage.getItem('auth_token')}`;
 const headersAuthorization = () => ({
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+  Authorization: authorization(),
 });
 
 //#region users
-
-export const postUser = (userData: any) => {
-  return fetch(`${URL}/api/users`, {
+export const postUser = (userData: IUserData) => {
+  const options = {
     method: 'POST',
     headers: headersAuthorization(),
     body: JSON.stringify(userData),
-  }).then(checkResponse);
+  };
+
+  return request('/api/users', options);
 };
 
 export const getUsers = () => {
@@ -39,99 +36,132 @@ export const getUsers = () => {
     method: 'GET',
     headers: headersAuthorization(),
   };
+
   return request('/api/users', options);
 };
 
-export const putUser = (userData: any, id: number) => {
-  return fetch(`${URL}/api/users/${id}`, {
+export const putUser = (userData: IUserData, id: number) => {
+  const options = {
     method: 'PUT',
     headers: headersAuthorization(),
     body: JSON.stringify(userData),
-  }).then(checkResponse);
-};
+  };
 
+  return request(`/api/users/${id}`, options);
+};
 //#endregion
 
 //#region comments
-
 export const getComments = () => {
-  return fetch(`${URL}/comments`, {
+  const options = {
     method: 'GET',
     headers: headersAuthorization(),
-  }).then(checkResponse);
+  };
+
+  return request('/api/comments', options);
 };
 
 export const deleteComment = (id: number) => {
-  return fetch(`${URL}/comments/${id}`, {
+  const options = {
     method: 'DELETE',
     headers: headersAuthorization(),
-  }).then(checkResponse);
-};
+  };
 
+  return request(`/api/comments/${id}`, options);
+};
 //#endregion
 
 //#region profiles
+export const getProfiles = () => {
+  const options = {
+    method: 'GET',
+    headers: headersAuthorization(),
+  };
 
-//#region id
+  return request('/api/profile', options);
+};
+
+export const getProfile = (id: number) => {
+  const options = {
+    method: 'GET',
+    headers: headersAuthorization(),
+  };
+
+  return request(`/api/profile/${id}`, options);
+};
+
+export const patchProfile = (profileData: IProfile, id: number) => {
+  const options = {
+    method: 'PATCH',
+    headers: headersAuthorization(),
+    body: JSON.stringify(profileData),
+  };
+
+  return request(`/api/profile/${id}`, options);
+};
+//#endregion
 
 //#region reactions
 export const getReactions = (id: number) => {
-  return fetch(`${URL}/profiles/${id}/reactions`, {
+  const options = {
     method: 'GET',
-    headers: headersContentType, //headersAuthorization(),
-  }).then(checkResponse);
+    headers: headersAuthorization(),
+  };
+
+  return request(`/api/profile/${id}/reactions`, options);
 };
 
-export const postReactions = (profileData: any, id: number) => {
-  return fetch(`${URL}/profiles/${id}/reactions`, {
+export const postReactions = (profileData: IProfileData, id: number) => {
+  const options = {
     method: 'POST',
-    headers: headersContentType, //headersAuthorization(),
+    headers: headersAuthorization(),
     body: JSON.stringify(profileData),
-  }).then(checkResponse);
+  };
+
+  return request(`/api/profile/${id}/reactions`, options);
 };
 //#endregion
 
-export const getProfile = (id: number) => {
-  return fetch(`${URL}/profiles/${id}`, {
+//#region upload file
+export const uploadFiles = (file: File) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': file.type,
+      'Content-Length': `${file.size}`,
+      Authorization: authorization(),
+    },
+    body: file,
+  };
+  return request('/api/files', options);
+};
+
+export const getFile = (file: string) => {
+  const options = {
     method: 'GET',
-    headers: headersContentType, //headersAuthorization(),
-  }).then(checkResponse);
-};
-
-export const patchProfile = (profileData: any, id: number) => {
-  return fetch(`${URL}/profiles/${id}`, {
-    method: 'PATCH',
-    headers: headersContentType, //headersAuthorization(),
-    body: JSON.stringify(profileData),
-  }).then(checkResponse);
+    headers: headersAuthorization(),
+  };
+  return request(`/api/files/${file}`, options);
 };
 //#endregion
 
-export const getProfiles = () => {
-  return fetch(`${URL}/profiles`, {
-    method: 'GET',
-    headers: headersContentType, //headersAuthorization(),
-  }).then(checkResponse);
-};
-
-//#endregion
 export const getToken = (code: string) => {
-  return fetch(`${URL}/api/token`, {
+  const options = {
     method: 'POST',
     headers: headersContentType,
     body: JSON.stringify({
       code: code,
     }),
-  })
-    .then(checkResponse)
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('auth_token', data.token);
-        return data;
-      } else {
-        return;
-      }
-    });
+  };
+
+  return request(`/api/token`, options).then((data) => {
+    if (data.token) {
+      localStorage.setItem('auth_token', data.token);
+      return data;
+    } else {
+      return;
+    }
+  });
 };
 
 export const loginUser = () => {
@@ -139,18 +169,6 @@ export const loginUser = () => {
     method: 'GET',
     headers: headersAuthorization(),
   };
+
   return request('/api/login', options);
-  // return fetch(`${URL}/api/login`, {
-  //   method: 'GET',
-  //   headers: headersAuthorization(),
-  // })
-  //   .then(checkResponse)
-  //   .then((data) => {
-  //     if (data) {
-  //       console.log(data);
-  //       return data;
-  //     } else {
-  //       return;
-  //     }
-  //   });
 };

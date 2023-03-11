@@ -10,7 +10,7 @@ export const SearchBar: FC<TSearchProps>  = ({onChange, value}) => {
 
   return (
     <label className={styles.search}>
-      <p className={`${styles.text}` + ` ${styles.text_dark}`}>Фильтровать</p>
+      <p className={`${styles.text} ${styles.text_dark}`}>Фильтровать</p>
       <input
           type='search'
           className={styles.input}

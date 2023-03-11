@@ -88,9 +88,9 @@ export const AdminUsers = () => {
               loadedData
                 .filter(
                   (el) =>
-                    (el.name || '').includes(inputValue as string) ||
-                    (el.email || '').includes(inputValue as string) ||
-                     el.cohort.includes(inputValue as string),
+                    el.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.email?.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.cohort?.toLowerCase().includes(inputValue.toLowerCase())
                 )
                 .map((value: IUser, index: number) => (
                   <TableUsersRow
@@ -105,9 +105,9 @@ export const AdminUsers = () => {
               dataUsers
                 .filter(
                   (el) =>
-                  (el.name || '').includes(inputValue as string) ||
-                    el.email.includes(inputValue as string) ||
-                    el.cohort.includes(inputValue as string),
+                    el.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.email.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.cohort.toLowerCase().includes(inputValue.toLowerCase())
                 )
                 .map((value: IUser) => (
                   <TableUsersRow data={value} key={uuidv4()} />

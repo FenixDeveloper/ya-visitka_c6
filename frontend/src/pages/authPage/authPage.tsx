@@ -2,6 +2,8 @@ import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { getToken, loginUser } from '../../utils/api';
 import { AppContext } from '../../utils/AppContext';
+import image from '../../images/Iphone-spinner-2.gif';
+import styles from './authPage.module.css';
 
 interface IResponse {
   token: string;
@@ -9,7 +11,7 @@ interface IResponse {
 
 export const AuthPage = () => {
   const history = useHistory();
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const authorizeUser = async (code: string) => {
     try {
@@ -38,6 +40,7 @@ export const AuthPage = () => {
       }
     } catch (err) {
       console.log(err);
+      history.replace({ pathname: '/login' });
     }
   };
 
@@ -49,5 +52,9 @@ export const AuthPage = () => {
     }
   }, []);
 
-  return <div></div>;
+  return (
+    <section className={styles.section}>
+        <img src={image} alt="загрузка" />
+    </section>
+  );
 };

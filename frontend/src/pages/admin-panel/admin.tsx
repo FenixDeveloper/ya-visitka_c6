@@ -23,7 +23,8 @@ export const Admin = () => {
   return (
       <section className={styles.main}>
         <SwitchPage />
-        <SearchBar 
+        <SearchBar
+          state={inputValue} 
           onChange={(evt: ChangeEvent<HTMLInputElement>) => {
             setInputValue(evt.target.value);
           }}
