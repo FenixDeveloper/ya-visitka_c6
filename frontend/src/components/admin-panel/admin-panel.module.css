@@ -31,7 +31,8 @@
   font-size: 16px;
   line-height: 24px;
   margin: 0;
-  text-overflow:  ellipsis
+  text-overflow:  ellipsis;
+  text-decoration: none;
 }
 
 .text_placeholder {
@@ -87,6 +88,17 @@
   height: 18px;
   background-color: transparent;
   background: center / contain no-repeat url('../../images/icons/basket.svg');
+  border: none;
+  margin: auto;
+  padding: 0;
+  cursor: pointer;
+}
+
+.button_save {
+  width: 18px;
+  height: 18px;
+  background-color: transparent;
+  background: center / contain no-repeat url('../../images/icons/memory.svg');
   border: none;
   margin: auto;
   padding: 0;
