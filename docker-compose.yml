@@ -9,7 +9,7 @@ services:
     image: mongo:latest
     restart: unless-stopped
     volumes:
-      - mongodb_data:/var/lib/mongodb/:rw
+      - mongodb_data:/data/db:rw
     env_file:
       - ./backend/.env
 
