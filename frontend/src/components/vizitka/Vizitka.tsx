@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import styles from "./Vizitka.module.css";
 import { IVizitka, VizitkaStyle } from "../../utils/types";
 import telegram_logo from './telegram.svg';
@@ -15,6 +15,7 @@ const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   const [openQuoteComment, setOpenQuoteComment] = useState<boolean>(false);
+
   return (
     <section>
       <ul className={styles.mainBlocks}>
@@ -26,8 +27,12 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
+          {/* <a href={props.telegram}> */}
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
+          {/* </a>
+          <a href={props.github}> */}
             <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+          {/* </a> */}
           </div>
         </li>
         <li className={styles.imageBlock} key={uuidv4()}>

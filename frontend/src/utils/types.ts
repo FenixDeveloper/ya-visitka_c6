@@ -26,10 +26,12 @@ export interface IVizitka {
   image: string;
   quotes: string;
   city: string;
-  contacts: {
-    telegram: string;
-    github?: string;
-  };
+  telegram: string;
+  github?: string;
+  // contacts: {
+  // telegram: string;
+  // github?: string;
+  // }
   hobby: string;
   hobby_img: string;
   family: string;

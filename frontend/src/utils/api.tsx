@@ -81,13 +81,13 @@ export const getProfiles = () => {
   return request('/api/profile', options);
 };
 
-export const getProfile = (id: number) => {
+export const getProfile = (id: string) => {
   const options = {
     method: 'GET',
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profile/${id}`, options);
+  return request(`/api/profiles/${id}`, options);
 };
 
 export const patchProfile = (profileData: IProfile, id: number) => {

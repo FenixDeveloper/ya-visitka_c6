@@ -26,9 +26,9 @@ export const Header = () => {
 
   return (
     <header className={style.header}>
-      <Link to= {user && user?.user.role === "student" ?  "/" : `/${user?.user.cohort}`}>
+      {/* <Link to= {user && user?.user.role === "student" ?  "/" : `/${user?.user.cohort}`}>
         <img src={logo} alt="logo" className={style.logo} />
-      </Link>
+      </Link> */}
       {location.pathname !== '/login' && location.pathname !== '/auth' && (
         <div className={style.profile_box}>
           <div className={style.profile_container}>
