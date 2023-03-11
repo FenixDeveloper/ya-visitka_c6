@@ -12,15 +12,14 @@ type TRowProps = {
 }
 
 export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) => {
-  const type = loaded ? 'input' : 'common'
+  const type = loaded ? 'input' : (data.name && data._id) ? 'link' : 'common'
   const name = data.name ? data.name : ''
   const [stateCohort, setStateCohort] = useState(data.cohort);
   const [stateName, setStateName] = useState(data.name);
   const [stateEmail, setStateEmail] = useState(data.email);
 
   const changeUser = (cohort: string, email: string) => {
-    console.log({cohort, email})
-    //if (data._id) putUser({cohort, email}, data._id)
+    if (data._id) putUser({cohort, email}, data._id)
   };
 
   if (onDelete && index !== undefined) {
@@ -55,6 +54,7 @@ export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) =>
         value={name} 
         loaded={loaded} 
         type={type}
+        id={data._id}
       />
       {stateEmail !== data.email ? (
         <button type='button' className={styles.button_save} onClick={(e: React.MouseEvent) => changeUser(stateCohort, stateEmail)}></button>

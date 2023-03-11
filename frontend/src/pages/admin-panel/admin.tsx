@@ -24,11 +24,10 @@ export const Admin = () => {
       <section className={styles.main}>
         <SwitchPage />
         <SearchBar
-          state={inputValue} 
+          value={inputValue} 
           onChange={(evt: ChangeEvent<HTMLInputElement>) => {
             setInputValue(evt.target.value);
           }}
-          value={inputValue}
         />
         <div className={styles.table_row_comments}>
           <TableCell value={'Когорта'} type={'header'} />
