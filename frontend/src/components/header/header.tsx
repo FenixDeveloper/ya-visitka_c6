@@ -11,6 +11,7 @@ export const Header = () => {
   const location = useLocation();
   const user: any = state.data;
 
+
   const getUser = async () => {
     const user: any = await loginUser();
     if (user) {
@@ -20,7 +21,9 @@ export const Header = () => {
 
   useEffect(() => {
     if (!state.data) {
-      getUser();
+      if (localStorage.getItem('auth_token')) {
+        getUser();
+      }   
     }
   }, []);
 

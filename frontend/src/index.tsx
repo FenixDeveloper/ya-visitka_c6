@@ -3,17 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./fonts/fonts.css";
 import App from "./components/app/app";
-import { BrowserRouter } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import { AppProvider } from "./utils/AppContext";
+// import { AppProvider } from "./utils/AppContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppProvider>
+    {/* <BrowserRouter> */}
         <App />
-      </AppProvider>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../private-route';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
@@ -8,25 +8,37 @@ import { Admin } from '../../pages/admin-panel/admin';
 import { AdminUsers } from '../../pages/admin-panel/admin-users';
 import styles from './app.module.css';
 import { AppContext } from '../../utils/AppContext';
-import { getUser } from '../../mockApi';
+// import { getUser } from '../../mockApi';
 import Maps from '../maps/maps';
+import { loginUser } from '../../utils/api';
 import MainPage from '../../pages/MainPage/MainPage';
 import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 import { Profile } from '../../pages/profile/profile';
 import { AuthPage } from '../../pages/authPage/authPage';
+import { AppProvider } from '../../utils/AppContext';
 
 function App() {
   const { dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    const userId = localStorage.getItem('user');
-    if (userId) {
-      dispatch({ type: 'success', results: getUser(Number.parseInt(userId)) });
+    if (localStorage.getItem("auth_token")) {
+      loginUser().then((res) => {
+        dispatch({ type: 'success', results: res });
+      });
     }
-  }, [dispatch]);
+  }, []);
 
   return (
-    <>
+    <AppProvider>
+      <ApplicationView />
+    </AppProvider>
+  );
+}
+
+function ApplicationView() {
+
+  return (
+    <BrowserRouter>
       <Header />
       <main className={styles.content}>
         <Switch>
@@ -57,7 +69,7 @@ function App() {
         </Switch>
       </main>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 
