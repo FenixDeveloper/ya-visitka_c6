@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import profileRouter from './profile';
+import profileRouter from './profiles';
 import usersRouter from './users';
 import commentsRouter from './comments';
 import uploadRouter from './uploadFiles';
@@ -15,7 +15,7 @@ const router = Router();
 router.get('/api/login', jwtAuth);
 
 router.use('/api/users', usersRouter);
-router.use('/api/profile', profileRouter);
+router.use('/api/profiles', profileRouter);
 router.use('/api/files', uploadRouter);
 
 router.use('/api/comments', commentsRouter);
