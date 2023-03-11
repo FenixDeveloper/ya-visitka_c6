@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../private-route';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
@@ -7,7 +7,6 @@ import { LogIn } from '../log-in';
 import { Admin } from '../../pages/admin-panel/admin';
 import { AdminUsers } from '../../pages/admin-panel/admin-users';
 import styles from './app.module.css';
-import { SwitchProfile } from '../switch-profile/switch-profile';
 import { AppContext } from '../../utils/AppContext';
 import { getUser } from '../../mockApi';
 import Maps from '../maps/maps';
@@ -17,8 +16,7 @@ import { Profile } from '../../pages/profile/profile';
 import { AuthPage } from '../../pages/authPage/authPage';
 
 function App() {
-  const history = useHistory();
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   useEffect(() => {
     const userId = localStorage.getItem('user');
@@ -38,9 +36,6 @@ function App() {
           <Route path="/auth">
             <AuthPage />
           </Route>
-          {/* <Route path="/switch-profile">
-            <SwitchProfile />
-          </Route> */}
           <PrivateRoute path="/" exact={true}>
             <MainPage />
           </PrivateRoute>

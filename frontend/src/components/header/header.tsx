@@ -1,17 +1,34 @@
-import { useState, useContext, useRef } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import style from './header.module.css';
 import logo from '../../images/logo.svg';
+import { loginUser } from '../../utils/api';
 import profile from '../../images/profile.svg';
-import { AppContext } from "../../utils/AppContext";
+import { AppContext } from '../../utils/AppContext';
 
 export const Header = () => {
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const location = useLocation();
+  const user: any = state.data;
+
+  const getUser = async () => {
+    const user: any = await loginUser();
+    if (user) {
+      dispatch({ type: 'success', results: user });
+    }
+  }
+
+  useEffect(() => {
+    if (!state.data) {
+      getUser();
+    }
+  }, []);
 
   return (
     <header className={style.header}>
-      <img src={logo} alt="logo" className={style.logo} />
+      <Link to= {user && user?.user.role === "student" ?  "/" : `/${user?.user.cohort}`}>
+        <img src={logo} alt="logo" className={style.logo} />
+      </Link>
       {location.pathname !== '/login' && location.pathname !== '/auth' && (
         <div className={style.profile_box}>
           <div className={style.profile_container}>

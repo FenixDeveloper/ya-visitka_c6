@@ -7,7 +7,7 @@ import person3 from './imagesData/person_3.png';
 import person4 from './imagesData/person_4.png';
 import DropdownList from '../../components/DropdownList/DropdownList';
 import { AppContext } from '../../utils/AppContext';
-import { getToken, loginUser } from '../../utils/api';
+import { loginUser } from '../../utils/api';
 import { Link } from 'react-router-dom';
 
 interface IData {
@@ -69,6 +69,13 @@ export const MainPage = (props1: any) => {
     cities.push(item.city);
   });
 
+  const getUser = async () => {
+    const user: any = await loginUser();
+    if (user) {
+      dispatch({ type: 'success', results: user });
+    }
+  }
+
   useEffect(() => {
     if (city !== 'Все города') {
       const result = data.filter((person) => person.city === city);
@@ -78,34 +85,11 @@ export const MainPage = (props1: any) => {
     }
   }, [city]);
 
-  // const authorizeUser = async (code: string) => {
-    
-  //   try {
-  //     if (!localStorage.getItem('auth_token')) {
-  //       const response = await getToken(code);
-  //       if (response && response.token) {
-  //         const user = await loginUser();
-  //         if(user) {
-  //           console.log(user);
-  //           dispatch({ type: 'success', results: user });
-  //         }
-          
-          // history.replace({ pathname: "/gifts/line" });
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const params = new URLSearchParams(document.location.search);
-  //   const code = params.get('code');
-  //   if(code) {
-  //     authorizeUser(code);
-  //   }
-    
-  // }, []);
+  useEffect(() => {
+    if (!state.data) {
+      getUser();
+    } 
+  }, []);
 
   return (
     <section className={styles.main}>
