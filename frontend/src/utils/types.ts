@@ -55,9 +55,11 @@ export interface IVizitkaAboutBlock {
 
 export interface IUser {
   _id?: number;
-  cohort: number;
+  cohort: string;
   email: string;
-  name: string;
+  name?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IComment {
