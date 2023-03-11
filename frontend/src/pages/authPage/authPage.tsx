@@ -11,7 +11,7 @@ interface IResponse {
 
 export const AuthPage = () => {
   const history = useHistory();
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const authorizeUser = async (code: string) => {
     try {
@@ -40,6 +40,7 @@ export const AuthPage = () => {
       }
     } catch (err) {
       console.log(err);
+      history.replace({ pathname: '/login' });
     }
   };
 
