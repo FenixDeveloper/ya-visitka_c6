@@ -15,12 +15,7 @@ import { InfoBlockName } from '../types/info-block';
 
 import { moveFileToUploads } from '../utils';
 
-import {
-  HTTP_STATUS_OK,
-  MSG_SERVER_ERROR,
-  MSG_USER_NOT_FOUND,
-  ROLE_CURATOR,
-} from '../constants';
+import { HTTP_STATUS_OK, MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
 
 type TGetProfilesQuery = {
   offset?: number;
@@ -182,9 +177,9 @@ export const postReaction = async (
   const { id: userId } = req.params;
 
   try {
-    const user = await User.findById(userId).catch((err) =>
-      next(new BadRequestError(String(err))),
-    );
+    const user = await User.findById(userId).catch((err) => {
+      throw new BadRequestError(err);
+    });
 
     if (!user) {
       next(new DataNotFoundError(MSG_USER_NOT_FOUND));
@@ -208,9 +203,11 @@ export const postReaction = async (
       user.reactions.push(new Emotion(reaction));
     }
 
-    await user.save().catch((err) => next(new BadRequestError(String(err))));
+    await user.save().catch((err) => {
+      throw new BadRequestError(err);
+    });
     res.end();
   } catch (err) {
-    next(new InternalServerError(MSG_SERVER_ERROR));
+    next(err);
   }
 };

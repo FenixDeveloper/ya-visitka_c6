@@ -97,10 +97,6 @@ const userSchema = new Schema<IUser>({
     photo: {
       type: String,
       required: false,
-      validate: {
-        validator: isUrl,
-        message: MSG_INCORRECT_URL,
-      },
     },
     city: {
       required: false,
