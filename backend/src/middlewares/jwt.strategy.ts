@@ -8,8 +8,14 @@ import {
 import User from '../models/user';
 
 import BadRequestError from '../errors/BadRequestError';
+import DataNotFoundError from '../errors/NotFoundError';
 
-import { ROLE_CURATOR, ROLE_STUDENT, TOKEN_NOT_IN_HEADER } from '../constants';
+import {
+  MSG_USER_NOT_FOUND,
+  ROLE_CURATOR,
+  ROLE_STUDENT,
+  TOKEN_NOT_IN_HEADER,
+} from '../constants';
 
 const { CLIENT_SECRET, CURATORS } = process.env;
 
@@ -35,7 +41,10 @@ interface IYandexProfileFromJwt {
   gender: string;
 }
 
-const verify = (jwtPayload: IYandexProfileFromJwt, done: VerifiedCallback) => {
+const verify = async (
+  jwtPayload: IYandexProfileFromJwt,
+  done: VerifiedCallback,
+) => {
   const yaEmail = jwtPayload.email.toLowerCase();
   const curatorsList = CURATORS ? CURATORS.split(',') : [];
 
@@ -47,26 +56,41 @@ const verify = (jwtPayload: IYandexProfileFromJwt, done: VerifiedCallback) => {
     return done(null, curator);
   }
 
-  return User.findUserByEmail(yaEmail)
-    .then((user) => {
-      const {
-        email,
-        cohort,
-        profile: { photo, name },
-      } = user.toJSON();
+  const user = await User.findOne({ email: yaEmail }).catch((err) =>
+    done(err, false),
+  );
 
-      const student = {
-        _id: user.id,
-        name,
-        email,
-        cohort,
-        photo,
-        role: ROLE_STUDENT,
-      };
+  if (!user) {
+    return done(new DataNotFoundError(MSG_USER_NOT_FOUND), false);
+  }
 
-      return done(null, student);
-    })
-    .catch((err) => done(err, false));
+  const {
+    email,
+    cohort,
+    profile: { photo },
+  } = user;
+
+  let {
+    profile: { name },
+  } = user;
+
+  if (name == null) {
+    const yaName = jwtPayload.name;
+    user.profile.name = yaName;
+    const updatedUser = await user.save();
+    name = updatedUser.profile.name;
+  }
+
+  const student = {
+    _id: user.id,
+    name,
+    email,
+    cohort,
+    photo,
+    role: ROLE_STUDENT,
+  };
+
+  return done(null, student);
 };
 
 const JwtStrategy = new Strategy(opt, verify);
