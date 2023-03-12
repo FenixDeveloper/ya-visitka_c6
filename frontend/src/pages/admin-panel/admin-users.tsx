@@ -5,28 +5,22 @@ import { SearchBar } from '../../components/admin-panel/search-bar';
 import { TableUsersRow } from '../../components/admin-panel/table-users-row';
 import { TableCell } from '../../components/admin-panel/table-cell';
 import { IUser } from '../../utils/types';
+import { getUsers, postUser } from '../../utils/api';
 import styles from './admin.module.css';
+import { v4 as uuidv4 } from 'uuid';
 import { GraidentButton } from '../../components/graidentButton/graidentButton';
-
-const data = [
-  {
-    cohort: 1853,
-    email: 'mail@gmail.com',
-    name: 'Сергей Иванов',
-  },
-  {
-    cohort: 1853,
-    email: 'dmitriystepanov@gmail.com',
-    name: 'Дмитрий Степанов',
-  },
-];
 
 export const AdminUsers = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [loadedData, SetLoadedData] = useState<IUser[] | []>([]);
+  const [dataUsers, setDataUsers] = useState<IUser[] | []>([]);
   const loadedFileRef = useRef<any>(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getUsers().then((res) => {
+      setDataUsers(res.items);
+    });
+  }, []);
 
   const handleFile = (file: any) => {
     const reader = new FileReader();
@@ -64,7 +58,32 @@ export const AdminUsers = () => {
       );
   };
 
-  const createUsers = () => {};
+  const handleUpdateUser = (value: string, index: number, data: IUser, type: string): void => {
+    if (type === 'cohort') {
+      data.cohort = value
+    }
+    if (type === 'email') {
+      data.email = value
+    }
+    loadedData[index] = data;
+    SetLoadedData(loadedData);
+  };
+
+  const createUsers = () => {
+    loadedData.forEach((element: IUser, index: number) => {
+      const email = element.email;
+      const cohort = element.cohort;
+      postUser({cohort, email }).then((res) => {
+        const newData = [...dataUsers, res]
+        setDataUsers(newData)
+        SetLoadedData(
+          loadedData.filter(
+            (element: IUser, indexElement: number) => indexElement !== index,
+          ),
+        );
+      });
+    });
+  };
 
   return (
     <section className={styles.main}>
@@ -72,10 +91,11 @@ export const AdminUsers = () => {
       <div className={styles.columns}>
         <div className={styles.first_column}>
           <SearchBar
-            state={inputValue}
             onChange={(evt: ChangeEvent<HTMLInputElement>) => {
               setInputValue(evt.target.value);
             }}
+            value={inputValue}
+
           />
           <div className={styles.table_row}>
             <TableCell value={'Номер когорты'} type={'header'} />
@@ -89,27 +109,33 @@ export const AdminUsers = () => {
                   (el) =>
                     el.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
                     el.email?.toLowerCase().includes(inputValue.toLowerCase()) ||
-                    String(el.cohort).toLowerCase().includes(inputValue.toLowerCase())
+                    el.cohort?.toLowerCase().includes(inputValue.toLowerCase())
                 )
                 .map((value: IUser, index: number) => (
                   <TableUsersRow
                     data={value}
                     loaded={true}
-                    key={Math.random() * 100}
+                    key={uuidv4()}
                     onDelete={handleDeleteUser}
+                    userUpdate={handleUpdateUser}
                     index={index}
                   />
                 ))}
-            {data.length > 0 &&
-              data
+            {dataUsers.length > 0 &&
+              dataUsers
                 .filter(
                   (el) =>
-                    el.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                    el.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
                     el.email.toLowerCase().includes(inputValue.toLowerCase()) ||
-                    String(el.cohort).toLowerCase().includes(inputValue.toLowerCase())
+                    el.cohort.toLowerCase().includes(inputValue.toLowerCase())
                 )
-                .map((value: IUser) => (
-                  <TableUsersRow data={value} key={Math.random() * 100} />
+                .sort((el1: IUser, el2: IUser) => el1.updatedAt > el2.updatedAt ? 1 : -1)
+                .map((value: IUser, index: number) => (
+                  <TableUsersRow 
+                    data={value}
+                    key={uuidv4()}
+                    index={index}
+                  />
                 ))}
           </div>
         </div>

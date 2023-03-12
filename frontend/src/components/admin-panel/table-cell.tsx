@@ -1,18 +1,22 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import styles from './admin-panel.module.css';
+import { Link } from 'react-router-dom';
 
 type TCellProps = {
   value: string | number,
   loaded?: boolean,
   type: string,
+  onChange?: React.ChangeEventHandler;
+  id?: number;
 }
 
-export const TableCell: FC<TCellProps>  = ({ value, loaded, type }) => {
-
-  const [state, setState] = useState(value);
+export const TableCell: FC<TCellProps>  = ({ value, loaded, type, onChange, id }) => {
 
   return (
     <div className={styles.table_cell}>
+    { type === 'link' && 
+      <Link className={`${styles.text}` + ` ${styles.text_dark}`} to={`/profile/${id}`}>{value}</Link>
+    }
     { type === 'common' &&
       <p className={`${styles.text}` + ` ${styles.text_dark}`}>{value}</p>
     }
@@ -22,8 +26,8 @@ export const TableCell: FC<TCellProps>  = ({ value, loaded, type }) => {
     { type === 'input' &&
       <input
         type='text'
-        value={state}
-        onChange={({ target }) => setState(target.value)}
+        value={value}
+        onChange={onChange}
         className={`${styles.text}` + ` ${styles.table_input}` + 
         ( loaded ?  ` ${styles.text_blue}` : ` ${styles.text_dark}` )}
       />

@@ -151,7 +151,14 @@ export const MainPage = (props1: any) => {
 
   }, []);
 
-  //Сортировка пользователей по городам
+//Добавляла не я
+  const getUser = async () => {
+    const user: any = await loginUser();
+    if (user) {
+      dispatch({ type: 'success', results: user });
+    }
+  }
+ //Сортировка пользователей по городам
   useEffect(() => {
     const sortedData = props.filter(
       (student) => student.cohort === (state.data != null && state.data.cohort),
@@ -165,6 +172,14 @@ export const MainPage = (props1: any) => {
       setProps(initalProps);
     }
   }, [city]);
+
+//Добавляла не я
+  useEffect(() => {
+    if (!state.data) {
+      getUser();
+    } 
+  }, []);
+
 
   return (
     <section className={styles.main}>

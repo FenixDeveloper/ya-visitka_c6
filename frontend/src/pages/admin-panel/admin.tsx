@@ -1,31 +1,44 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { SwitchPage } from '../../components/admin-panel/switch-page';
 import { SearchBar } from '../../components/admin-panel/search-bar';
 import { TableCommentsRow } from '../../components/admin-panel/table-comments-row';
 import { TableCell } from '../../components/admin-panel/table-cell';
 import { IComment } from '../../utils/types'; 
+import { getComments } from '../../utils/api';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './admin.module.css';
+import { deleteComment } from '../../utils/api';
 
 export const Admin = () => {
 
   const [inputValue, setInputValue] = useState('');
+  const [dataComments, setDataComments] = useState<IComment[] | []>([]);
 
-  const data = [
-    {   
-        _id: 123,
-        cohort: 1853,
-        createdAt: '20.12.2022',
-        sender: 'Дмитрий Степанов',
-        recipient: 'Виктория Листвина',
-        block: 'Из блока увлечения',
-        text: 'Классные у тебя увлечения, я тоже играю в настолки, любимая игра — Эволюция. Люблю еще слушать музыку, ходить в кино, общаться с друзьями. Ну и учиться в Практикуме. ',
-    },
-  ];
+  useEffect(() => {
+    getComments().then((res) => {
+      console.log(res)
+      setDataComments(res.items);
+    });
+  }, []);
+
+  const handleDeleteComment = (index: number, id: number): void => {
+    deleteComment(id).then((res) => {
+      setDataComments(res)
+      //Вариант, если с бэка не возвращается обновленный массив комментариев.
+      //setDataComments(
+      //  dataComments.filter(
+      //      (element: IComment, indexElement: number) => indexElement !== index,
+      //    ),
+      //  );
+    });
+    
+  };
+
   return (
       <section className={styles.main}>
         <SwitchPage />
         <SearchBar
-          state={inputValue} 
+          value={inputValue} 
           onChange={(evt: ChangeEvent<HTMLInputElement>) => {
             setInputValue(evt.target.value);
           }}
@@ -39,12 +52,17 @@ export const Admin = () => {
           <TableCell value={'Текст комментария'} type={'header'} />
         </div>
         <div className={styles.table}>
-          { data
+          { dataComments
             .filter((el) =>
               el.sender.includes(inputValue as string) || el.recipient.includes(inputValue as string)
             )
-            .map((value: IComment) => (
-              <TableCommentsRow data={value} key={Math.random()*100}/>
+            .map((value: IComment, index: number) => (
+              <TableCommentsRow
+                data={value}
+                key={uuidv4()}
+                onDelete={handleDeleteComment}
+                index={index}
+                />
             ))}
         </div>
       </section>
