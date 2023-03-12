@@ -18,6 +18,7 @@ formData.append('job', files[0]);
 formData.append('status', files[1]);
 formData.append('edu', files[2]);
 formData.append('hobby', files[3]);
+formData.append('photo', files[4]);
 ```
 
 Допускается отправка отдельных файлов, не обязательно все 4 указывать.
