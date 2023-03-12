@@ -1,9 +1,9 @@
-import { StringMappingType } from "typescript";
+import { StringMappingType } from 'typescript';
 
 export interface IProfileCard {
   image: string;
   city: string;
-  name:string;
+  name: string;
   comments_number: number;
 }
 
@@ -19,10 +19,10 @@ export enum VizitkaStyle {
   Base = 'base',
   Romantic = 'romantic',
   Derzkiy = 'derzkiy',
-} 
+}
 
 export interface IVizitka {
-  name:string;
+  name: string;
   image: string;
   quotes: string;
   city: string;
@@ -55,9 +55,11 @@ export interface IVizitkaAboutBlock {
 
 export interface IUser {
   _id?: number;
-  cohort: number;
+  cohort: string;
   email: string;
-  name: string;
+  name?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IComment {
@@ -79,6 +81,11 @@ export interface IProfile {
   name: string;
   photo: string;
   city: ICity;
+  birthday?: string;
+  quote?: string;
+  telegram?: string;
+  github?: string;
+  template?: string;
 }
 
 export interface IUserInfo {
@@ -95,5 +102,15 @@ export interface IMapProps {
   centerMap?: number[];
   zoomMap?: number;
   balloonImg?: string;
+}
 
+export interface IUserData {
+  email: string;
+  cohort: string;
+}
+
+export interface IProfileData {
+  target: 'hobby' | 'status' | 'job' | 'edu' | null;
+  text?: string;
+  emotions?: string;
 }
