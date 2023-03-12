@@ -130,10 +130,24 @@ export const patchProfile = async (
   const { profile, info } = req.body;
   const userFromSession = req.session.passport.user;
 
-  info.edu.image = moveFileToUploads(info.edu.image, next);
-  info.hobby.image = moveFileToUploads(info.hobby.image, next);
-  info.job.image = moveFileToUploads(info.job.image, next);
-  info.status.image = moveFileToUploads(info.status.image, next);
+  if (profile.photo) {
+    profile.photo = moveFileToUploads(profile.photo, next);
+  }
+
+  if (info) {
+    if (info?.edu?.image) {
+      info.edu.image = moveFileToUploads(info.edu.image, next);
+    }
+    if (info?.hobby?.image) {
+      info.hobby.image = moveFileToUploads(info.hobby.image, next);
+    }
+    if (info?.job?.image) {
+      info.job.image = moveFileToUploads(info.job.image, next);
+    }
+    if (info?.status?.image) {
+      info.status.image = moveFileToUploads(info.status.image, next);
+    }
+  }
 
   try {
     const user = await User.findById(userId);
