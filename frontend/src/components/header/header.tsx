@@ -11,7 +11,9 @@ export const Header = () => {
 
   return (
     <header className={style.header}>
+      <Link to="/">
       <img src={logo} alt="logo" className={style.logo} />
+      </Link>
       {location.pathname !== '/login' && location.pathname !== '/auth' && (
         <div className={style.profile_box}>
           <div className={style.profile_container}>

@@ -7,7 +7,7 @@ export const getUser = (profileId: number) => {
     "createdAt": 1669314103470,
     "updatedAt": null,
     "email": "Reymundo.Harvey@hotmail.com",
-    "cohort": "web+16",
+    "cohort": "web+06",
     "name": "Mr. Daniel Anderson",
     "photo": "https://i.pravatar.cc/300",
     "role": "student"
@@ -61,4 +61,5 @@ export const emojies = [
   { type: '😍️', count: 0 },
   { type: '❤️', count: 0 },
 ];
+
 

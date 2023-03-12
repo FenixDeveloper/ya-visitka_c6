@@ -4,7 +4,8 @@ export interface IProfileCard {
   image: string;
   city: string;
   name: string;
-  comments_number: number;
+  role: string;
+  id:string;
 }
 
 export interface IDropdownList {
