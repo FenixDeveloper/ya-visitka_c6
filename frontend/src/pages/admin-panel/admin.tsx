@@ -7,6 +7,7 @@ import { IComment } from '../../utils/types';
 import { getComments } from '../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './admin.module.css';
+import { deleteComment } from '../../utils/api';
 
 export const Admin = () => {
 
@@ -19,6 +20,19 @@ export const Admin = () => {
       setDataComments(res.items);
     });
   }, []);
+
+  const handleDeleteComment = (index: number, id: number): void => {
+    deleteComment(id).then((res) => {
+      setDataComments(res)
+      //Вариант, если с бэка не возвращается обновленный массив комментариев.
+      //setDataComments(
+      //  dataComments.filter(
+      //      (element: IComment, indexElement: number) => indexElement !== index,
+      //    ),
+      //  );
+    });
+    
+  };
 
   return (
       <section className={styles.main}>
@@ -42,8 +56,13 @@ export const Admin = () => {
             .filter((el) =>
               el.sender.includes(inputValue as string) || el.recipient.includes(inputValue as string)
             )
-            .map((value: IComment) => (
-              <TableCommentsRow data={value} key={uuidv4()}/>
+            .map((value: IComment, index: number) => (
+              <TableCommentsRow
+                data={value}
+                key={uuidv4()}
+                onDelete={handleDeleteComment}
+                index={index}
+                />
             ))}
         </div>
       </section>
