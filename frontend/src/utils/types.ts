@@ -138,39 +138,23 @@ export interface IProfiles {
   };
   info: {
     hobby: {
-      text: {
-        value: string;
-      },
-      image: {
-        value: string;
-      },
+      text: string;
+      image: string;
       reactions: number;
     };
     status: {
-      text: {
-        value: string;
-      },
-      image: {
-        value: string;
-      },
+      text: string;
+      image: string;
       reactions: number;
     },
     job: {
-      text: {
-        value: string;
-      },
-      image: {
-        value: string;
-      },
+      text: string;
+      image: string;
       reactions: number;
     },
     edu: {
-      text: {
-        value: string;
-      },
-      image: {
-        value: string;
-      },
+      text: string;
+      image: string;
       reactions: number
     }
   },

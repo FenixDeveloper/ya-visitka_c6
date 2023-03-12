@@ -56,8 +56,11 @@ export const VizitkaPage = (props1: any) => {
   }, []);
 
   const getProfileData = async () => {
-    getProfile('640ce46a38ebe4dc8c5a0bce')
-      .then((data) => setProfile({ ...profile, data: data, isLoading: false }))
+    getProfile('640d84034915e6ac4978a433')
+      .then((data) => {
+        console.log(data);
+        setProfile({ ...profile, data: data, isLoading: false })
+      })
       .catch((e) => {
         setProfile({ ...profile, hasError: true, isLoading: false });
       });
@@ -65,7 +68,6 @@ export const VizitkaPage = (props1: any) => {
   console.log(profile.data);
   return (
     <section className={styles.vizitka}>
-      {profile && 'Hello'}
       {isLoading && 'Загрузка ...'}
       {hasError && 'Ошибка'}
       {!isLoading &&
@@ -81,12 +83,12 @@ export const VizitkaPage = (props1: any) => {
             city={profile.data.profile.city.name}
             telegram={profile.data.profile.telegram}
             github={profile.data.profile.github}
-            hobby={profile.data.info?.hobby.text.value}
-            hobby_img={profile.data.info?.hobby.image.value}
-            family={profile.data.info?.status.text.value}
-            family_img={profile.data.info?.status.image.value}
-            activity={profile.data.info?.job.text.value}
-            studies={profile.data.info?.edu.text.value}
+            hobby={profile.data.info?.hobby.text}
+            hobby_img={profile.data.info?.hobby.image}
+            family={profile.data.info?.status.text}
+            family_img={profile.data.info?.status.image}
+            activity={profile.data.info?.job.text}
+            studies={profile.data.info?.edu.text}
             photo_comments_number={profile.data.reactions}
             quotes_comments_number={vizitkaData.quotes_comments_number}
             hobby_comments_number={profile.data.info?.hobby.reactions}

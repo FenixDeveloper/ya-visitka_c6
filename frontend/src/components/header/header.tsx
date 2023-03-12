@@ -14,6 +14,7 @@ export const Header = () => {
   const getUser = async () => {
     const user: any = await loginUser();
     if (user) {
+      console.log(user);
       dispatch({ type: 'success', results: user });
     }
   }
