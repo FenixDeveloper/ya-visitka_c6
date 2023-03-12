@@ -31,7 +31,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
           {/* </a>
           <a href={props.github}> */}
-            <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+            <img src={github_logo} alt='Лого GitHub' className={styles.logo} />
           {/* </a> */}
           </div>
         </li>
