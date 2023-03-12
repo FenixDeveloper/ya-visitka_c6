@@ -116,3 +116,63 @@ export interface IProfileData {
   text?: string;
   emotions?: string;
 }
+
+export interface IProfiles {
+  email: string;
+  cohort: string;
+  _id: string;
+  createdAt: number;
+  updatedAt: number;
+  profile: {
+    name: string;
+    photo: string;
+    city: {
+      name: string;
+      geocode: number[];
+    },
+    birthday: string;
+    quote: string;
+    telegram: string;
+    github: string;
+    template: string;
+  };
+  info: {
+    hobby: {
+      text: {
+        value: string;
+      },
+      image: {
+        value: string;
+      },
+      reactions: number;
+    };
+    status: {
+      text: {
+        value: string;
+      },
+      image: {
+        value: string;
+      },
+      reactions: number;
+    },
+    job: {
+      text: {
+        value: string;
+      },
+      image: {
+        value: string;
+      },
+      reactions: number;
+    },
+    edu: {
+      text: {
+        value: string;
+      },
+      image: {
+        value: string;
+      },
+      reactions: number
+    }
+  },
+  reactions: number
+}

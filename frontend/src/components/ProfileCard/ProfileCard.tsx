@@ -3,6 +3,7 @@ import styles from './ProfileCard.module.css';
 import { IProfileCard } from '../../utils/types';
 import icon from '../../images/icons/comment.svg';
 import CommentPost from '../comment-post/comment-post';
+import { emojies } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 
 const ProfileCard: FC<IProfileCard> = (props) => {
@@ -37,7 +38,7 @@ const ProfileCard: FC<IProfileCard> = (props) => {
         <div className={styles.comment}>
           <CommentPost
             comments={['Классная фотка', 'Очень инетерсно', 'Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4' ,'Комментарий 4' ,'Комментарий 4']}
-            emojies={[{ type: '', count: 3 }]}
+            emojies={emojies}
             class={true}
           />
         </div>

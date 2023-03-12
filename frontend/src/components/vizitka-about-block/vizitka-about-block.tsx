@@ -4,6 +4,7 @@ import { IVizitkaAboutBlock, VizitkaStyle } from "../../utils/types";
 import icon from "../../images/icons/comment.svg";
 import romantic from './romantic.svg'
 import derzkiy from './derzkiy.svg'
+import { emojies } from "../../utils/constants";
 import CommentPost from '../comment-post/comment-post';
 
 const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
@@ -23,7 +24,7 @@ const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                emojies={[{ type: '', count: 3 }]}
+                emojies={emojies}
                 class={false}
               />
             </div>
