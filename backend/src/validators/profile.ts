@@ -7,7 +7,6 @@ import {
   joiInteger,
   joiString,
   joiTextImage,
-  joiUrl,
 } from './joiUtils';
 
 const joiOffset = joiInteger.default(0).min(0);
@@ -44,15 +43,15 @@ export const isPatchProfileValid = celebrate({
   body: Joi.object().keys({
     profile: Joi.object({
       name: Joi.string().required(),
-      photo: joiUrl.required(),
+      photo: Joi.string().required(),
       city: Joi.object({
         name: Joi.string(),
         geocode: joiGeoCode,
       }).required(),
       birthday: joiDate.required(),
-      quote: joiString.required(),
-      telegram: joiString.required(),
-      github: joiString.required(),
+      quote: joiString,
+      telegram: joiString,
+      github: joiString,
       template: joiString.required(),
     }).required(),
 
@@ -61,6 +60,6 @@ export const isPatchProfileValid = celebrate({
       status: joiTextImage,
       job: joiTextImage,
       edu: joiTextImage,
-    }).required(),
+    }),
   }),
 });
