@@ -10,6 +10,7 @@ const upload = multer({ dest: DEFAULT_TEMP_DIR }).fields([
   { name: 'status', maxCount: 1 },
   { name: 'job', maxCount: 1 },
   { name: 'edu', maxCount: 1 },
+  { name: 'photo', maxCount: 1 },
 ]);
 
 const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {

@@ -38,7 +38,9 @@ describe('Перемещение файла в постоянное хранил
 
   test('Файл должен быть перемещен', () => {
     const newFile = moveFileToUploads(`${DEFAULT_TEMP_DIR}${file}`);
-    expect(fs.existsSync(path.resolve(DEFAULT_UPLOAD_DIR, newFile))).toBeTruthy();
+    expect(
+      fs.existsSync(path.resolve(DEFAULT_UPLOAD_DIR, newFile)),
+    ).toBeTruthy();
   });
 
   test('Файл не должен быть перемещен, если он уже в постоянном хранилище', () => {

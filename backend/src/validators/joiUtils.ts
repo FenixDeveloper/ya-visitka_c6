@@ -39,5 +39,5 @@ export const joiGeoCode = Joi.array()
 
 export const joiTextImage = Joi.object({
   text: joiString.allow(''),
-  image: joiUrl.allow(null),
+  image: joiString.allow(null),
 });

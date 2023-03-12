@@ -19,14 +19,19 @@ export const uploadFiles = (
 
   const result: TResult = Object.keys(files)
     .filter((k) => k)
-    .map((key) => {
-      const fileDescription = files[key as TInfoType][0];
-      const filePath = `${fileDescription.destination}${fileDescription.filename}`;
+    .reduce(
+      (acc, key) => {
+        const fileDescription = files[key as TInfoType][0];
+        const filePath = `${fileDescription.destination}${fileDescription.filename}`;
 
-      return {
-        [key]: { file: filePath },
-      };
-    })[0];
+        acc[key] = { file: filePath };
+
+        return acc;
+      },
+      {} as {
+        [k: string]: { file: string };
+      },
+    );
 
   res.send(JSON.stringify(result, undefined, 2));
 };
