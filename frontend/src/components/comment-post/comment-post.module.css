@@ -1,0 +1,147 @@
+.container {
+  margin: 12px -20px 0 0;
+  box-sizing: border-box;
+  width: 440px;
+  min-height: 92px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.container_modifed{
+  margin: 12px -20px 0 0;
+  box-sizing: border-box;
+  width: 321px;
+  min-height: 92px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.container_modifed .commentWrap{
+  max-height: 145px;
+}
+
+.commentWrap {
+  margin: 12px 4px 12px 12px;
+  padding-right: 5px;
+  max-height: 240px;
+  overflow-y: scroll;
+}
+/* Скроллбар для Chrome */
+.commentWrap::-webkit-scrollbar {
+  width: 3px;
+}
+.commentWrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+.commentWrap::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
+  border-radius: 3px;
+}
+/* Скроллбар для Firefox */
+@-moz-document url-prefix() {
+  .commentWrap {
+    margin-right: 12px;
+    padding-right: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #a3a3a3 transparent;
+  }
+}
+
+.commentText {
+  margin: 8px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #100c34;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #100c34;
+}
+.commentText:first-of-type {
+  margin-top: 0;
+}
+.commentText:last-of-type {
+  margin-bottom: 0;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+
+.inputForm {
+  padding: 8px;
+  width: 100%;
+  height: 36px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  background-color: #f3f3f3;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.inputForm:focus-visible {
+  outline-color: #ff00a8;
+}
+.inputForm::placeholder {
+  color: #a3a3a3;
+}
+
+.emojiWrap {
+  margin-top: 20px;
+}
+
+.emojiBtn {
+  padding: 0 5px;
+  height: 24px;
+  min-width: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ff00a8;
+  cursor: pointer;
+}
+.emojiBtn:focus-visible {
+  outline-color: #ff00a8;
+}
+.emojiBtn:hover {
+  border: 1px solid #ff00a8;
+}
+
+.emojiCount {
+  margin-left: 2px;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    margin-right: -10px;
+    width: 342px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container_modifed{
+    width: 268px;
+  }
+
+  
+.container_modifed .commentWrap{
+  max-height: 92px;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 272px;
+  }
+}

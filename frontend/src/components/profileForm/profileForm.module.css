@@ -1,0 +1,46 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 440px;
+    margin: 0 auto;
+    margin-bottom: 96px;
+}
+
+.tip {
+    margin: 0;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #100C34;
+
+}
+
+.showMessage {
+    color: green;
+    opacity: 1;
+    transition: all 0.5s linear;
+    text-align: center;
+}
+
+.hideMessage {
+    color: green;
+    opacity: 0;
+    text-align: center;
+    transition: all 0.5s linear;
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+       margin-bottom: 88px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile {
+       width: 272px;
+    }
+}
