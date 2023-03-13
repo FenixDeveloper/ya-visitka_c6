@@ -8,14 +8,13 @@ import {
 import { IUser, IUserModel } from '../types/user';
 import { IInfoBlock, InfoBlockName } from '../types/info-block';
 
-import { isEmail, isUrl } from '../validators/user';
+import { isEmail } from '../validators/user';
 
 import DataNotFoundError from '../errors/NotFoundError';
 
 import {
   MSG_FIELD_REQUIRED,
   MSG_INCORRECT_EMAIL,
-  MSG_INCORRECT_URL,
   MSG_USER_NOT_FOUND,
 } from '../constants';
 
@@ -27,10 +26,6 @@ const infoBlockSchema = new Schema<IInfoBlock>({
   image: {
     type: String,
     required: false,
-    validate: {
-      validator: isUrl,
-      message: MSG_INCORRECT_URL,
-    },
   },
 });
 
