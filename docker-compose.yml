@@ -1,12 +1,11 @@
 version: "3.9"
 
-volumes:
-  mongodb_data:
-
 services:
   mongodb:
     container_name: database
     image: mongo:latest
+    networks:
+      - internal
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db:rw
@@ -17,9 +16,33 @@ services:
     container_name: backend
     build: ./backend
     restart: unless-stopped
+    networks:
+      - internal
+      - main
     depends_on:
       - mongodb
     env_file:
       - ./backend/.env
     ports:
       - "3000:3001"
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "8081:80"
+    networks:
+      - main
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+
+networks:
+  internal:
+    driver: bridge
+    internal: true
+  main:
+    driver: bridge
