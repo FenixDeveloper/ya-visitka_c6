@@ -18,7 +18,8 @@ export const Profile = () => {
 
   useEffect(() => {
     if (user) {
-      setUserId(user.user._id)
+      console.log(user.user._id);
+      setUserId(user.user._id);
       const getUserProfile = async () => {
         getProfile(user.user._id).then(async userInfo => {
           if(userInfo.profile.photo) {

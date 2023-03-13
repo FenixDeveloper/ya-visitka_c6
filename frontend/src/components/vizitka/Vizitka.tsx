@@ -9,6 +9,7 @@ import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
 import derzkiy_img_style from './mask.png';
 import CommentPost from '../comment-post/comment-post';
 import { v4 as uuidv4 } from 'uuid';
+import { emojies } from "../../utils/constants";
 
 
 const Vizitka: FC<IVizitka> = (props) => {
@@ -47,7 +48,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                emojies={[{ type: '', count: 3 }]}
+                emojies={emojies}
                 class={false}
               />
             </div>
@@ -69,7 +70,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                emojies={[{ type: '', count: 3 }]}
+                emojies={emojies}
                 class={true}
               />
             </div>

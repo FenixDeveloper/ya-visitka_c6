@@ -3,7 +3,7 @@ import styles from './comment-post.module.css';
 
 interface CommentPostProps {
   comments: string[];
-  emojies: { type: string; count: number }[];
+  emojies: { type: string; name: string; count: number }[];
   class?: boolean;
 }
 
