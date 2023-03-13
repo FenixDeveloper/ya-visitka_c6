@@ -5,6 +5,7 @@ export type State = {
 }
 
 export type User = {
+
   _id?: string
   createdAt?: number,
   updatedAt?: null | number,

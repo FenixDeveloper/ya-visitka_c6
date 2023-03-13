@@ -44,6 +44,7 @@
   border-bottom-right-radius: 4px; не работает из-за наличия скролла*/
 }
 
+/*Из-за background: #fff появляется лишнее пространство;*/
 .menu::-webkit-scrollbar {
   width: 3px;
   background: #fff;
@@ -67,6 +68,8 @@
   font-size: 16px;
   line-height: 24px;
   transition: color 0.1s linear;
+  height: 36px;
+  box-sizing: border-box;
 }
 
 .option:hover {

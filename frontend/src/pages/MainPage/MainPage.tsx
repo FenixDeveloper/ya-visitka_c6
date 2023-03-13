@@ -1,95 +1,185 @@
 import { useEffect, useState, useContext } from 'react';
 import styles from './MainPage.module.css';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
-import person1 from './imagesData/person_1.png';
-import person2 from './imagesData/person_2.png';
-import person3 from './imagesData/person_3.png';
-import person4 from './imagesData/person_4.png';
 import DropdownList from '../../components/DropdownList/DropdownList';
 import { AppContext } from '../../utils/AppContext';
-import { loginUser } from '../../utils/api';
+import {
+  getComments,
+  getProfiles,
+  getToken,
+  getUsers,
+  loginUser,
+} from '../../utils/api';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { IUserInfo } from '../../utils/types';
 
-interface IData {
-  name: string;
-  city: string;
-  image: string;
-}
-const data: Array<IData> = [
-  //тестовые данные
+const data: Array<IUserInfo> = [
   {
-    name: 'Иванов Сергей',
-    city: 'Москва',
-    image: person1,
+    _id: '2cb3baaa7528a9bb5e2c20d9',
+    createdAt: 1669314103470,
+    updatedAt: null,
+    email: 'Reymundo.Harvey@hotmail.com',
+    cohort: 'web+16',
+    profile: {
+      name: 'Mr. Daniel Anderson',
+      photo: 'https://loremflickr.com/640/480/cats',
+      city: {
+        name: 'Fadelland',
+        geocode: [55.1681, 37.9411],
+      },
+    },
   },
   {
-    name: 'Степанов Дмитрий',
-    city: 'Жемчужное Костромской обл',
-    image: person2,
+    _id: 'a18ca3c1e13dd93ddded5bbc',
+    createdAt: 1647633379631,
+    updatedAt: null,
+    email: 'Caden5@yahoo.com',
+    cohort: 'web+16',
+    profile: {
+      name: 'Shari Kassulke DDS',
+      photo: 'https://loremflickr.com/640/480/cats',
+      city: {
+        name: 'Sarasota',
+        geocode: [55.4525, 37.6147],
+      },
+    },
   },
   {
-    name: 'Наиля Назимова',
-    city: 'Кингисепп Ленинградской обл',
-    image: person3,
+    _id: 'a18ca3c1e13dd93ddded5bbc1',
+    createdAt: 1647633379631,
+    updatedAt: null,
+    email: 'Caden5@yahoo.com',
+    cohort: 'web+11',
+    profile: {
+      name: 'Diam A',
+      photo: 'https://loremflickr.com/640/480/cats',
+      city: {
+        name: 'Sarasota',
+        geocode: [55.4525, 37.6147],
+      },
+    },
   },
   {
-    name: 'Виктория Листвина',
-    city: 'Калуга',
-    image: person4,
+    _id: 'a18ca3c1e13dd93ddded5bbc2',
+    createdAt: 1647633379631,
+    updatedAt: null,
+    email: 'Caden5@yahoo.com',
+    cohort: 'web+14',
+    profile: {
+      name: 'Ror',
+      photo: 'https://loremflickr.com/640/480/cats',
+      city: {
+        name: 'Sarasota2',
+        geocode: [55.4525, 37.6147],
+      },
+    },
   },
   {
-    name: 'Иванов Сергей',
-    city: 'Москва',
-    image: person1,
-  },
-  {
-    name: 'Степанов Дмитрий',
-    city: 'Жемчужное Костромской обл',
-    image: person2,
-  },
-  {
-    name: 'Наиля Назимова',
-    city: 'Кингисепп Ленинградской обл',
-    image: person3,
-  },
-  {
-    name: 'Виктория Листвина',
-    city: 'Калуга',
-    image: person4,
+    _id: 'a18ca3c1e13dd93ddded5bbc3',
+    createdAt: 1647633379631,
+    updatedAt: null,
+    email: 'Caden5@yahoo.com',
+    cohort: 'web+16',
+    profile: {
+      name: 'Lovv DDS',
+      photo: 'https://loremflickr.com/640/480/cats',
+      city: {
+        name: 'Sarasota1',
+        geocode: [55.4525, 37.6147],
+      },
+    },
   },
 ];
 
 export const MainPage = (props1: any) => {
+  const history = useHistory();
   const [city, setCity] = useState<string>('Все города');
-  const [props, setProps] = useState<Array<IData>>(data);
+  const [props, setProps] = useState<Array<IUserInfo>>([]);
+  const [role, setRole] = useState<String>('');
   const { state, dispatch } = useContext(AppContext);
-  const cities: Array<string> = ['Все города'];
+  const [cities, setCities] = useState<Array<string>>([]);
+  const [initalProps, setInitalProps] = useState<Array<IUserInfo>>([]);
 
-  data.forEach((item) => {
-    cities.push(item.city);
-  });
+  //Добавляла не я
+  const authorizeUser = async (code: string) => {
+    try {
+      if (!localStorage.getItem('auth_token')) {
+        const response = await getToken(code);
+        if (response && response.token) {
+          const user = await loginUser();
+          if (user) {
+            console.log(user);
+            dispatch({ type: 'success', results: user });
+          }
 
+          history.replace({ pathname: '/gifts/line' });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(document.location.search);
+    const code = params.get('code');
+    if (code) {
+      authorizeUser(code);
+    }
+  }, []);
+
+//Получение пользователей(сортировка по корготам) и их данных
+  useEffect(() => {
+    //Роль авторизированного пользователя
+    state.data != null && setRole(state.data.role);
+    //Получение пользователей
+    getProfiles().then((res: { items: Array<IUserInfo> }) => {
+      const sortedData = res.items.filter(
+        (student) =>
+          student.cohort === (state.data != null && state.data.cohort),
+      );
+      console.log(sortedData)
+      setProps(sortedData);
+      setInitalProps(sortedData) 
+      let arr: Array<string> = ['Все города'];
+      sortedData.forEach((item) => {
+        arr.push(item.profile.city.name);
+      });
+      setCities(Array.from(new Set(arr)).filter((item)=>item != undefined));
+    });
+
+  }, []);
+
+//Добавляла не я
   const getUser = async () => {
     const user: any = await loginUser();
     if (user) {
       dispatch({ type: 'success', results: user });
     }
   }
-
+ //Сортировка пользователей по городам
   useEffect(() => {
+    const sortedData = props.filter(
+      (student) => student.cohort === (state.data != null && state.data.cohort),
+    );
     if (city !== 'Все города') {
-      const result = data.filter((person) => person.city === city);
+      const result = sortedData.filter(
+        (person) => person.profile.city.name === city,
+      );
       setProps(result);
     } else {
-      setProps(data);
+      setProps(initalProps);
     }
   }, [city]);
 
+//Добавляла не я
   useEffect(() => {
     if (!state.data) {
       getUser();
     } 
   }, []);
+
 
   return (
     <section className={styles.main}>
@@ -100,13 +190,14 @@ export const MainPage = (props1: any) => {
         </Link>
       </div>
       <ul className={styles.cards}>
-        {props.map((item, index) => (
+        {props.map((item) => (
           <ProfileCard
-            image={item.image}
-            city={item.city}
-            name={item.name}
-            key={index}
-            comments_number={index}
+            id={item._id}
+            image={item.profile.photo}
+            city={item.profile.city.name}
+            name={item.profile.name}
+            key={item._id}
+            role={String(role)}
           />
         ))}
       </ul>

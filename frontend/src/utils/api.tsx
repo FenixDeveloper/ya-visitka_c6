@@ -81,7 +81,7 @@ export const getProfiles = () => {
   return request('/api/profiles', options);
 };
 
-export const getProfile = (id: number) => {
+export const getProfile = (id: string) => {
   const options = {
     method: 'GET',
     headers: headersAuthorization(),
@@ -102,7 +102,7 @@ export const patchProfile = (profileData: IProfile, id: string) => {
 //#endregion
 
 //#region reactions
-export const getReactions = (id: number) => {
+export const getReactions = (id: string) => {
   const options = {
     method: 'GET',
     headers: headersAuthorization(),

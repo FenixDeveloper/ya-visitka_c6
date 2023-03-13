@@ -11,6 +11,7 @@
   font-size: 24px;
   line-height: 28px;
   width: 325px;
+  overflow-wrap: break-word;
 }
 
 .name_open{
@@ -35,6 +36,7 @@
 }
 
 .image {
+  height: 325px;
   width: 100%;
   display: block;
   object-fit: cover;
@@ -43,6 +45,7 @@
 }
 
 .image_open{
+  height: 325px;
   width: 100%;
   display: block;
   object-fit: cover;
@@ -143,6 +146,13 @@
 }
 
 @media (max-width: 767px) {
+  .image_open{
+    height: 272px; 
+  }
+
+  .image {
+    height: 272px;
+  }
   .name {
     margin-top: 13px;
   }
