@@ -31,13 +31,13 @@ export const postUser = (userData: IUserData) => {
   return request('/api/users', options);
 };
 
-export const getUsers = () => {
+export const getUsers = (search?:string) => {
   const options = {
     method: 'GET',
     headers: headersAuthorization(),
   };
 
-  return request('/api/users', options);
+  return request(`/api/users${search}`, options);
 };
 
 export const putUser = (userData: IUserData, id: number) => {
@@ -90,25 +90,25 @@ export const getProfile = (id: string) => {
   return request(`/api/profiles/${id}`, options);
 };
 
-export const patchProfile = (profileData: IProfile, id: number) => {
+export const patchProfile = (profileData: IProfile, id: string) => {
   const options = {
     method: 'PATCH',
     headers: headersAuthorization(),
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profile/${id}`, options);
+  return request(`/api/profiles/${id}`, options);
 };
 //#endregion
 
 //#region reactions
-export const getReactions = (id: number) => {
+export const getReactions = (id: string) => {
   const options = {
     method: 'GET',
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profile/${id}/reactions`, options);
+  return request(`/api/profiles/${id}/reactions`, options);
 };
 
 export const postReactions = (profileData: IProfileData, id: number) => {
@@ -118,17 +118,15 @@ export const postReactions = (profileData: IProfileData, id: number) => {
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profile/${id}/reactions`, options);
+  return request(`/api/profiles/${id}/reactions`, options);
 };
 //#endregion
 
 //#region upload file
-export const uploadFiles = (file: File) => {
+export const uploadFiles = (file: FormData) => {
   const options = {
     method: 'POST',
     headers: {
-      'Content-Type': file.type,
-      'Content-Length': `${file.size}`,
       Authorization: authorization(),
     },
     body: file,
@@ -141,7 +139,13 @@ export const getFile = (file: string) => {
     method: 'GET',
     headers: headersAuthorization(),
   };
-  return request(`/api/files/${file}`, options);
+
+  return fetch(`${URL}/api/files/${file}`, options).then(res =>{
+    if (res.ok) {
+      return res.blob();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
+  })
 };
 //#endregion
 

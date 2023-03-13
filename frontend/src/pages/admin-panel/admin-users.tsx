@@ -58,11 +58,30 @@ export const AdminUsers = () => {
       );
   };
 
+  const handleUpdateUser = (value: string, index: number, data: IUser, type: string): void => {
+    if (type === 'cohort') {
+      data.cohort = value
+    }
+    if (type === 'email') {
+      data.email = value
+    }
+    loadedData[index] = data;
+    SetLoadedData(loadedData);
+  };
+
   const createUsers = () => {
-    loadedData.forEach(el => {
-      const email = el.email;
-      const cohort = el.cohort;
-      postUser({cohort, email })
+    loadedData.forEach((element: IUser, index: number) => {
+      const email = element.email;
+      const cohort = element.cohort;
+      postUser({cohort, email }).then((res) => {
+        const newData = [...dataUsers, res]
+        setDataUsers(newData)
+        SetLoadedData(
+          loadedData.filter(
+            (element: IUser, indexElement: number) => indexElement !== index,
+          ),
+        );
+      });
     });
   };
 
@@ -98,6 +117,7 @@ export const AdminUsers = () => {
                     loaded={true}
                     key={uuidv4()}
                     onDelete={handleDeleteUser}
+                    userUpdate={handleUpdateUser}
                     index={index}
                   />
                 ))}
@@ -109,8 +129,13 @@ export const AdminUsers = () => {
                     el.email.toLowerCase().includes(inputValue.toLowerCase()) ||
                     el.cohort.toLowerCase().includes(inputValue.toLowerCase())
                 )
-                .map((value: IUser) => (
-                  <TableUsersRow data={value} key={uuidv4()} />
+                .sort((el1: IUser, el2: IUser) => el1.updatedAt > el2.updatedAt ? 1 : -1)
+                .map((value: IUser, index: number) => (
+                  <TableUsersRow 
+                    data={value}
+                    key={uuidv4()}
+                    index={index}
+                  />
                 ))}
           </div>
         </div>

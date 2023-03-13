@@ -23,6 +23,12 @@
     line-height: 28px;
 }
 
+.large:disabled {
+    cursor: auto;
+    background: none;
+    background-color: #BFBFBF;
+}
+
 .small {
     width: 285px;
     padding: 12px 0;
