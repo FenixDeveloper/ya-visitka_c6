@@ -36,7 +36,7 @@ export const Header = () => {
         <div className={style.profile_box}>
           <div className={style.profile_container}>
             <img src={profile} alt="profile" className={style.avatar} />
-            <span className={style.name}>{state && state.data?.name}</span>
+            <span className={style.name}>{state.data && user?.user.name}</span>
           </div>
           <div className={style.profile_hidden}>
             <Link to={'/profile'} className={style.link}>
