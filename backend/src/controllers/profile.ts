@@ -13,9 +13,14 @@ import { IUser } from '../types/user';
 import { IProfile } from '../types/profile';
 import { InfoBlockName } from '../types/info-block';
 
-import { moveFileToUploads } from '../utils';
+import { countUsersReactions, moveFileToUploads } from '../utils';
 
-import { HTTP_STATUS_OK, MSG_USER_NOT_FOUND, ROLE_CURATOR } from '../constants';
+import {
+  HTTP_STATUS_OK,
+  MSG_SERVER_ERROR,
+  MSG_USER_NOT_FOUND,
+  ROLE_CURATOR,
+} from '../constants';
 
 type TGetProfilesQuery = {
   offset?: number;
@@ -57,7 +62,7 @@ export const getProfileById = async (
     const user = await User.findById(userId);
 
     if (user) {
-      res.send(user);
+      res.send(countUsersReactions(user.toObject()));
       return;
     }
     next(new DataNotFoundError(MSG_USER_NOT_FOUND));
@@ -159,7 +164,11 @@ export const patchProfile = async (
 
     User.findByIdAndUpdate(userId, { $set: { profile, info } }, { new: true })
       .then((updUser) => {
-        res.status(HTTP_STATUS_OK).send(updUser);
+        if (updUser)
+          res
+            .status(HTTP_STATUS_OK)
+            .send(countUsersReactions(updUser.toObject()));
+        else next(new InternalServerError(MSG_SERVER_ERROR));
       })
       .catch((err) => next(new BadRequestError(String(err))));
   } catch (err) {

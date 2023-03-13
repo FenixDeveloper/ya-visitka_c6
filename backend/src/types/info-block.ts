@@ -12,3 +12,7 @@ export interface IInfoBlock {
   text: string | '';
   image: string | undefined | null;
 }
+
+export interface IInfoBlockCountedReactions extends IInfoBlock {
+  reactions: number;
+}
