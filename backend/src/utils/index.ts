@@ -12,6 +12,10 @@ import {
   PROFILE_URL,
   TOKEN_URL,
 } from '../constants';
+import { IUser, IUserCountedReactions } from '../types/user';
+import { TInfoType } from '../types/info-block';
+import { IReaction } from '../types/reaction';
+import { InfoCountedReactions } from '../types/info';
 
 dotenv.config();
 
@@ -100,4 +104,40 @@ export const moveFileToUploads = (
   }
 
   return fileName;
+};
+
+const countReactionsByTarget = (
+  reactions: IReaction[],
+  target?: TInfoType,
+): number =>
+  reactions.reduce((counter: number, currentValue: IReaction) => {
+    return currentValue.target === target ? counter + 1 : counter;
+  }, 0);
+
+export const countUsersReactions = (user: IUser): IUserCountedReactions => {
+  const reactionBlockNames: Array<TInfoType> = [
+    'edu',
+    'hobby',
+    'job',
+    'status',
+  ];
+  const info: InfoCountedReactions = {};
+  const profileReactions: number = countReactionsByTarget(user.reactions);
+
+  if (user.info) {
+    reactionBlockNames.forEach((reactionBlockName) => {
+      if (user.info[reactionBlockName]) {
+        const reactions = countReactionsByTarget(
+          user.reactions,
+          reactionBlockName,
+        );
+        info[reactionBlockName] = {
+          ...user.info[reactionBlockName],
+          reactions,
+        };
+      }
+    });
+  }
+
+  return { ...user, info, reactions: profileReactions };
 };

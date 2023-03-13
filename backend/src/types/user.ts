@@ -1,6 +1,6 @@
 import { Document, Model, Schema } from 'mongoose';
 
-import { Info } from './info';
+import { Info, InfoCountedReactions } from './info';
 import { IProfile } from './profile';
 import { ICommentReaction, IEmotionReaction } from './reaction';
 
@@ -18,6 +18,12 @@ export interface IUser {
 export interface IUserFiltered
   extends Omit<IUser, 'profile' | 'info' | 'reactions'> {
   name?: string;
+}
+
+export interface IUserCountedReactions
+  extends Omit<IUser, 'reactions' | 'info'> {
+  reactions: number;
+  info: InfoCountedReactions;
 }
 
 export interface IUserModel extends Model<IUser> {
