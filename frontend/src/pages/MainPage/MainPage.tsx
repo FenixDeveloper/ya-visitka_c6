@@ -129,39 +129,39 @@ export const MainPage = (props1: any) => {
     }
   }, []);
 
-//Получение пользователей(сортировка по корготам) и их данных
+  //Получение пользователей(сортировка по корготам) и их данных
   useEffect(() => {
     //Роль авторизированного пользователя
     state.data != null && setRole(state.data.role);
+    const user: any = state.data;
     //Получение пользователей
     getProfiles().then((res: { items: Array<IUserInfo> }) => {
+      // console.log(user);
       const sortedData = res.items.filter(
-        (student) =>
-          student.cohort === (state.data != null && state.data.cohort),
+        (student) => student.cohort === (user && user.user.cohort),
       );
-      console.log(sortedData)
       setProps(sortedData);
-      setInitalProps(sortedData) 
+      setInitalProps(sortedData);
       let arr: Array<string> = ['Все города'];
       sortedData.forEach((item) => {
         arr.push(item.profile.city.name);
       });
-      setCities(Array.from(new Set(arr)).filter((item)=>item != undefined));
+      setCities(Array.from(new Set(arr)).filter((item) => item != undefined));
     });
-
   }, []);
 
-//Добавляла не я
+  //Добавляла не я
   const getUser = async () => {
     const user: any = await loginUser();
     if (user) {
       dispatch({ type: 'success', results: user });
     }
-  }
- //Сортировка пользователей по городам
+  };
+  //Сортировка пользователей по городам
   useEffect(() => {
+    const user: any = state.data;
     const sortedData = props.filter(
-      (student) => student.cohort === (state.data != null && state.data.cohort),
+      (student) => student.cohort === (user && user.user.cohort),
     );
     if (city !== 'Все города') {
       const result = sortedData.filter(
@@ -173,13 +173,12 @@ export const MainPage = (props1: any) => {
     }
   }, [city]);
 
-//Добавляла не я
+  //Добавляла не я
   useEffect(() => {
     if (!state.data) {
       getUser();
-    } 
+    }
   }, []);
-
 
   return (
     <section className={styles.main}>
