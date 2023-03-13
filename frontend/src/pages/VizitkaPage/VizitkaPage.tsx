@@ -5,11 +5,10 @@ import styles from "./VizitkaPage.module.css";
 import person_img from './person_img.png'
 import hobby_img from './hobby_img.png'
 import family_img from './family_img.png'
-import { VizitkaStyle } from "../../utils/types";
+import { VizitkaStyle, IProfiles } from "../../utils/types";
 import { getProfile, getProfiles, getReactions } from '../../utils/api'
 // тестовые данные
-const vizitkaData = 
-{
+const vizitkaData = {
   name: 'Виктория Листвиновская',
   image: person_img,
   quotes: 'Делай, что должно и будь, что будет.',
@@ -18,12 +17,16 @@ const vizitkaData =
     telegram: 'https://t.me/person',
     github: 'https://github.com/person',
   },
-  hobby: 'Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.',
+  hobby:
+    'Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.',
   hobby_image: hobby_img,
-  family: 'Замужем, двое детей, собака. Живу в городе Калуга, люблю этот маленький городок. С собакой часто ходим на прогулки и наблюдаем за природой',
+  family:
+    'Замужем, двое детей, собака. Живу в городе Калуга, люблю этот маленький городок. С собакой часто ходим на прогулки и наблюдаем за природой',
   family_image: family_img,
-  activity: 'Работаю в сфере гостиничного бизнеса, управляющим отелем. Люблю работать с людьми, постоянно вижу новых людей, общаюсь с посетителями, управляю персоналом, обучаю и принимаю на работу новых сотрудников.',
-  studies: 'Надоело работать в одной сфере, хочу сменить деятельность, нет шансов на рост, хочу быть айтишником. В детстве любила информатику, компьютерные игры и разбираться с программами. Вот вспомнила деские мечты и решила воплотить их в реальность. Надеюсь, что у меня все получится.',
+  activity:
+    'Работаю в сфере гостиничного бизнеса, управляющим отелем. Люблю работать с людьми, постоянно вижу новых людей, общаюсь с посетителями, управляю персоналом, обучаю и принимаю на работу новых сотрудников.',
+  studies:
+    'Надоело работать в одной сфере, хочу сменить деятельность, нет шансов на рост, хочу быть айтишником. В детстве любила информатику, компьютерные игры и разбираться с программами. Вот вспомнила деские мечты и решила воплотить их в реальность. Надеюсь, что у меня все получится.',
   photo_comments_number: 1,
   quotes_comments_number: 2,
   hobby_comments_number: 3,
@@ -31,21 +34,23 @@ const vizitkaData =
   activity_comments_number: 5,
   studies_comments_number: 6,
   style: VizitkaStyle.Base,
-}
+};
+
+
 
 export const VizitkaPage = (props1: any) => {
   const { id } = useParams<{ id: string }>();
 
-  const [profile, setProfile] = useState<any>({
+  const [profile, setProfile] = useState<{data: IProfiles | null; isLoading: boolean; hasError: boolean}>({
     data: null,
     isLoading: false,
     hasError: false,
-  })
+  });
 
   const { data, isLoading, hasError } = profile;
 
-  useEffect(()=>{
-    setProfile({...profile, hasError: false, isLoading: true});
+  useEffect(() => {
+    setProfile({ ...profile, hasError: false, isLoading: true });
     getProfileData();
   }, []);
 

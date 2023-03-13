@@ -4,6 +4,7 @@ import { IVizitkaAboutBlock, VizitkaStyle } from "../../utils/types";
 import icon from "../../images/icons/comment.svg";
 import romantic from './romantic.svg'
 import derzkiy from './derzkiy.svg'
+import { emojies } from "../../utils/constants";
 import CommentPost from '../comment-post/comment-post';
 
 const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {

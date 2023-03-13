@@ -7,6 +7,18 @@ export const SCREEN_LG = 1920;
 export const urlGithub = 'https://api.github.com/users/';
 
 export const emojies = [
+
+//  { type: '👍', count: 200 },
+//  { type: '👎️', count: 2 },
+//  { type: '👋️', count: 2 },
+//  { type: '🙂️', count: 0 },
+//  { type: '😞️', count: 0 },
+//  { type: '🤣️', count: 0 },
+//  { type: '😬️', count: 0 },
+//  { type: '😱️', count: 0 },
+//  { type: '😍️', count: 0 },
+//  { type: '❤️', count: 0 },
+
   { type: '👍', name: 'like' },
   { type: '👎️', name: 'dislike' },
   { type: '👋️', name: 'hello' },

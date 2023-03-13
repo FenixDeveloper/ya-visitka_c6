@@ -3,6 +3,7 @@ import styles from './ProfileCard.module.css';
 import { IProfileCard } from '../../utils/types';
 import icon from '../../images/icons/comment.svg';
 import CommentPost from '../comment-post/comment-post';
+import { emojies } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 import { getProfile, getReactions } from '../../utils/api';
 import { AppContext } from '../../utils/AppContext';
@@ -240,18 +241,19 @@ const ProfileCard: FC<IProfileCard> = (props) => {
       {open && (
         <div className={styles.comment}>
           <CommentPost
+            // emojies={emojies}
             comments={comments}
-            emojies={[
-              { type: '👍', count: 1 },
-              { type: '👎️', count: 2 },
-              { type: '🙂️', count: 0 },
-              { type: '😞️', count: 0 },
-              { type: '🤣️', count: 0 },
-              { type: '😬️', count: 0 },
-              { type: '😱️', count: 0 },
-              { type: '😍️', count: 0 },
-              { type: '❤️', count: 0 },
-            ]}
+//            emojies={[
+//             { type: '👍', count: 1 },
+//              { type: '👎️', count: 2 },
+ //             { type: '🙂️', count: 0 },
+//              { type: '😞️', count: 0 },
+//              { type: '🤣️', count: 0 },
+//              { type: '😬️', count: 0 },
+//              { type: '😱️', count: 0 },
+//             { type: '😍️', count: 0 },
+//              { type: '❤️', count: 0 },
+//            ]}
             class={true}
           />
         </div>
