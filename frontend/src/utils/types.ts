@@ -1,4 +1,3 @@
-import { StringMappingType } from 'typescript';
 
 export interface IProfileCard {
   image: string;
@@ -27,10 +26,12 @@ export interface IVizitka {
   image: string;
   quotes: string;
   city: string;
-  contacts: {
-    telegram: string;
-    github?: string;
-  };
+  telegram: string;
+  github?: string;
+  // contacts: {
+  // telegram: string;
+  // github?: string;
+  // }
   hobby: string;
   hobby_img: string;
   family: string;
@@ -114,4 +115,79 @@ export interface IProfileData {
   target: 'hobby' | 'status' | 'job' | 'edu' | null;
   text?: string;
   emotions?: string;
+}
+
+
+export interface IProfiles {
+  email: string;
+  cohort: string;
+  _id: string;
+  createdAt: number;
+  updatedAt: number;
+  profile: {
+    name: string;
+    photo: string;
+    city: {
+      name: string;
+      geocode: number[];
+    },
+    birthday: string;
+    quote: string;
+    telegram: string;
+    github: string;
+    template: string;
+  };
+  info: {
+    hobby: {
+      text: string;
+      image: string;
+      reactions: number;
+    };
+    status: {
+      text: string;
+      image: string;
+      reactions: number;
+    },
+    job: {
+      text: string;
+      image: string;
+      reactions: number;
+    },
+    edu: {
+      text: string;
+      image: string;
+      reactions: number
+    }
+  },
+  reactions: number
+}
+
+export interface ITemporaryFiles {
+  hobby: {
+    file: string
+  }, 
+  status: {
+    file: string
+  }
+}
+
+export interface IFileInfo {
+  text: string,
+  image: string | null,
+  _id: string
+}
+
+export interface IProfileInfo {
+  profile: IProfile,
+  info: {
+    edu: IFileInfo
+    hobby: IFileInfo
+    job: IFileInfo
+    status: IFileInfo
+  }
+}
+
+export interface IProfileForm extends IProfileInfo {
+  userId: string;
+  avatar: string;
 }

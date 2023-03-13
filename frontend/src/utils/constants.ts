@@ -7,14 +7,26 @@ export const SCREEN_LG = 1920;
 export const urlGithub = 'https://api.github.com/users/';
 
 export const emojies = [
-  { type: '👍', name: 'like' },
-  { type: '👎️', name: 'dislike' },
-  { type: '👋️', name: 'hello' },
-  { type: '🙂️', name: 'smile' },
-  { type: '😞️', name: 'sadness' },
-  { type: '🤣️', name: 'laughter' },
-  { type: '😬️', name: 'grimace' },
-  { type: '😱️', name: 'cry' },
-  { type: '😍️', name: 'smileheart' },
-  { type: '❤️', name: 'heart' },
+
+//  { type: '👍', count: 200 },
+//  { type: '👎️', count: 2 },
+//  { type: '👋️', count: 2 },
+//  { type: '🙂️', count: 0 },
+//  { type: '😞️', count: 0 },
+//  { type: '🤣️', count: 0 },
+//  { type: '😬️', count: 0 },
+//  { type: '😱️', count: 0 },
+//  { type: '😍️', count: 0 },
+//  { type: '❤️', count: 0 },
+
+  { type: '👍', name: 'like', count: 1 },
+  { type: '👎️', name: 'dislike', count: 0 },
+  { type: '👋️', name: 'hello', count: 0 },
+  { type: '🙂️', name: 'smile', count: 0 },
+  { type: '😞️', name: 'sadness', count: 0 },
+  { type: '🤣️', name: 'laughter', count: 0 },
+  { type: '😬️', name: 'grimace', count: 0 },
+  { type: '😱️', name: 'cry', count: 0 },
+  { type: '😍️', name: 'smileheart', count: 0 },
+  { type: '❤️', name: 'heart', count: 0 },
 ];

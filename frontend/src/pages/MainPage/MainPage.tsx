@@ -172,11 +172,11 @@ export const MainPage = (props1: any) => {
       dispatch({ type: 'success', results: user });
     }
   };
-
   //Сортировка пользователей по городам
   useEffect(() => {
+    const user: any = state.data;
     const sortedData = props.filter(
-      (student) => student.cohort === (state.data != null && state.data.cohort),
+      (student) => student.cohort === (user && user.user.cohort),
     );
     if (city !== 'Все города') {
       const result = sortedData.filter(

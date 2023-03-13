@@ -9,12 +9,15 @@ import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
 import derzkiy_img_style from './mask.png';
 import CommentPost from '../comment-post/comment-post';
 import { v4 as uuidv4 } from 'uuid';
+import { emojies } from "../../utils/constants";
 
 
 const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   const [openQuoteComment, setOpenQuoteComment] = useState<boolean>(false);
+  console.log(props);
+
   return (
     <section>
       <ul className={styles.mainBlocks}>
@@ -26,8 +29,12 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
+          {/* <a href={props.telegram}> */}
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
-            <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+          {/* </a>
+          <a href={props.github}> */}
+            <img src={github_logo} alt='Лого GitHub' className={styles.logo} />
+          {/* </a> */}
           </div>
         </li>
         <li className={styles.imageBlock} key={uuidv4()}>
@@ -41,7 +48,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                emojies={[{ type: '', count: 3 }]}
+                emojies={emojies}
                 class={false}
               />
             </div>
@@ -63,7 +70,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                emojies={[{ type: '', count: 3 }]}
+                emojies={emojies}
                 class={true}
               />
             </div>

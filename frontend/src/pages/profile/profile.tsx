@@ -1,126 +1,50 @@
-import { useState } from 'react';
-import DropdownList from '../../components/DropdownList/DropdownList';
-import { GraidentButton } from '../../components/graidentButton/graidentButton';
-import { Input } from '../../components/input/input';
-import { InputDate } from '../../components/inputDate/inputDate';
-import { InputFile } from '../../components/inputFile/inputFile';
-import { Textarea } from '../../components/textarea/textarea';
-import { UploadPhoto } from '../../components/uploadPhoto/uploadPhoto';
-import { SearchBox } from '../../components/search-box/search-box';
-import styles from './profile.module.css';
-import { InputGithubLink } from '../../components/input-github-link/input-github-link';
-import { ErrorMessage } from '../../components/errorMessage/errorMessage';
-const samples = ['серьезный', 'романтичный', 'дерзкий'];
-const cities = ["Москва", "Санкт-Петербург","Казань", "Екатеринбург"];
+import { useContext, useEffect, useState } from 'react';
+import { ProfileForm } from '../../components/profileForm/profileForm';
+
+import { getFile, getProfile } from '../../utils/api';
+import { AppContext } from '../../utils/AppContext';
+import { IProfileInfo } from '../../utils/types';
 
 export const Profile = () => {
-  const [nicknameTelegram, setNicknameTelegram] = useState<string>('');
-  const [fileHobbies, setFileHobbies] = useState<File>();
-  const [hobbies, setHobbies] = useState<string>('');
-  const [motto, setMotto] = useState<string>('');
-  const [userPhoto, setUserPhoto] = useState<string>('');
-  const [birthday, setBirthday] = useState<Date | null>(null);
-  const [city, setCity] = useState<string>('');
-  const [github, setGithub] = useState<string>('');
-  const [sample, setSample] = useState<string>(samples[0]);
-  const [fileFamily, setFileFamily] = useState<File>();
-  const [family, setFamily] = useState<string>('');
-  const [lastWork, setLastWork] = useState<string>('');
-  const [dicisionStudy, setDicisionStudy] = useState<string>('');
 
-  const [isShowErrorPhoto, setIsShowErrorPhoto] = useState<boolean>(false);
-  const [isShowErrorBirthday, setIsShowErrorBirthday] =
-    useState<boolean>(false);
-  const [isShowErrorGithubLink, setIsShowErrorGithubLink] =
-    useState<boolean>(false);
-  const [isShowErrorCity, setIsShowErrorCity] = useState<boolean>(false);
+  const { state } = useContext(AppContext);
+  const user: any = state.data;
 
-  const handlerSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (birthday === null) {
-      setIsShowErrorBirthday(true);
-    }
-    if (userPhoto === '') {
-      setIsShowErrorPhoto(true);
-    }
-    if (city === '') {
-      setIsShowErrorCity(true);
-    }
-  };
+  const [userId, setUserId] = useState<string>('');
+  const [profileInfo, setProfile] = useState<IProfileInfo>();
 
-  return (
-    <form className={styles.profile} onSubmit={handlerSubmit}>
-      <UploadPhoto
-        state={userPhoto}
-        setState={setUserPhoto}
-        stateError={isShowErrorPhoto}
-        setStateError={setIsShowErrorPhoto}
+
+  const [avatar, setAvatar] = useState<string>('');
+
+  useEffect(() => {
+    if (user) {
+      console.log(user.user._id);
+      setUserId(user.user._id);
+      const getUserProfile = async () => {
+        getProfile(user.user._id).then(async userInfo => {
+          if(userInfo.profile.photo) {
+            await getFile(userInfo.profile.photo).then(imageBlob => setAvatar(URL.createObjectURL(imageBlob)))
+          }
+
+          setProfile({ "profile": userInfo.profile, "info": userInfo.info })
+        })
+      }
+      getUserProfile()
+    }
+
+  }, [user])
+
+  if (!profileInfo){
+    return <></>
+  }
+
+    return (
+      <ProfileForm
+        userId={userId}
+        profile={profileInfo?.profile}
+        info={profileInfo?.info}
+        avatar={avatar}
       />
-      <InputDate
-        labelName={'Дата рождения'}
-        state={birthday}
-        setState={setBirthday}
-        stateError={isShowErrorBirthday}
-        setStateError={setIsShowErrorBirthday}
-      />
-      <SearchBox setStateError={setIsShowErrorCity} setState={setCity} listDefaultCities={cities} />
-      {isShowErrorCity && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
-      <Input
-        type={'text'}
-        value={nicknameTelegram}
-        labelName={'Ник в телеграм'}
-        onChange={(e) => setNicknameTelegram((e.target as HTMLInputElement).value)}
-      />
-      <InputGithubLink
-        type={'text'}
-        value={github}
-        labelName={'Ник на гитхабе'}
-        onChange={(e) => setGithub((e.target as HTMLInputElement).value)}
-        setValue={setGithub}
-        stateError={isShowErrorGithubLink}
-        setStateError={setIsShowErrorGithubLink}
-      />
-      <DropdownList
-        state={sample}
-        setState={setSample}
-        data={samples}
-        title={'Выберите шаблон'}
-        requiredField={true}
-      />
-      <Textarea
-        maxLength={100}
-        labelName={'Девиз, цитата'}
-        state={motto}
-        setState={setMotto}
-      />
-      <InputFile
-        labelName={'Увлечения, досуг, интересы'}
-        state={fileHobbies}
-        setState={setFileHobbies}
-      />
-      <Textarea maxLength={300} state={hobbies} setState={setHobbies} />
-      <InputFile
-        labelName={'Семья, статус, домашние животные'}
-        state={fileFamily}
-        setState={setFileFamily}
-      />
-      <Textarea maxLength={300} state={family} setState={setFamily} />
-      <Textarea
-        labelName={'Из какой сферы пришёл? Кем работаешь?'}
-        maxLength={300}
-        state={lastWork}
-        setState={setLastWork}
-      />
-      <Textarea
-        labelName={'Почему решил учиться на веб-разработчика?'}
-        maxLength={300}
-        state={dicisionStudy}
-        setState={setDicisionStudy}
-      />
-      <p className={styles.tip}>
-        Поля, отмеченные звездочкой, обязательны для заполнения
-      </p>
-      <GraidentButton type={'submit'} text={'Сохранить'} />
-    </form>
-  );
+    )
+
 };

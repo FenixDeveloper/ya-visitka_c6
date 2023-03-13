@@ -14,13 +14,13 @@ function MapSuggestComponent(props: any) {
   }
 
   useEffect(() => {
+    inputRef.current.value=props.city
     const suggestView = new ymaps.SuggestView('suggest');
     suggestView.events.add('select', function (e:any) {
 
       if(e.get('item').value !==""){
         props.setStateError(false);
       }
-      props.setState( e.get('item').value );
 
 });
   }, [ymaps.SuggestView]);
@@ -31,7 +31,7 @@ function MapSuggestComponent(props: any) {
       <div
         className={styles.inputContainer}
       >
-        <input type="text" id="suggest" className={`${styles.input} ${open && styles.input_open}`} ref={inputRef} />
+        <input type="text" id="suggest" onChange={(e)=> props.setState(e.target.value)} className={`${styles.input} ${open && styles.input_open}`} ref={inputRef} />
         <img
           src={arrow}
           className={`${styles.arrow} ${open && styles.arrow_open} `}
@@ -56,15 +56,17 @@ function MapSuggestComponent(props: any) {
 interface ISearchBox {
   setState: any,
   listDefaultCities: string[],
-  setStateError: any
+  setStateError: any,
+  city:string
 }
 export const SearchBox:FC<ISearchBox> = ({
   setState,
   listDefaultCities,
-  setStateError
+  setStateError,
+  city
 }) => {
   const SuggestComponent = useMemo(() => {
-    return withYMaps((props)=>MapSuggestComponent({...props, setState, listDefaultCities, setStateError}), true, [
+    return withYMaps((props)=>MapSuggestComponent({...props, setState, listDefaultCities, setStateError, city}), true, [
       'SuggestView',
       'geocode',
       'coordSystem.geo',
