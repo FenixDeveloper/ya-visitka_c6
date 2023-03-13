@@ -6,7 +6,7 @@ import person_img from './person_img.png'
 import hobby_img from './hobby_img.png'
 import family_img from './family_img.png'
 import { VizitkaStyle, IProfiles } from "../../utils/types";
-import { getProfile, getProfiles, getReactions } from '../../utils/api'
+import { getProfile, getProfiles, getReactions, getFile } from '../../utils/api'
 // тестовые данные
 const vizitkaData = {
   name: 'Виктория Листвиновская',
@@ -46,6 +46,7 @@ export const VizitkaPage = (props1: any) => {
     isLoading: false,
     hasError: false,
   });
+  const [avatar, setAvatar] = useState<string>('');
 
   const { data, isLoading, hasError } = profile;
 
@@ -56,7 +57,12 @@ export const VizitkaPage = (props1: any) => {
 
   const getProfileData = async() => {
     getProfile(id)
-    .then(data => setProfile({ ...profile, data: data, isLoading: false }))
+    .then(data => {
+      if(data.profile.photo) {
+        getFile(data.profile.photo).then(imageBlob => setAvatar(URL.createObjectURL(imageBlob)))
+      }
+      setProfile({ ...profile, data: data, isLoading: false })
+    })
       .catch(e => {
         setProfile({ ...profile, hasError: true, isLoading: false });
       })}
@@ -68,7 +74,8 @@ export const VizitkaPage = (props1: any) => {
       {!isLoading && !hasError && profile && profile.data && profile.data.profile &&
        <Vizitka
          name = {profile.data.profile.name}
-         image = {profile.data.profile.photo}
+        //  image = {profile.data.profile.photo}
+         image = {avatar}
          quotes = {profile.data.profile.quote}
          city = {profile.data.profile.city.name}
          telegram = {profile.data.profile.telegram}

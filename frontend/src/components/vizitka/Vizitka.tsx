@@ -18,7 +18,7 @@ const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   const [openQuoteComment, setOpenQuoteComment] = useState<boolean>(false);
-  console.log(props);
+  const [userPhoto, setUserPhoto] = useState<File | string>(props.image ?? '');
 
   const [reactions, setReactions] = useState<any>({
     data: null,
@@ -93,8 +93,9 @@ const Vizitka: FC<IVizitka> = (props) => {
           {props.style === VizitkaStyle.Derzkiy ? 
           <div  className={styles.mask}>
             <img className={styles.image1} src={derzkiy_img_style} alt='Фото персоны' />
-            <img className={styles.image} src={props.image} alt='Маска' />
-          </div> : <img src={props.image} alt='Фото персоны' className={`${props.style === VizitkaStyle.Romantic ? styles.imageRomantic : styles.image} ${openPhotoComment ? styles.showBorder : ''}`}/>}
+            <img className={styles.image} src={typeof props.image ==="string" ? props.image : URL.createObjectURL(props.image)} alt='Маска' />
+          </div> : 
+          <img src={typeof props.image ==="string" ? props.image : URL.createObjectURL(props.image)} alt='Фото персоны' className={`${props.style === VizitkaStyle.Romantic ? styles.imageRomantic : styles.image} ${openPhotoComment ? styles.showBorder : ''}`}/>}
         </li>
         <li className={styles.quotesBlock} key={uuidv4()}>
           <div className={styles.quotes_comments_block} onClick={() => { setOpenQuoteComment(!openQuoteComment) }}>
