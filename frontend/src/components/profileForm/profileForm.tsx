@@ -9,10 +9,10 @@ import { SearchBox } from '../../components/search-box/search-box';
 import styles from './profileForm.module.css';
 import { InputGithubLink } from '../../components/input-github-link/input-github-link';
 import { ErrorMessage } from '../../components/errorMessage/errorMessage';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { patchProfile, uploadFiles } from '../../utils/api';
 import { IProfileForm } from '../../utils/types';
-import { cities, samples } from './utils';
+import { cities, templates } from './utils';
 
 export const ProfileForm: FC<IProfileForm> = ({
   profile,
@@ -21,50 +21,53 @@ export const ProfileForm: FC<IProfileForm> = ({
   avatar
 }) => {
 
-  const [nicknameTelegram, setNicknameTelegram] = useState<string>(profile.telegram ?? '');
+  const [telegram, setTelegram] = useState<string>(profile.telegram ?? '');
   const [hobbies, setHobbies] = useState<string>(info.hobby.text ?? '');
-  const [motto, setMotto] = useState<string>(profile.quote ?? '');
+  const [quote, setQuote] = useState<string>(profile.quote ?? '');
   const [userPhoto, setUserPhoto] = useState<File | string>(avatar ?? '');
-  const [birthday, setBirthday] = useState<Date | null>(new Date(profile.birthday as any));
+  const [birthday, setBirthday] = useState<Date>(new Date(profile.birthday ?? new Date()));
   const [city, setCity] = useState<string>(profile.city.name ?? '');
   const [github, setGithub] = useState<string>(profile.github ?? '');
-  const [sample, setSample] = useState<string>(profile.template ?? samples[0]);
-  const [family, setFamily] = useState<string>(info.status.text ?? '');
+  const [template, setTemplate] = useState<string>(profile.template ?? templates[0]);
+  const [status, setStatus] = useState<string>(info.status.text ?? '');
   const [lastWork, setLastWork] = useState<string>(info.job.text ?? '');
   const [dicisionStudy, setDicisionStudy] = useState<string>(info.edu.text ?? '');
 
   const [fileHobbies, setFileHobbies] = useState<File>();
-  const [fileFamily, setFileFamily] = useState<File>();
+  const [fileStatus, setFileStatus] = useState<File>();
 
   const [isShowErrorPhoto, setIsShowErrorPhoto] = useState<boolean>(false);
-  const [isShowErrorBirthday, setIsShowErrorBirthday] = useState<boolean>(false);
   const [isShowErrorGithubLink, setIsShowErrorGithubLink] = useState<boolean>(false);
   const [isShowErrorCity, setIsShowErrorCity] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isShowSuccessMessage, setIsShowSuccessMessage] = useState<boolean>(false);
+  const [isLoadingSendForm, setIsLoadingSendForm] = useState<boolean>(false);
 
   const getTemporaryFileLinks = async () => {
     const formData = new FormData();
-    
+
     fileHobbies && formData.append('hobby', (fileHobbies as File));
-    fileFamily && formData.append('status', (fileFamily as File));
+    fileStatus && formData.append('status', (fileStatus as File));
     typeof userPhoto !== 'string' && formData.append('photo', (userPhoto as File));
+
     const updateUserInfo = {
       "profile": {
-        "name": profile?.name,
+        "name": profile.name,
         "photo": profile.photo,
         "city": {
           "name": city,
           "geocode": profile.city.geocode
         },
         "birthday": birthday,
-        "template": sample
+        "template": template
       },
-      "info":{
+      "info": {
         "hobby": {
           "text": hobbies,
           "image": null
         },
         "status": {
-          "text": family,
+          "text": status,
           "image": null
         },
         "job": {
@@ -77,20 +80,22 @@ export const ProfileForm: FC<IProfileForm> = ({
         }
       }
     }
-    motto !== '' && ((updateUserInfo.profile as any).quote = motto)
-    nicknameTelegram !== '' && ((updateUserInfo.profile as any).telegram = nicknameTelegram)
+    quote !== '' && ((updateUserInfo.profile as any).quote = quote)
+    telegram !== '' && ((updateUserInfo.profile as any).telegram = telegram)
     github !== '' && ((updateUserInfo.profile as any).github = github)
     if (Array.from(formData.keys()).length) {
       await uploadFiles(formData).then(files => {
         (updateUserInfo as any).info.hobby.image = files.hobby?.file ?? info.hobby.image;
         (updateUserInfo as any).info.status.image = files.status?.file ?? info.status.image;
         (updateUserInfo as any).profile.photo = files.photo?.file ?? profile.photo;
-        patchProfile((updateUserInfo as any), userId)
+        setIsLoadingSendForm(true)
+        patchProfile((updateUserInfo as any), userId).then(() => { setIsSuccess(true); setIsLoadingSendForm(false) })
       })
 
     }
     else {
-      patchProfile((updateUserInfo as any), userId)
+      setIsLoadingSendForm(true)
+      patchProfile((updateUserInfo as any), userId).then(() => { setIsSuccess(true); setIsLoadingSendForm(false) })
     }
 
   }
@@ -98,17 +103,29 @@ export const ProfileForm: FC<IProfileForm> = ({
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (birthday === null) {
-      setIsShowErrorBirthday(true);
-    }
     if (userPhoto === '') {
       setIsShowErrorPhoto(true);
+      window.scrollTo({top:0, left: 0, behavior: "smooth"})
     }
     if (city === '') {
       setIsShowErrorCity(true);
+      window.scrollTo({top:0, left: 0, behavior: "smooth"})
     }
-    birthday !== null && userPhoto !== '' && city !=='' && getTemporaryFileLinks()
+
+    userPhoto !== '' && city !== '' && getTemporaryFileLinks()
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setIsShowSuccessMessage(true);
+
+      setTimeout(() => {
+        setIsShowSuccessMessage(false)
+        setIsSuccess(false)
+      }, 3000);
+    }
+
+  }, [isSuccess]);
 
   return (
     <form className={styles.profile} onSubmit={handlerSubmit}>
@@ -122,8 +139,6 @@ export const ProfileForm: FC<IProfileForm> = ({
         labelName={'Дата рождения'}
         state={birthday}
         setState={setBirthday}
-        stateError={isShowErrorBirthday}
-        setStateError={setIsShowErrorBirthday}
       />
       <SearchBox
         setStateError={setIsShowErrorCity}
@@ -134,9 +149,9 @@ export const ProfileForm: FC<IProfileForm> = ({
       {isShowErrorCity && <ErrorMessage>Поле обязательно для заполнения</ErrorMessage>}
       <Input
         type={'text'}
-        value={nicknameTelegram}
+        value={telegram}
         labelName={'Ник в телеграм'}
-        onChange={(e) => setNicknameTelegram((e.target as HTMLInputElement).value)}
+        onChange={(e) => setTelegram((e.target as HTMLInputElement).value)}
       />
       <InputGithubLink
         type={'text'}
@@ -148,17 +163,17 @@ export const ProfileForm: FC<IProfileForm> = ({
         setStateError={setIsShowErrorGithubLink}
       />
       <DropdownList
-        state={sample}
-        setState={setSample}
-        data={samples}
+        state={template}
+        setState={setTemplate}
+        data={templates}
         title={'Выберите шаблон'}
         requiredField={true}
       />
       <Textarea
         maxLength={100}
         labelName={'Девиз, цитата'}
-        state={motto}
-        setState={setMotto}
+        state={quote}
+        setState={setQuote}
       />
       <InputFile
         labelName={'Увлечения, досуг, интересы'}
@@ -169,11 +184,11 @@ export const ProfileForm: FC<IProfileForm> = ({
       <Textarea maxLength={300} state={hobbies} setState={setHobbies} />
       <InputFile
         labelName={'Семья, статус, домашние животные'}
-        state={fileFamily}
+        state={fileStatus}
         defaultName={info.status.image ? `${info.status._id}.jpeg` : ''}
-        setState={setFileFamily}
+        setState={setFileStatus}
       />
-      <Textarea maxLength={300} state={family} setState={setFamily} />
+      <Textarea maxLength={300} state={status} setState={setStatus} />
       <Textarea
         labelName={'Из какой сферы пришёл? Кем работаешь?'}
         maxLength={300}
@@ -189,7 +204,18 @@ export const ProfileForm: FC<IProfileForm> = ({
       <p className={styles.tip}>
         Поля, отмеченные звездочкой, обязательны для заполнения
       </p>
-      <GraidentButton type={'submit'} text={'Сохранить'} />
+      <GraidentButton
+        type={'submit'}
+        text={isLoadingSendForm ? 'Сохранение...' : 'Сохранить'}
+        disabled={isLoadingSendForm}
+      />
+
+      <p
+        className={isShowSuccessMessage ? `${styles.tip} ${styles.showMessage}` : `${styles.tip} ${styles.hideMessage}`}
+      >
+        Данные успешно сохранены
+      </p>
+
     </form>
   );
 }

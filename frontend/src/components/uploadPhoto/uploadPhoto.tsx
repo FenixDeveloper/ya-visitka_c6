@@ -5,7 +5,7 @@ import { ErrorMessage } from "../errorMessage/errorMessage"
 
 interface IUploadPhoto {
     state: File | null,
-    setState: (value: File | null) => void,
+    setState: (value: File | '') => void,
     stateError: boolean,
     setStateError: (value: boolean) => void,
 }
@@ -19,7 +19,7 @@ export const UploadPhoto: FC<IUploadPhoto> = ({
 
     const handlerChange = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
-        setState((files as any).length ? files![0] : null)
+        setState((files as any).length ? files![0] : '')
         setStateError(!files?.length)
     }
 

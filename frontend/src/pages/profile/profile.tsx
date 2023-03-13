@@ -7,14 +7,14 @@ import { IProfileInfo } from '../../utils/types';
 
 export const Profile = () => {
 
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const user: any = state.data;
 
   const [userId, setUserId] = useState<string>('');
   const [profileInfo, setProfile] = useState<IProfileInfo>();
 
 
-  const [avatar, setAvatar] = useState<any>();
+  const [avatar, setAvatar] = useState<string>('');
 
   useEffect(() => {
     if (user) {
