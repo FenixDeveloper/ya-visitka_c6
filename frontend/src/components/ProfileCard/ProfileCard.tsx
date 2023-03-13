@@ -200,9 +200,10 @@ const ProfileCard: FC<IProfileCard> = (props) => {
 
 
     //Количество всех реакций (в кружочке)
-  //  getProfile(props.id).then((res) => {
+    getProfile(props.id).then((res) => {
+      console.log(res)
       //   setReactions(reaction1.reactions)
-  //  });
+    });
     setReactions(reaction1.reactions); //тестовые
 
 

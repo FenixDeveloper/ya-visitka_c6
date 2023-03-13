@@ -48,7 +48,7 @@ function ApplicationView() {
           <Route path="/auth">
             <AuthPage />
           </Route>
-          <PrivateRoute path="/" exact={true}>
+          <PrivateRoute path="/cohort/web+06" exact={true}>
             <MainPage />
           </PrivateRoute>
           <PrivateRoute path="/maps">
