@@ -9,6 +9,13 @@ import CommentPost from '../comment-post/comment-post';
 
 const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
   const [openComment, setOpenComment] = useState<boolean>(false);
+
+  const getCommentsArray = (arr: any) => {
+    const commentsArray: any[] = []
+    arr.map((item: any) => commentsArray.push(item.text))
+    return commentsArray
+  }
+
   return (
     <div className={`${styles.hobbyBlock} ${props.style === VizitkaStyle.Base ? styles.border : ''}`}>
       {props.style !== VizitkaStyle.Base ? <img src={props.style === VizitkaStyle.Romantic ? romantic : derzkiy} alt='Граница блока'/> : ''}
@@ -24,7 +31,7 @@ const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
             <div className={styles.comment}>
               <CommentPost
                 // comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
-                comments={props.reactionsArray}
+                comments={getCommentsArray(props.reactionsArray)}
                 emojies={[{ type: '', count: 3 }]}
                 class={false}
               />

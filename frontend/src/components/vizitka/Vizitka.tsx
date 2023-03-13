@@ -40,8 +40,14 @@ const Vizitka: FC<IVizitka> = (props) => {
         setReactions({ ...reactions, hasError: true, isLoading: false });
       })}
 
-  const getReactionsArray = (items: any, type: string) => {
+  const getReactionsArray = (items: any, type: string | null) => {
     return items.filter((item: any) => item.target === type)
+  }
+
+  const getCommentsArray = (arr: any) => {
+    const commentsArray: any[] = []
+    arr.map((item: any) => commentsArray.push(item.text))
+    return commentsArray
   }
 
   return (
@@ -77,7 +83,8 @@ const Vizitka: FC<IVizitka> = (props) => {
           {openPhotoComment && (
             <div className={styles.comment}>
               <CommentPost
-                comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                // comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                comments={getCommentsArray(getReactionsArray(reactions.data.items, null))}
                 emojies={[{ type: '', count: 3 }]}
                 class={false}
               />
@@ -99,8 +106,9 @@ const Vizitka: FC<IVizitka> = (props) => {
           {openQuoteComment && (
             <div className={styles.comment}>
               <CommentPost
-                comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                // comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
                 emojies={[{ type: '', count: 3 }]}
+                comments={getCommentsArray(getReactionsArray(reactions.data.items, 'quote'))}
                 class={true}
               />
             </div>
@@ -124,7 +132,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             img={props.hobby_img}
             description={props.hobby}
             style={props.style}
-            reactionsArray={getReactionsArray(reactions.data.items, 'hobby')}
+            reactionsArray={getCommentsArray(getReactionsArray(reactions.data.items, 'hobby'))}
             />
             : ''}
             {item === 'Семья' ? 
@@ -134,7 +142,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             img={props.family_img}
             description={props.family}
             style={props.style}
-            reactionsArray={getReactionsArray(reactions.data.items, 'status')}
+            reactionsArray={getCommentsArray(getReactionsArray(reactions.data.items, 'status'))}
             />
             : ''}
             {item === 'Cфера' ? 
@@ -143,7 +151,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             comments_number = {props.activity_comments_number}
             description={props.activity}
             style={props.style}
-            reactionsArray={getReactionsArray(reactions.data.items, 'job')}
+            reactionsArray={getCommentsArray(getReactionsArray(reactions.data.items, 'job'))}
             />
             : ''}
             {item === 'Yчеба' ? 
@@ -152,7 +160,7 @@ const Vizitka: FC<IVizitka> = (props) => {
               comments_number = {props.studies_comments_number}
               description={props.studies}
               style={props.style}
-              reactionsArray={getReactionsArray(reactions.data.items, 'edu')}
+              reactionsArray={getCommentsArray(getReactionsArray(reactions.data.items, 'edu'))}
             />
             : ''}
           </li> 
