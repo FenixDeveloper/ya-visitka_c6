@@ -65,10 +65,10 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
-          <a href={props.telegram}>
+          <a href={props.telegram} target="_blank" rel="noreferrer">
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
           </a>
-          <a href={props.github}>
+          <a href={props.github} target="_blank" rel="noreferrer">
             <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
           </a>
           </div>

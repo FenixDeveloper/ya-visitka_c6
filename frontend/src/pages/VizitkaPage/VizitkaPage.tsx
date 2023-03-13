@@ -78,8 +78,8 @@ export const VizitkaPage = (props1: any) => {
          image = {avatar}
          quotes = {profile.data.profile.quote}
          city = {profile.data.profile.city.name}
-         telegram = {profile.data.profile.telegram}
-         github = {profile.data.profile.github}
+         telegram = {`https://t.me/${profile.data.profile.telegram}`}
+         github = {`https://github.com/${profile.data.profile.github}`}
          hobby = {profile.data.info.hobby.text}
          hobby_img={profile.data.info.hobby.image}
          family = {profile.data.info.status.text}
