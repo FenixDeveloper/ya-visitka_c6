@@ -15,6 +15,8 @@ const Vizitka: FC<IVizitka> = (props) => {
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   const [openQuoteComment, setOpenQuoteComment] = useState<boolean>(false);
+  console.log(props);
+
   return (
     <section>
       <ul className={styles.mainBlocks}>
@@ -26,8 +28,12 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
+          {/* <a href={props.telegram}> */}
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
-            <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
+          {/* </a>
+          <a href={props.github}> */}
+            <img src={github_logo} alt='Лого GitHub' className={styles.logo} />
+          {/* </a> */}
           </div>
         </li>
         <li className={styles.imageBlock} key={uuidv4()}>

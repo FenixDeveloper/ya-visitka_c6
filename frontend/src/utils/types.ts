@@ -26,10 +26,12 @@ export interface IVizitka {
   image: string;
   quotes: string;
   city: string;
-  contacts: {
-    telegram: string;
-    github?: string;
-  };
+  telegram: string;
+  github?: string;
+  // contacts: {
+  // telegram: string;
+  // github?: string;
+  // }
   hobby: string;
   hobby_img: string;
   family: string;
@@ -113,6 +115,51 @@ export interface IProfileData {
   target: 'hobby' | 'status' | 'job' | 'edu' | null;
   text?: string;
   emotions?: string;
+}
+
+
+export interface IProfiles {
+  email: string;
+  cohort: string;
+  _id: string;
+  createdAt: number;
+  updatedAt: number;
+  profile: {
+    name: string;
+    photo: string;
+    city: {
+      name: string;
+      geocode: number[];
+    },
+    birthday: string;
+    quote: string;
+    telegram: string;
+    github: string;
+    template: string;
+  };
+  info: {
+    hobby: {
+      text: string;
+      image: string;
+      reactions: number;
+    };
+    status: {
+      text: string;
+      image: string;
+      reactions: number;
+    },
+    job: {
+      text: string;
+      image: string;
+      reactions: number;
+    },
+    edu: {
+      text: string;
+      image: string;
+      reactions: number
+    }
+  },
+  reactions: number
 }
 
 export interface ITemporaryFiles {

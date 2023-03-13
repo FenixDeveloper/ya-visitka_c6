@@ -11,10 +11,10 @@ export const Header = () => {
   const location = useLocation();
   const user: any = state.data;
 
-
   const getUser = async () => {
     const user: any = await loginUser();
     if (user) {
+      console.log(user);
       dispatch({ type: 'success', results: user });
     }
   }
