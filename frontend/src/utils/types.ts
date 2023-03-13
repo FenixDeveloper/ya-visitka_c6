@@ -1,10 +1,10 @@
-import { StringMappingType } from 'typescript';
 
 export interface IProfileCard {
   image: string;
   city: string;
   name: string;
-  comments_number: number;
+  role: string;
+  id:string;
 }
 
 export interface IDropdownList {
@@ -117,6 +117,7 @@ export interface IProfileData {
   emotions?: string;
 }
 
+
 export interface IProfiles {
   email: string;
   cohort: string;
@@ -159,4 +160,34 @@ export interface IProfiles {
     }
   },
   reactions: number
+}
+
+export interface ITemporaryFiles {
+  hobby: {
+    file: string
+  }, 
+  status: {
+    file: string
+  }
+}
+
+export interface IFileInfo {
+  text: string,
+  image: string | null,
+  _id: string
+}
+
+export interface IProfileInfo {
+  profile: IProfile,
+  info: {
+    edu: IFileInfo
+    hobby: IFileInfo
+    job: IFileInfo
+    status: IFileInfo
+  }
+}
+
+export interface IProfileForm extends IProfileInfo {
+  userId: string;
+  avatar: string;
 }

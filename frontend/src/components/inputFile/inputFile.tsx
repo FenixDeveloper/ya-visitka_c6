@@ -5,13 +5,15 @@ import icon from "../../images/icons/clip.svg"
 interface IInputFile {
     labelName: string,
     state: File | undefined,
-    setState: (value: File | undefined) => void
+    setState: (value: File | undefined) => void,
+    defaultName: string
 }
 
 export const InputFile: FC<IInputFile> = ({
     labelName,
     state,
-    setState
+    setState,
+    defaultName
 }
 ) => {
 
@@ -25,7 +27,7 @@ export const InputFile: FC<IInputFile> = ({
             <p className={styles.text}>{labelName}</p>
             <input type="file" onChange={onChange} />
             <div className={styles.fakeInput}>
-                <p>{state?.name}</p>
+                <p>{state?.name ?? defaultName}</p>
                 <img className={styles.icon} src={icon} alt="Прикрипите файл" />
             </div>
             <p className={`${styles.text} ${styles.tip}`}>Рекомендуемый размер фото 230х 129</p>

@@ -8,26 +8,53 @@ type TRowProps = {
   data: IUser,
   loaded?: boolean,
   onDelete?: (e: React.MouseEvent, index: number) => void,
-  index?: number
+  index?: number;
+  userUpdate?: (value: string, index: number, data: IUser, type: string) => void, 
 }
 
-export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) => {
-  const type = loaded ? 'input' : (data.name && data._id) ? 'link' : 'common'
-  const name = data.name ? data.name : ''
+export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index, userUpdate}) => {
   const [stateCohort, setStateCohort] = useState(data.cohort);
-  const [stateName, setStateName] = useState(data.name);
   const [stateEmail, setStateEmail] = useState(data.email);
+  const [stateName, setStateName] = useState(data.name);
+  const [stateData, setStateData] = useState(data);
+  const type = loaded ? 'input' : (stateData.name && stateData._id) ? 'link' : 'common'
+  const name = stateData.name ? stateData.name : ''
 
   const changeUser = (cohort: string, email: string) => {
-    if (data._id) putUser({cohort, email}, data._id)
+    if (stateData._id) {
+      putUser({cohort, email}, stateData._id).then((res) => {
+        setStateData(res)
+        if (cohort === 'deleted') setStateCohort('deleted')
+      });
+    }
   };
 
-  if (onDelete && index !== undefined) {
+  if (userUpdate && onDelete && index !== undefined) {
     return (
       <div className={styles.table_row}>
-        <TableCell value={data.cohort} loaded={loaded} type={'input'}/>
-        <TableCell value={data.email} loaded={loaded} type={'input'}/>
-        <TableCell value={name} loaded={loaded} type={type}/>
+        <TableCell
+          value={stateCohort}
+          loaded={loaded}
+          type={'input'}
+          onChange={(evt: ChangeEvent<HTMLInputElement>) => {
+            userUpdate(evt.target.value, index, stateData, 'cohort');
+            setStateCohort(evt.target.value);
+          }}
+        />
+        <TableCell
+          value={stateEmail}
+          loaded={loaded}
+          type={'input'}
+          onChange={(evt: ChangeEvent<HTMLInputElement>) => {
+            userUpdate(evt.target.value, index, stateData, 'email');
+            setStateEmail(evt.target.value);
+          }}
+        />
+        <TableCell 
+          value={name} 
+          loaded={loaded} 
+          type={type}
+        />
         <button type='button' className={styles.button_delete} onClick={(e: React.MouseEvent) => onDelete(e, index)}></button>
       </div>
     );
@@ -56,9 +83,9 @@ export const TableUsersRow: FC<TRowProps> = ({data, loaded, onDelete, index}) =>
         type={type}
         id={data._id}
       />
-      {stateEmail !== data.email ? (
+      {stateEmail !== stateData.email ? (
         <button type='button' className={styles.button_save} onClick={(e: React.MouseEvent) => changeUser(stateCohort, stateEmail)}></button>
-      ) : (stateCohort !== data.cohort) ? (
+      ) : (stateCohort !== stateData.cohort) ? (
         <button type='button' className={styles.button_save} onClick={(e: React.MouseEvent) => changeUser(stateCohort, stateEmail)}></button>
       ) : (
         <button type='button' className={styles.button_delete} onClick={(e: React.MouseEvent) => changeUser('deleted', stateEmail)}></button>
