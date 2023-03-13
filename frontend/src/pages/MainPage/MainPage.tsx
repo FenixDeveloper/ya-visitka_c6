@@ -100,9 +100,8 @@ export const MainPage = (props1: any) => {
   const { state, dispatch } = useContext(AppContext);
   const [cities, setCities] = useState<Array<string>>([]);
   const [initalProps, setInitalProps] = useState<Array<IUserInfo>>([]);
-
   //Добавляла не я
-  const authorizeUser = async (code: string) => {
+/*  const authorizeUser = async (code: string) => {
     try {
       if (!localStorage.getItem('auth_token')) {
         const response = await getToken(code);
@@ -127,31 +126,52 @@ export const MainPage = (props1: any) => {
     if (code) {
       authorizeUser(code);
     }
-  }, []);
+  }, []);*/
 
 //Получение пользователей(сортировка по корготам) и их данных
   useEffect(() => {
+
     //Роль авторизированного пользователя
-    state.data != null && setRole(state.data.role);
+    if (state.data === null) {
+      getUser();
+    } 
+    state.data && setRole(state.data.user.role)
+    //state.data != null && setRole(state.data.role);
     //Получение пользователей
     getProfiles().then((res: { items: Array<IUserInfo> }) => {
-      const sortedData = res.items.filter(
-        (student) =>
-          student.cohort === (state.data != null && state.data.cohort),
-      );
-      console.log(sortedData)
-      setProps(sortedData);
-      setInitalProps(sortedData) 
-      let arr: Array<string> = ['Все города'];
-      sortedData.forEach((item) => {
-        arr.push(item.profile.city.name);
-      });
-      setCities(Array.from(new Set(arr)).filter((item)=>item != undefined));
+      console.log(res.items)
+      if(role === 'curator') { //поменять на student
+        state.data.cohort = 'web+06'
+
+        const sortedData = res.items.filter(
+          (student) =>
+            student.cohort === (state.data != null && state.data.cohort),
+        );
+        console.log(sortedData)
+        setProps(sortedData);
+        setInitalProps(sortedData) 
+        let arr: Array<string> = ['Все города'];
+        sortedData.forEach((item) => {
+          arr.push(item.profile.city.name);
+        });
+        setCities(Array.from(new Set(arr)).filter((item)=>item != undefined));
+      }else{
+        //Взять из params корготу и отфлитровать всех студентов (для кураторов)
+        console.log("куратор")
+      }
     });
 
   }, []);
 
-  //Сортировка пользователей по городам
+
+  const getUser = async () => {
+    const user: any = await loginUser();
+    if (user) {
+      dispatch({ type: 'success', results: user });
+    }
+  }
+
+    //Сортировка пользователей по городам
   useEffect(() => {
     const sortedData = props.filter(
       (student) => student.cohort === (state.data != null && state.data.cohort),

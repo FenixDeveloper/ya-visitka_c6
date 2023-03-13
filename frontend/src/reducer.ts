@@ -1,11 +1,10 @@
 export type State = {
-  data: User | null;
+  data: User | null | any;
   isLoading: boolean;
   error: string | null;
 }
 
 export type User = {
-
   _id?: string
   createdAt?: number,
   updatedAt?: null | number,

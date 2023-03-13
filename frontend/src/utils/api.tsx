@@ -87,7 +87,7 @@ export const getProfile = (id: string) => {
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profile/${id}`, options);
+  return request(`/api/profiles/${id}`, options);
 };
 
 export const patchProfile = (profileData: IProfile, id: number) => {
@@ -97,7 +97,7 @@ export const patchProfile = (profileData: IProfile, id: number) => {
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profile/${id}`, options);
+  return request(`/api/profiles/${id}`, options);
 };
 //#endregion
 
@@ -108,7 +108,7 @@ export const getReactions = (id: string) => {
     headers: headersAuthorization(),
   };
 
-  return request(`/api/profile/${id}/reactions`, options);
+  return request(`/api/profiles/${id}/reactions`, options);
 };
 
 export const postReactions = (profileData: IProfileData, id: number) => {
@@ -118,7 +118,7 @@ export const postReactions = (profileData: IProfileData, id: number) => {
     body: JSON.stringify(profileData),
   };
 
-  return request(`/api/profile/${id}/reactions`, options);
+  return request(`/api/profiles/${id}/reactions`, options);
 };
 //#endregion
 

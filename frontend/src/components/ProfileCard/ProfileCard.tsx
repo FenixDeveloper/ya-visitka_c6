@@ -181,14 +181,14 @@ const ProfileCard: FC<IProfileCard> = (props) => {
     }
 
     //Получение комментариев для каждой карточки. Не срабатывает. 404 
-    getReactions(props.id).then((res) => {
-      /*  const filterComments = reaction.items.filter((comment) => comment.target === null)
+   /*  getReactions(props.id).then((res) => {
+       const filterComments = reaction.items.filter((comment) => comment.target === null)
       const commentText:Array<string> = []
       filterComments.forEach((comment)=>{
         comment.text && commentText.push(comment.text)
       })
-      setComments(commentText);*/
-    });
+      setComments(commentText);
+    });*/
       const filterComments = reaction.items.filter(
         (comment) => comment.target === null,
       );
@@ -200,10 +200,10 @@ const ProfileCard: FC<IProfileCard> = (props) => {
 
 
     //Количество всех реакций (в кружочке)
-    getProfile(props.id).then((res) => {
+  //  getProfile(props.id).then((res) => {
       //   setReactions(reaction1.reactions)
-    });
-    setReactions(reaction1.reactions); //тестовые данные
+  //  });
+    setReactions(reaction1.reactions); //тестовые
 
 
   }, []);
