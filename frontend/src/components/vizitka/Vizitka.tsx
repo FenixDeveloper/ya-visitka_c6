@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import styles from "./Vizitka.module.css";
 import { IVizitka, VizitkaStyle } from "../../utils/types";
 import telegram_logo from './telegram.svg';
@@ -9,15 +9,46 @@ import VizitkaAboutBlock from "../vizitka-about-block/vizitka-about-block";
 import derzkiy_img_style from './mask.png';
 import CommentPost from '../comment-post/comment-post';
 import { v4 as uuidv4 } from 'uuid';
+import { getProfile, getProfiles, getReactions } from '../../utils/api'
+import { useParams } from "react-router";
 
 
 const Vizitka: FC<IVizitka> = (props) => {
+  const { id } = useParams<{ id: string }>();
   const blocksTitle = ['Увлечения', 'Семья', 'Cфера', 'Yчеба']
   const [openPhotoComment, setOpenPhotoComment] = useState<boolean>(false);
   const [openQuoteComment, setOpenQuoteComment] = useState<boolean>(false);
 
+  const [reactions, setReactions] = useState<any>({
+    data: null,
+    isLoading: false,
+    hasError: false,
+  })
+
+  const { data, isLoading, hasError } = reactions;
+
+  useEffect(()=>{
+    setReactions({...reactions, hasError: false, isLoading: true});
+    getReactionsData();
+  }, []);
+
+  const getReactionsData = async() => {
+    getReactions(id)
+      .then(data => setReactions({ ...reactions, data: data, isLoading: false }))
+      .catch(e => {
+        setReactions({ ...reactions, hasError: true, isLoading: false });
+      })}
+
+  const getReactionsArray = (items: any, type: string) => {
+    return items.filter((item: any) => item.target === type)
+  }
+
   return (
     <section>
+      {isLoading && "Загрузка ..."}
+      {hasError && "Ошибка"}
+      {!isLoading && !hasError && reactions && reactions.data && reactions.data.items &&
+      <>
       <ul className={styles.mainBlocks}>
         <li className={styles.nameBlock} key={uuidv4()}>
           <p className={styles.name}>
@@ -27,12 +58,12 @@ const Vizitka: FC<IVizitka> = (props) => {
             {props.city}
           </p>
           <div className={styles.logoBlock}>
-          {/* <a href={props.telegram}> */}
+          <a href={props.telegram}>
             <img src={telegram_logo} alt='Лого telegram' className={styles.logo} />
-          {/* </a>
-          <a href={props.github}> */}
+          </a>
+          <a href={props.github}>
             <img src={github_logo} alt='Лого GitHun' className={styles.logo} />
-          {/* </a> */}
+          </a>
           </div>
         </li>
         <li className={styles.imageBlock} key={uuidv4()}>
@@ -92,6 +123,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             img={props.hobby_img}
             description={props.hobby}
             style={props.style}
+            reactionsArray={getReactionsArray(reactions.data.items, 'hobby')}
             />
             : ''}
             {item === 'Семья' ? 
@@ -101,6 +133,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             img={props.family_img}
             description={props.family}
             style={props.style}
+            reactionsArray={getReactionsArray(reactions.data.items, 'status')}
             />
             : ''}
             {item === 'Cфера' ? 
@@ -109,6 +142,7 @@ const Vizitka: FC<IVizitka> = (props) => {
             comments_number = {props.activity_comments_number}
             description={props.activity}
             style={props.style}
+            reactionsArray={getReactionsArray(reactions.data.items, 'job')}
             />
             : ''}
             {item === 'Yчеба' ? 
@@ -117,11 +151,13 @@ const Vizitka: FC<IVizitka> = (props) => {
               comments_number = {props.studies_comments_number}
               description={props.studies}
               style={props.style}
+              reactionsArray={getReactionsArray(reactions.data.items, 'edu')}
             />
             : ''}
           </li> 
         ))}
       </ul>
+    </>}
     </section>
   );
 };

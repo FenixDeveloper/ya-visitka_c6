@@ -6,7 +6,7 @@ import person_img from './person_img.png'
 import hobby_img from './hobby_img.png'
 import family_img from './family_img.png'
 import { VizitkaStyle } from "../../utils/types";
-import { getProfile, getProfiles } from '../../utils/api'
+import { getProfile, getProfiles, getReactions } from '../../utils/api'
 // тестовые данные
 const vizitkaData = 
 {
@@ -36,7 +36,7 @@ const vizitkaData =
 export const VizitkaPage = (props1: any) => {
   const { id } = useParams<{ id: string }>();
 
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<any>({
     data: null,
     isLoading: false,
     hasError: false,
@@ -50,39 +50,38 @@ export const VizitkaPage = (props1: any) => {
   }, []);
 
   const getProfileData = async() => {
-    getProfile("640cd54c99e1743ebeff63ca")
+    getProfile(id)
     .then(data => setProfile({ ...profile, data: data, isLoading: false }))
       .catch(e => {
         setProfile({ ...profile, hasError: true, isLoading: false });
       })}
-console.log(profile)
+
   return (
     <section className={styles.vizitka}>
-      {profile && 'Hello'}
       {isLoading && "Загрузка ..."}
       {hasError && "Ошибка"}
       {!isLoading && !hasError && profile && profile.data && profile.data.profile &&
-      <Vizitka 
-        name = {profile.data.profile.name}
-        image = {profile.data.profile.photo}
-        quotes = {profile.data.profile.quote}
-        city = {profile.data.profile.city.name}
-        telegram = {profile.data.profile.telegram}
-        github = {profile.data.profile.github}
-        hobby = {profile.data.info.hobby.text}
-        hobby_img={profile.data.info.hobby.image}
-        family = {profile.data.info.status.text}
-        family_img={profile.data.info.status.image}
-        activity = {profile.data.info.job.text}
-        studies = {profile.data.info.edu.text}
-        photo_comments_number={profile.data.reactions}
-        quotes_comments_number={vizitkaData.quotes_comments_number}
-        hobby_comments_number={profile.data.info.hobby.reactions}
-        family_comments_number={profile.data.info.status.reactions}
-        activity_comments_number={profile.data.info.job.reactions}
-        studies_comments_number={profile.data.info.edu.reactions}
-        style={vizitkaData.style}
-      />
+       <Vizitka
+         name = {profile.data.profile.name}
+         image = {profile.data.profile.photo}
+         quotes = {profile.data.profile.quote}
+         city = {profile.data.profile.city.name}
+         telegram = {profile.data.profile.telegram}
+         github = {profile.data.profile.github}
+         hobby = {profile.data.info.hobby.text}
+         hobby_img={profile.data.info.hobby.image}
+         family = {profile.data.info.status.text}
+         family_img={profile.data.info.status.image}
+         activity = {profile.data.info.job.text}
+         studies = {profile.data.info.edu.text}
+         photo_comments_number={profile.data.reactions}
+         quotes_comments_number={vizitkaData.quotes_comments_number}
+         hobby_comments_number={profile.data.info.hobby.reactions}
+         family_comments_number={profile.data.info.status.reactions}
+         activity_comments_number={profile.data.info.job.reactions}
+         studies_comments_number={profile.data.info.edu.reactions}
+         style={vizitkaData.style}
+      />}
       {/* <Vizitka 
       name = {vizitkaData.name}
       image = {vizitkaData.image}

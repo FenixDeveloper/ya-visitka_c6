@@ -22,7 +22,8 @@ const VizitkaAboutBlock: FC<IVizitkaAboutBlock> = (props) => {
           {openComment && (
             <div className={styles.comment}>
               <CommentPost
-                comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                // comments={['Комментарий 1', 'Комментарий 2', 'Комментарий 3', 'Комментарий 4', 'Комментарий 4', 'Комментарий 4','Комментарий 4', 'Комментарий 4']}
+                comments={props.reactionsArray}
                 emojies={[{ type: '', count: 3 }]}
                 class={false}
               />
