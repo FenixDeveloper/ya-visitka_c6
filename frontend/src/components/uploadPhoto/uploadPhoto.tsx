@@ -4,8 +4,8 @@ import icon from "../../images/icons/photo.svg"
 import { ErrorMessage } from "../errorMessage/errorMessage"
 
 interface IUploadPhoto {
-    state: string,
-    setState: (value: string) => void,
+    state: File | null,
+    setState: (value: File | '') => void,
     stateError: boolean,
     setStateError: (value: boolean) => void,
 }
@@ -19,7 +19,7 @@ export const UploadPhoto: FC<IUploadPhoto> = ({
 
     const handlerChange = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
-        setState(files?.length ? URL.createObjectURL(files[0]) : "")
+        setState((files as any).length ? files![0] : '')
         setStateError(!files?.length)
     }
 
@@ -32,7 +32,7 @@ export const UploadPhoto: FC<IUploadPhoto> = ({
                 <div className={styles.fakeInput}>
                     {
                         state ?
-                            <img className={styles.photo} src={state} alt="Фото пользователя" /> :
+                            <img className={styles.photo} src={typeof state ==="string" ? state : URL.createObjectURL(state)} alt="Фото пользователя" /> :
                             <div className={styles.wrapper}></div>
                     }
                      <div className={styles.rectangle}>
