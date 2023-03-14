@@ -3,7 +3,7 @@ import styles from './comment-post.module.css';
 
 interface CommentPostProps {
   comments: string[];
-  emojies: { type: string; name: string; count: number }[];
+  emojies?: { type: string; count: number }[];
   class?: boolean;
 }
 
@@ -34,7 +34,7 @@ function CommentPost(props: CommentPostProps) {
           onChange={(evt) => setInput(evt.target.value)}
         />
         <div className={styles.emojiWrap}>
-          {emojies.map((item, index) => (
+          {emojies && emojies.map((item, index) => (
             <button
               key={index}
               className={styles.emojiBtn}

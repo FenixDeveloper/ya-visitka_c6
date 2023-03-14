@@ -53,6 +53,7 @@ export interface IVizitkaAboutBlock {
   img?: string;
   description: string;
   style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
+  reactionsArray: any[];
 }
 
 export interface IUser {
