@@ -247,7 +247,7 @@ const ProfileCard: FC<IProfileCard> = (props) => {
       {open && (
         <div className={styles.comment}>
           <CommentPost
-            emojies={emojies}
+            // emojies={emojies}
             comments={comments}
 //            emojies={[
 //             { type: '👍', count: 1 },
