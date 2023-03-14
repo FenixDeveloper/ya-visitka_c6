@@ -11,6 +11,7 @@ import CommentPost from '../comment-post/comment-post';
 import { v4 as uuidv4 } from 'uuid';
 import { getProfile, getProfiles, getReactions } from '../../utils/api'
 import { useParams } from "react-router";
+import { emojies } from "../../utils/constants";
 
 
 const Vizitka: FC<IVizitka> = (props) => {
