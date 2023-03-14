@@ -53,6 +53,7 @@ export interface IVizitkaAboutBlock {
   img?: string;
   description: string;
   style: VizitkaStyle.Base | VizitkaStyle.Romantic | VizitkaStyle.Derzkiy;
+  reactionsArray: any[];
 }
 
 export interface IUser {
@@ -68,9 +69,9 @@ export interface IComment {
   _id: number;
   cohort: number;
   createdAt: string;
-  sender: string;
-  recipient: string;
-  block: string;
+  from: IUser;
+  to: IUser;
+  target: string;
   text: string;
 }
 

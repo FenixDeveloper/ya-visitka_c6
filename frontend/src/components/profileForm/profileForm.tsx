@@ -32,7 +32,7 @@ export const ProfileForm: FC<IProfileForm> = ({
   const [status, setStatus] = useState<string>(info.status.text ?? '');
   const [lastWork, setLastWork] = useState<string>(info.job.text ?? '');
   const [dicisionStudy, setDicisionStudy] = useState<string>(info.edu.text ?? '');
-
+  const [geocode, setGeocode] = useState<number[]>(profile.city.geocode ?? []);
   const [fileHobbies, setFileHobbies] = useState<File>();
   const [fileStatus, setFileStatus] = useState<File>();
 
@@ -88,6 +88,7 @@ export const ProfileForm: FC<IProfileForm> = ({
         (updateUserInfo as any).info.hobby.image = files.hobby?.file ?? info.hobby.image;
         (updateUserInfo as any).info.status.image = files.status?.file ?? info.status.image;
         (updateUserInfo as any).profile.photo = files.photo?.file ?? profile.photo;
+        (updateUserInfo as any).profile.city.geocode = geocode ?? geocode;
         setIsLoadingSendForm(true)
         patchProfile((updateUserInfo as any), userId).then(() => { setIsSuccess(true); setIsLoadingSendForm(false) })
       })
@@ -143,6 +144,7 @@ export const ProfileForm: FC<IProfileForm> = ({
       <SearchBox
         setStateError={setIsShowErrorCity}
         setState={setCity}
+        setGeocode={setGeocode}
         city={city}
         listDefaultCities={cities}
       />

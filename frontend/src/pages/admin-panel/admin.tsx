@@ -23,13 +23,11 @@ export const Admin = () => {
 
   const handleDeleteComment = (index: number, id: number): void => {
     deleteComment(id).then((res) => {
-      setDataComments(res)
-      //Вариант, если с бэка не возвращается обновленный массив комментариев.
-      //setDataComments(
-      //  dataComments.filter(
-      //      (element: IComment, indexElement: number) => indexElement !== index,
-      //    ),
-      //  );
+      setDataComments(
+        dataComments.filter(
+          (element: IComment, indexElement: number) => indexElement !== index,
+        ),
+      );
     });
     
   };
@@ -54,7 +52,9 @@ export const Admin = () => {
         <div className={styles.table}>
           { dataComments
             .filter((el) =>
-              el.sender.includes(inputValue as string) || el.recipient.includes(inputValue as string)
+              el.from.name?.includes(inputValue as string) ||
+              el.to.name?.includes(inputValue as string) ||
+              el.from.cohort?.includes(inputValue as string)
             )
             .map((value: IComment, index: number) => (
               <TableCommentsRow

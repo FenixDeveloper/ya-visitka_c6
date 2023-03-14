@@ -2,9 +2,9 @@ import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 import styles from './maps.module.css';
 import markerMapImg from '../../images/icons/markerMap.svg';
 import avaTest from '../../images/icons/ava.jpg';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IMapProps, IUserInfo } from '../../utils/types';
-
+import { getProfiles } from '../../utils/api';
 const testData: IUserInfo[] = [
   {
     _id: '2cb3baaa7528a9bb5e2c20d9',
@@ -90,7 +90,7 @@ function MyMap({
         user.profile.city.geocode,
         {
           balloonContentHeader: user.profile.name,
-          balloonContentBody: `<a class=${styles.balloonBody} href='/profile' >Посмотреть профиль</a>`,
+          balloonContentBody: `<a class=${styles.balloonBody} href='/vizitka/${user._id}' >Посмотреть профиль</a>`,
           balloonContentFooter: user.profile.city.name,
         },
         {
@@ -155,10 +155,22 @@ export default function Maps({
   zoomMap,
   balloonImg,
 }: IMapProps) {
+
+  const [dataUsers, setDataUsers] = useState<Array<IUserInfo>>([]);
+  useEffect(() => {
+    getProfiles().then((res: { items: Array<IUserInfo> }) => {
+      const sortedData = res.items.filter(
+        (user) => user.profile.city.name != undefined,
+      );
+      setDataUsers(sortedData);
+    console.log(sortedData)
+    });
+  }, []);
+
   return (
     <YMaps query={{ load: 'package.full', apikey: '<KEY>' }}>
       <MyMap
-        data={data}
+        data={dataUsers}
         centerMap={centerMap}
         zoomMap={zoomMap}
         balloonImg={balloonImg}
