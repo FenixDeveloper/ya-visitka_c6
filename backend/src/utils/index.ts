@@ -13,7 +13,7 @@ import {
   TOKEN_URL,
 } from '../constants';
 import { IUser, IUserCountedReactions } from '../types/user';
-import { TInfoType } from '../types/info-block';
+import { InfoBlockName, TInfoType } from '../types/info-block';
 import { IReaction } from '../types/reaction';
 import { InfoCountedReactions } from '../types/info';
 
@@ -116,13 +116,17 @@ const countReactionsByTarget = (
 
 export const countUsersReactions = (user: IUser): IUserCountedReactions => {
   const reactionBlockNames: Array<TInfoType> = [
-    'edu',
-    'hobby',
-    'job',
-    'status',
+    InfoBlockName.EDU,
+    InfoBlockName.HOBBY,
+    InfoBlockName.JOB,
+    InfoBlockName.STATUS,
   ];
   const info: InfoCountedReactions = {};
   const profileReactions: number = countReactionsByTarget(user.reactions);
+  const quoteReactions: number = countReactionsByTarget(
+    user.reactions,
+    InfoBlockName.QUOTE,
+  );
 
   if (user.info) {
     reactionBlockNames.forEach((reactionBlockName) => {
@@ -139,5 +143,5 @@ export const countUsersReactions = (user: IUser): IUserCountedReactions => {
     });
   }
 
-  return { ...user, info, reactions: profileReactions };
+  return { ...user, info, reactions: profileReactions, quoteReactions };
 };
