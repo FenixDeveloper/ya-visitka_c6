@@ -137,7 +137,6 @@ export const MainPage = (props1: any) => {
       setProps(initalProps);
     }
   }, [city]);
-
   return (
     <section className={styles.main}>
       <div className={styles.header}>
