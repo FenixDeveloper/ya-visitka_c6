@@ -17,7 +17,7 @@ export const AdminUsers = () => {
   const loadedFileRef = useRef<any>(null);
 
   useEffect(() => {
-    getUsers().then((res) => {
+    getUsers('').then((res) => {
       setDataUsers(res.items);
     });
   }, []);
