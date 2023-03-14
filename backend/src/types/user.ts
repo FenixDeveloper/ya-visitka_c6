@@ -22,8 +22,9 @@ export interface IUserFiltered
 
 export interface IUserCountedReactions
   extends Omit<IUser, 'reactions' | 'info'> {
-  reactions: number;
   info: InfoCountedReactions;
+  reactions: number;
+  quoteReactions: number;
 }
 
 export interface IUserModel extends Model<IUser> {
