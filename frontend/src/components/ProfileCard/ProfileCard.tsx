@@ -5,7 +5,7 @@ import icon from '../../images/icons/comment.svg';
 import CommentPost from '../comment-post/comment-post';
 import { emojies } from '../../utils/constants';
 import { Link } from 'react-router-dom';
-import { getProfile, getReactions } from '../../utils/api';
+import { getFile, getProfile, getReactions } from '../../utils/api';
 import { AppContext } from '../../utils/AppContext';
 
 //https://visitki.practicum-team.ru/api/profiles/{$id}/reactions
@@ -173,12 +173,19 @@ const ProfileCard: FC<IProfileCard> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const [comments, setComments] = useState<Array<string>>([]);
-  const [reactions, setReactions] = useState<number>(0);
+  const [reactionsCount, setReactionsCount] = useState<number>(0);
   const [owner, setOwner] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState<string>('');
 
   useEffect(() => {
     if (state.data != null && props.id === state.data._id) {
       setOwner(true);
+    }
+   
+    console.log(props.role)
+
+    if(props.image) {
+       getFile(props.image).then(imageBlob => setAvatar(URL.createObjectURL(imageBlob)))
     }
 
     //Получение комментариев для каждой карточки. Не срабатывает. 404 
@@ -202,10 +209,8 @@ const ProfileCard: FC<IProfileCard> = (props) => {
 
     //Количество всех реакций (в кружочке)
     getProfile(props.id).then((res) => {
-      console.log(res)
-      //   setReactions(reaction1.reactions)
+      setReactionsCount(res.reactions.length)
     });
-    setReactions(reaction1.reactions); //тестовые
 
 
   }, []);
@@ -213,7 +218,7 @@ const ProfileCard: FC<IProfileCard> = (props) => {
     <li className={styles.card}>
       <Link className={styles.link} to={'/vizitka'}>
         <img
-          src={props.image}
+          src={avatar}
           className={!open ? styles.image : styles.image_open}
           alt="Фото человека"
         />
@@ -224,13 +229,13 @@ const ProfileCard: FC<IProfileCard> = (props) => {
           setOpen(!open);
         }}
       >
-        {reactions !== 0 && (owner || props.role === 'curator') && (
+        {reactionsCount !== 0 && (owner || props.role === 'curator') && (
           <div
             className={
               open ? styles.comments_number_open : styles.comments_number
             }
           >
-            {reactions}
+            {reactionsCount}
           </div>
         )}
         <img
@@ -269,7 +274,7 @@ const ProfileCard: FC<IProfileCard> = (props) => {
       <p className={styles.city}>{props.city}</p>
 
       {props.role === 'curator' && (
-        <p className={styles.city}>{`${reactions} сообщений`}</p>
+        <p className={styles.city}>{`${reactionsCount} сообщений`}</p>
       )}
     </li>
   );

@@ -15,15 +15,20 @@ import VizitkaPage from '../../pages/VizitkaPage/VizitkaPage';
 import { Profile } from '../../pages/profile/profile';
 import { AuthPage } from '../../pages/authPage/authPage';
 import { AppProvider } from '../../utils/AppContext';
+import { useHistory } from 'react-router';
 
 function App() {
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem("auth_token")) {
       loginUser().then((res) => {
         dispatch({ type: 'success', results: res });
       });
+    //  if(state.data.user.role && state.data.user.role === 'curator'){ //редирект, если зашел под куратором, выдает ошибку
+    //    history.push("/admin");
+    //}
     }
   }, []);
 
@@ -47,7 +52,7 @@ function ApplicationView() {
           <Route path="/auth">
             <AuthPage />
           </Route>
-          <PrivateRoute path="/" exact={true}>
+          <PrivateRoute path="/cohort/web+06" exact={true}>
             <MainPage />
           </PrivateRoute>
           <PrivateRoute path="/maps">
