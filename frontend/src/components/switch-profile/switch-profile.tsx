@@ -15,7 +15,6 @@ export const SwitchProfile = () => {
 
   const renderUserInfo = () => {
     if (state.data) {
-      console.log(state.data);
       const userInfo = state.data;
       return (
         <>
@@ -70,27 +69,28 @@ export const SwitchProfile = () => {
   }
 
   return (
-    <div className={styles.section}>
-      {/* Начало блока CommentPost */}
-      <CommentButton
-        commentCount={200}
-        viewed={false}
-        handleOpenComment={handleOpenComment}
-        commentBtnRef={commentBtnRef}
-      />
-      {commentVisible && (
-        <Tooltip
-          children={<CommentPost comments={comments} emojies={emojies} />}
-          offset={{ top: tooptipTop, left: tooptipLeft }}
-        />
-      )}
-      {/* Конец блока CommentPost */}
+    <></>
+    // <div className={styles.section}>
+    //   {/* Начало блока CommentPost */}
+    //   <CommentButton
+    //     commentCount={200}
+    //     viewed={false}
+    //     handleOpenComment={handleOpenComment}
+    //     commentBtnRef={commentBtnRef}
+    //   />
+    //   {commentVisible && (
+    //     <Tooltip
+    //       children={<CommentPost comments={comments} emojies={emojies} />}
+    //       offset={{ top: tooptipTop, left: tooptipLeft }}
+    //     />
+    //   )}
+    //   {/* Конец блока CommentPost */}
       
-      <button onClick={(e) => setUser(e, 0)}>Студент  №1</button>
-      <button onClick={(e) => setUser(e, 1)}>Студент  №2</button>
-      <button onClick={(e) => setUser(e, 2)}>Куратор</button>
-      <button onClick={resetHandler}>reset</button>
-      {renderUserInfo()}
-    </div>
+    //   <button onClick={(e) => setUser(e, 0)}>Студент  №1</button>
+    //   <button onClick={(e) => setUser(e, 1)}>Студент  №2</button>
+    //   <button onClick={(e) => setUser(e, 2)}>Куратор</button>
+    //   <button onClick={resetHandler}>reset</button>
+    //   {renderUserInfo()}
+    // </div>
   );
 };

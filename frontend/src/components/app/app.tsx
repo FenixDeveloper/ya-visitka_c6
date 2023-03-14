@@ -8,7 +8,6 @@ import { Admin } from '../../pages/admin-panel/admin';
 import { AdminUsers } from '../../pages/admin-panel/admin-users';
 import styles from './app.module.css';
 import { AppContext } from '../../utils/AppContext';
-// import { getUser } from '../../mockApi';
 import Maps from '../maps/maps';
 import { loginUser } from '../../utils/api';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -54,7 +53,7 @@ function ApplicationView() {
           <PrivateRoute path="/maps">
             <Maps />
           </PrivateRoute>
-          <PrivateRoute path="/vizitka">
+          <PrivateRoute path="/vizitka/:id">
             <VizitkaPage />
           </PrivateRoute>
           <PrivateRoute  path="/admin" exact>
