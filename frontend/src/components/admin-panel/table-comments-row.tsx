@@ -14,7 +14,7 @@ export const TableCommentsRow: FC<TRowProps> = ({data, onDelete, index}) => {
   const sender = data.from.name ? data.from.name : ''
   const recent = data.to.name ? data.to.name : ''
   const createdAt = data.createdAt.substring(0, 10);
-  const id = data._id ? data._id : 1;
+  const id = data._id;
   let target;
   switch (data.target) {
     case 'hobby':
