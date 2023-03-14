@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import env from "react-dotenv";
 import styles from './MainPage.module.css';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import DropdownList from '../../components/DropdownList/DropdownList';
@@ -100,6 +101,8 @@ export const MainPage = (props1: any) => {
   const { state, dispatch } = useContext(AppContext);
   const [cities, setCities] = useState<Array<string>>([]);
   const [initalProps, setInitalProps] = useState<Array<IUserInfo>>([]);
+
+  console.log(env);
 
   //Добавляла не я
   const authorizeUser = async (code: string) => {

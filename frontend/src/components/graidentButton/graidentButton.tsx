@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, RefObject } from 'react';
 import styles from './graidentButton.module.css';
+import env from "react-dotenv";
 
 interface IGraidentButton {
   type: 'submit' | 'file' | 'href';
@@ -17,6 +18,8 @@ export const GraidentButton: FC<IGraidentButton> = ({
   inputFileRef,
   disabled
 }) => {
+
+  const url = env.CALLBACK_URL;
   return (
     <label>
       {type === 'file' ? (
@@ -29,7 +32,7 @@ export const GraidentButton: FC<IGraidentButton> = ({
       ) : type === 'href' ? (
         <>
           <button className={`${styles.input} ${styles.large}`}>
-            <a className={styles.text} href="https://oauth.yandex.com/authorize?response_type=code&client_id=0cdebeaa249342658d6f8a1f5eb5eb3e">
+            <a className={styles.text} href={`https://oauth.yandex.com/authorize?response_type=code&client_id=0cdebeaa249342658d6f8a1f5eb5eb3e&redirect_uri=${url}`}>
              {text}
           </a>
           </button>
