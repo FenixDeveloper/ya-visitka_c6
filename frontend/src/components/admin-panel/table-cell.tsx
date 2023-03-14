@@ -15,7 +15,7 @@ export const TableCell: FC<TCellProps>  = ({ value, loaded, type, onChange, id }
   return (
     <div className={styles.table_cell}>
     { type === 'link' && 
-      <Link className={`${styles.text}` + ` ${styles.text_dark}`} to={`/profile/${id}`}>{value}</Link>
+      <Link className={`${styles.text}` + ` ${styles.text_dark}`} to={`/vizitka/${id}`}>{value}</Link>
     }
     { type === 'common' &&
       <p className={`${styles.text}` + ` ${styles.text_dark}`}>{value}</p>

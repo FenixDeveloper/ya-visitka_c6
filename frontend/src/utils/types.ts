@@ -66,7 +66,7 @@ export interface IUser {
 }
 
 export interface IComment {
-  _id?: number;
+  _id: number;
   cohort: number;
   createdAt: string;
   from: IUser;
