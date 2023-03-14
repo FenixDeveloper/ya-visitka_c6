@@ -22,10 +22,12 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
+    if(!state.data){
     if (localStorage.getItem("auth_token")) {
       loginUser().then((res) => {
-        dispatch({ type: 'success', results: res });
+       res.user && dispatch({ type: 'success', results: res.user });
       });
+    }
     //  if(state.data.user.role && state.data.user.role === 'curator'){ //редирект, если зашел под куратором, выдает ошибку
     //    history.push("/admin");
     //}
@@ -52,7 +54,7 @@ function ApplicationView() {
           <Route path="/auth">
             <AuthPage />
           </Route>
-          <PrivateRoute path="/cohort/web+06" exact={true}>
+          <PrivateRoute path="/" exact={true}>
             <MainPage />
           </PrivateRoute>
           <PrivateRoute path="/maps">

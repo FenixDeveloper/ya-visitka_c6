@@ -181,8 +181,7 @@ const ProfileCard: FC<IProfileCard> = (props) => {
     if (state.data != null && props.id === state.data._id) {
       setOwner(true);
     }
-   
-    console.log(props.role)
+  
 
     if(props.image) {
        getFile(props.image).then(imageBlob => setAvatar(URL.createObjectURL(imageBlob)))
@@ -206,10 +205,9 @@ const ProfileCard: FC<IProfileCard> = (props) => {
       });
       setComments(commentText); //тестовые данные
 
-
     //Количество всех реакций (в кружочке)
     getProfile(props.id).then((res) => {
-      setReactionsCount(res.reactions.length)
+      setReactionsCount(res.reactions)
     });
 
 

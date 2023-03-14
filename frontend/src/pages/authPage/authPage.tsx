@@ -22,7 +22,7 @@ export const AuthPage = () => {
           const user = await loginUser();
           console.log(user);
           if (user) {
-            dispatch({ type: 'success', results: user });
+            user.user && dispatch({ type: 'success', results: user.user });
             history.replace({ pathname: '/' });
           } else {
             history.replace({ pathname: '/login' });
@@ -32,7 +32,7 @@ export const AuthPage = () => {
         const user = await loginUser();
         console.log(user);
         if (user) {
-          dispatch({ type: 'success', results: user });
+          user.user && dispatch({ type: 'success', results: user.user });
           history.replace({ pathname: '/' });
         } else {
           history.replace({ pathname: '/login' });

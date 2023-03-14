@@ -7,36 +7,19 @@ import profile from '../../images/profile.svg';
 import { AppContext } from '../../utils/AppContext';
 
 export const Header = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const location = useLocation();
-  const user: any = state.data;
-
-  const getUser = async () => {
-    const user: any = await loginUser();
-    if (user) {
-      console.log(user);
-      dispatch({ type: 'success', results: user });
-    }
-  }
-
-  useEffect(() => {
-    if (!state.data) {
-      if (localStorage.getItem('auth_token')) {
-        getUser();
-      }   
-    }
-  }, []);
 
   return (
     <header className={style.header}>
-      <Link to= {user && user?.user.role === "student" ?  "/" : `/${user?.user.cohort}`}>
+      <Link to= {state.data && state.data.role === "student" ?  "/" : `/${state.data && state.data.cohort}`}>
         <img src={logo} alt="logo" className={style.logo} />
       </Link>
-      {location.pathname !== '/login' && location.pathname !== '/auth' && (
+      {location.pathname !== '/login' && location.pathname !== '/auth' && state.data && state.data.role === 'student' && (
         <div className={style.profile_box}>
           <div className={style.profile_container}>
             <img src={profile} alt="profile" className={style.avatar} />
-            <span className={style.name}>{state.data && user?.user.name}</span>
+            <span className={style.name}>{state.data && state.data.name}</span>
           </div>
           <div className={style.profile_hidden}>
             <Link to={'/profile'} className={style.link}>

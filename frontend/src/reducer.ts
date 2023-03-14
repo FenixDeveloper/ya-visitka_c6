@@ -1,5 +1,5 @@
 export type State = {
-  data: User | null | any;
+  data: User | null ;
   isLoading: boolean;
   error: string | null;
 }

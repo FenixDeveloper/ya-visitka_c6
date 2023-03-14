@@ -99,20 +99,9 @@ export const MainPage = (props1: any) => {
   const [cities, setCities] = useState<Array<string>>([]);
   const [initalProps, setInitalProps] = useState<Array<IUserInfo>>([]);
 
-  const getUser = async () => {
-    const user: any = await loginUser();
-    if (user) {
-      dispatch({ type: 'success', results: user });
-    }
-  };
   //Получение пользователей(сортировка по корготам) и их данных
   useEffect(() => {
-    if (state.data === null) {
-      if (localStorage.getItem('auth_token')) {
-        getUser();
-      }
-    }
-    state.data ? setRole(/*state.data.user.role*/ 'curator') : setRole('student')
+    state.data && setRole(state.data.role)
     //Получение пользователей
     getProfiles().then((res: { items: Array<IUserInfo> }) => {
       let arr: Array<string> = ['Все города'];
@@ -122,8 +111,6 @@ export const MainPage = (props1: any) => {
         props.forEach((item) => {
           arr.push(item.profile.city.name);
         });
-      } else if (role === 'curator') {
-        console.log('Зашли под куратором');
         let sortedData: Array<IUserInfo> = [];
         //Взять из params корготу и отфлитровать всех студентов (для кураторов)
         let params = location.pathname.substring(8);
