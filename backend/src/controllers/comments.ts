@@ -40,7 +40,7 @@ export const getComments = (
     'reactions.target': 1,
     'reactions.to': 1,
     'reactions.createdAt': 1,
-    _id: 0,
+    'reactions._id': 1,
   };
 
   User.aggregate()

@@ -91,11 +91,6 @@ export const getReactionsById = async (
     const isOwner = user.id === userFromSession._id;
     const isCurator = userFromSession.role === ROLE_CURATOR;
 
-    if (!isOwner && !isCurator) {
-      next(new ForbiddenError());
-      return;
-    }
-
     const reactions = await User.aggregate([
       {
         $match: {
@@ -106,7 +101,21 @@ export const getReactionsById = async (
       {
         $project: {
           _id: 0,
-          reactions: 1,
+          reactions:
+            isOwner || isCurator
+              ? 1
+              : {
+                  $filter: {
+                    input: '$reactions',
+                    as: 'reaction',
+                    cond: {
+                      $eq: [
+                        '$$reaction.from._id',
+                        { $toObjectId: userFromSession._id },
+                      ],
+                    },
+                  },
+                },
         },
       },
       { $unwind: '$reactions' },
