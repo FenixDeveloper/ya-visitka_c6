@@ -195,6 +195,11 @@ export const postReaction = async (
       return;
     }
 
+    if (userId === sessionUserId) {
+      next(new ForbiddenError());
+      return;
+    }
+
     const reaction: Record<string, unknown> = {
       from: {
         _id: sessionUserId,
