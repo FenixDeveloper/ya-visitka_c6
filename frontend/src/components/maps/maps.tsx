@@ -90,7 +90,7 @@ function MyMap({
         user.profile.city.geocode,
         {
           balloonContentHeader: user.profile.name,
-          balloonContentBody: `<a class=${styles.balloonBody} href='/profile/${user._id}' >Посмотреть профиль</a>`,
+          balloonContentBody: `<a class=${styles.balloonBody} href='/vizitka/${user._id}' >Посмотреть профиль</a>`,
           balloonContentFooter: user.profile.city.name,
         },
         {
